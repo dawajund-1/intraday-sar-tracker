@@ -1,0 +1,18 @@
+{
+  "ticker_state": {
+    "AAPL": "BEAR",
+    "MSFT": "BULL",
+    "NVDA": "BULL",
+    "TSLA": "BULL",
+    "AMZN": "BULL",
+    "GOOGL": "BULL",
+    "META": "BULL",
+    "AMD": "BULL"
+  },
+  "open_position": null,
+  "portfolio": {
+    "balance_usd": 26.6667,
+    "realized_pl_usd": 0,
+    "purified_total_usd": 0
+  }
+}
