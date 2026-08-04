@@ -1,0 +1,28 @@
+name: Daily Summary
+
+on:
+  schedule:
+    # 20:05 UTC Mon-Fri = 23:05 AST (Riyadh), shortly after US market close.
+    - cron: "5 20 * * 1-5"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  summarize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run daily summary
+        shell: pwsh
+        run: ./scripts/Get-DailySummary.ps1
+
+      - name: Commit updated data
+        run: |
+          git config user.name "intraday-tracker-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/
+          git diff --cached --quiet || git commit -m "Daily summary $(date -u +%Y-%m-%d)"
+          git push

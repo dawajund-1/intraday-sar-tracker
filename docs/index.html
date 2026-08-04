@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Intraday Signals">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Intraday Signal Tracker</title>
+<style>
+  :root {
+    --bg: #f5f6f8; --card: #ffffff; --text: #1a1c20; --muted: #6b7280;
+    --border: #e5e7eb; --bull: #16a34a; --bear: #dc2626; --accent: #2563eb;
+    --bull-bg: #dcfce7; --bear-bg: #fee2e2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e0f12; --card: #17181c; --text: #f3f4f6; --muted: #9ca3af;
+      --border: #2a2c31; --bull: #4ade80; --bear: #f87171; --accent: #60a5fa;
+      --bull-bg: #14311f; --bear-bg: #3a1414;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 16px 14px 40px; max-width: 680px; margin-inline: auto;
+  }
+  h1 { font-size: 1.15rem; margin: 4px 0 2px; }
+  .updated { color: var(--muted); font-size: 0.8rem; margin-bottom: 16px; }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 14px 16px; margin-bottom: 14px;
+  }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
+  .stat-value { font-size: 1.15rem; font-weight: 600; margin-top: 2px; }
+  .section-title { font-size: 0.85rem; font-weight: 600; color: var(--muted); margin: 18px 4px 8px; text-transform: uppercase; letter-spacing: .03em; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  th { color: var(--muted); font-weight: 500; font-size: 0.72rem; text-transform: uppercase; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.72rem; font-weight: 600; }
+  .badge.bull { color: var(--bull); background: var(--bull-bg); }
+  .badge.bear { color: var(--bear); background: var(--bear-bg); }
+  .pl-pos { color: var(--bull); font-weight: 600; }
+  .pl-neg { color: var(--bear); font-weight: 600; }
+  .empty { color: var(--muted); font-size: 0.85rem; padding: 10px 4px; }
+  .table-wrap { overflow-x: auto; }
+  .footer { color: var(--muted); font-size: 0.75rem; line-height: 1.5; margin-top: 24px; text-align: center; }
+  .refresh-btn {
+    background: var(--accent); color: white; border: none; border-radius: 10px;
+    padding: 8px 14px; font-size: 0.85rem; font-weight: 600;
+  }
+</style>
+</head>
+<body>
+  <h1>📈 Intraday Signal Tracker</h1>
+  <div class="updated" id="updated">Loading…</div>
+
+  <div class="card">
+    <div class="grid">
+      <div>
+        <div class="stat-label">Balance</div>
+        <div class="stat-value" id="balance">—</div>
+      </div>
+      <div>
+        <div class="stat-label">Open Position</div>
+        <div class="stat-value" id="openpos">—</div>
+      </div>
+      <div>
+        <div class="stat-label">Realized P/L</div>
+        <div class="stat-value" id="pl">—</div>
+      </div>
+      <div>
+        <div class="stat-label">Purified</div>
+        <div class="stat-value" id="purified">—</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Watchlist</div>
+  <div class="card table-wrap">
+    <table id="watchlist-table">
+      <thead><tr><th>Ticker</th><th>Price</th><th>EMA9</th><th>EMA21</th><th>Trend</th></tr></thead>
+      <tbody><tr><td colspan="5" class="empty">Loading…</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="section-title">Recent Paper Trades</div>
+  <div class="card table-wrap">
+    <table id="trades-table">
+      <thead><tr><th>Time (UTC)</th><th>Action</th><th>Ticker</th><th>Price</th><th>P/L</th></tr></thead>
+      <tbody><tr><td colspan="5" class="empty">Loading…</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    This page only tracks a hypothetical ("paper") position and public market signals.<br>
+    No real orders are ever placed — all real trading decisions happen manually in Awaed.
+  </div>
+
+<script>
+const REPO = "dawajund-1/intraday-sar-tracker";
+const BRANCH = "main";
+const RAW = `https://raw.githubusercontent.com/${REPO}/${BRANCH}`;
+
+function fmtUsd(n) {
+  if (n === null || n === undefined || n === "") return "—";
+  const v = Number(n);
+  return (v < 0 ? "-$" : "$") + Math.abs(v).toFixed(2);
+}
+
+function fmtSar(n) {
+  if (n === null || n === undefined) return "";
+  return Number(n).toFixed(2) + " SAR";
+}
+
+function plClass(n) {
+  const v = Number(n);
+  if (isNaN(v)) return "";
+  return v >= 0 ? "pl-pos" : "pl-neg";
+}
+
+async function loadSnapshot() {
+  const res = await fetch(`${RAW}/data/latest_snapshot.json?cachebust=${Date.now()}`);
+  if (!res.ok) throw new Error("no snapshot yet");
+  return res.json();
+}
+
+async function loadTradesCsv() {
+  const res = await fetch(`${RAW}/data/paper_trades.csv?cachebust=${Date.now()}`);
+  if (!res.ok) return [];
+  const text = await res.text();
+  const lines = text.trim().split("\n");
+  if (lines.length < 2) return [];
+  const headers = lines[0].split(",").map(h => h.replace(/"/g, ""));
+  return lines.slice(1).map(line => {
+    const cells = line.split(",").map(c => c.replace(/"/g, ""));
+    const row = {};
+    headers.forEach((h, i) => row[h] = cells[i]);
+    return row;
+  });
+}
+
+function render(snapshot, trades) {
+  const gen = new Date(snapshot.generated_at_utc);
+  document.getElementById("updated").textContent =
+    "Last updated: " + gen.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+
+  const p = snapshot.portfolio;
+  document.getElementById("balance").textContent = fmtUsd(p.balance_usd);
+  document.getElementById("balance").title = fmtSar(p.balance_sar);
+  document.getElementById("pl").textContent = fmtUsd(p.realized_pl_usd);
+  document.getElementById("pl").className = "stat-value " + plClass(p.realized_pl_usd);
+  document.getElementById("purified").textContent = fmtUsd(p.purified_total_usd);
+
+  const op = snapshot.open_position;
+  document.getElementById("openpos").textContent = op ? `${op.ticker} @ $${op.entry_price}` : "None";
+
+  const wlBody = document.querySelector("#watchlist-table tbody");
+  wlBody.innerHTML = "";
+  (snapshot.tickers || []).forEach(t => {
+    const tr = document.createElement("tr");
+    const badge = `<span class="badge ${t.trend === 'BULL' ? 'bull' : 'bear'}">${t.trend === 'BULL' ? '▲ Bull' : '▼ Bear'}</span>`;
+    tr.innerHTML = `<td><strong>${t.ticker}</strong></td><td>$${t.price}</td><td>${t.ema9}</td><td>${t.ema21}</td><td>${badge}</td>`;
+    wlBody.appendChild(tr);
+  });
+  if (!snapshot.tickers || snapshot.tickers.length === 0) {
+    wlBody.innerHTML = '<tr><td colspan="5" class="empty">No data yet — first run pending.</td></tr>';
+  }
+
+  const trBody = document.querySelector("#trades-table tbody");
+  trBody.innerHTML = "";
+  const recent = trades.slice(-15).reverse();
+  recent.forEach(t => {
+    const tr = document.createElement("tr");
+    const pl = t.pl_usd ? `<span class="${plClass(t.pl_usd)}">${fmtUsd(t.pl_usd)}</span>` : "—";
+    tr.innerHTML = `<td>${t.timestamp_utc || ""}</td><td>${t.action}</td><td>${t.ticker}</td><td>$${t.price}</td><td>${pl}</td>`;
+    trBody.appendChild(tr);
+  });
+  if (recent.length === 0) {
+    trBody.innerHTML = '<tr><td colspan="5" class="empty">No trades yet.</td></tr>';
+  }
+}
+
+async function init() {
+  try {
+    const [snapshot, trades] = await Promise.all([loadSnapshot(), loadTradesCsv()]);
+    render(snapshot, trades);
+  } catch (e) {
+    document.getElementById("updated").textContent = "No data yet — the first scheduled run hasn't completed.";
+  }
+}
+
+init();
+</script>
+</body>
+</html>

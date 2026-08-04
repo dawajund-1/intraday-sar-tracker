@@ -1,0 +1,29 @@
+name: Hourly Signal Check
+
+on:
+  schedule:
+    # 13:00-20:00 UTC, Mon-Fri = 16:00-23:00 AST (Riyadh), covering US market hours
+    # across both EST and EDT with padding.
+    - cron: "0 13-20 * * 1-5"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run signal check
+        shell: pwsh
+        run: ./scripts/Get-Signals.ps1
+
+      - name: Commit updated data
+        run: |
+          git config user.name "intraday-tracker-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/
+          git diff --cached --quiet || git commit -m "Update signals $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push
