@@ -4,9 +4,9 @@
   "range": "5d",
   "ema_fast": 9,
   "ema_slow": 21,
-  "purification_pct": 1.0,
+  "purification_pct": 0.1,
   "starting_capital_sar": 100,
   "sar_per_usd": 3.75,
   "ntfy_topic": "intraday-sar-7a1d968b28",
-  "notes": "purification_pct is the fraction of each realized profit set aside (1.0 = 100%). Edit any value here and commit/push; the next scheduled run picks it up automatically. sar_per_usd uses SAR's fixed peg to the dollar. ntfy_topic is reused from the PC version so your existing phone subscription keeps working without resubscribing."
+  "notes": "purification_pct is the fraction of each realized profit set aside (0.1 = 10%). Edit any value here and commit/push; the next scheduled run picks it up automatically. sar_per_usd uses SAR's fixed peg to the dollar. ntfy_topic is reused from the PC version so your existing phone subscription keeps working without resubscribing."
 }
