@@ -1,0 +1,28 @@
+{
+  "ticker_state": {
+    "2222.SR": "BULL",
+    "1120.SR": "BULL",
+    "2010.SR": "BEAR",
+    "7010.SR": "BEAR",
+    "1180.SR": "BULL",
+    "1211.SR": "BULL",
+    "2280.SR": "BULL",
+    "1010.SR": "BULL"
+  },
+  "warning_state": {
+    "2222.SR": "NONE",
+    "1120.SR": "NONE",
+    "2010.SR": "NONE",
+    "7010.SR": "NONE",
+    "1180.SR": "NONE",
+    "1211.SR": "NONE",
+    "2280.SR": "NONE",
+    "1010.SR": "NONE"
+  },
+  "open_position": null,
+  "portfolio": {
+    "balance_sar": 100,
+    "realized_pl_sar": 0,
+    "purified_total_sar": 0
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "generated_at_utc": "2026-08-05T19:00:36Z",
+  "tickers": [
+    {
+      "ticker": "2222.SR",
+      "name": "Saudi Aramco",
+      "price": 26.74,
+      "ema9": 26.694,
+      "ema21": 26.68,
+      "trend": "BULL",
+      "signal": "NONE",
+      "early_warning": "NONE"
+    },
+    {
+      "ticker": "1120.SR",
+      "name": "Al Rajhi Bank",
+      "price": 65.0,
+      "ema9": 64.9408,
+      "ema21": 64.9222,
+      "trend": "BULL",
+      "signal": "NONE",
+      "early_warning": "NONE"
+    },
+    {
+      "ticker": "2010.SR",
+      "name": "SABIC",
+      "price": 51.0,
+      "ema9": 51.1131,
+      "ema21": 51.1537,
+      "trend": "BEAR",
+      "signal": "NONE",
+      "early_warning": "NONE"
+    },
+    {
+      "ticker": "7010.SR",
+      "name": "STC",
+      "price": 43.58,
+      "ema9": 43.5901,
+      "ema21": 43.6019,
+      "trend": "BEAR",
+      "signal": "NONE",
+      "early_warning": "NONE"
+    },
+    {
+      "ticker": "1180.SR",
+      "name": "Saudi National Bank",
+      "price": 40.34,
+      "ema9": 40.2398,
+      "ema21": 40.2359,
+      "trend": "BULL",
+      "signal": "NONE",
+      "early_warning": "NONE"
+    },
+    {
+      "ticker": "1211.SR",
+      "name": "Maaden",
+      "price": 59.6,
+      "ema9": 59.319,
+      "ema21": 59.2629,
+      "trend": "BULL",
+      "signal": "NONE",
+      "early_warning": "NONE"
+    },
+    {
+      "ticker": "2280.SR",
+      "name": "Almarai",
+      "price": 48.48,
+      "ema9": 48.4623,
+      "ema21": 48.4367,
+      "trend": "BULL",
+      "signal": "NONE",
+      "early_warning": "NONE"
+    },
+    {
+      "ticker": "1010.SR",
+      "name": "Riyad Bank",
+      "price": 20.3,
+      "ema9": 20.2878,
+      "ema21": 20.2846,
+      "trend": "BULL",
+      "signal": "NONE",
+      "early_warning": "NONE"
+    }
+  ],
+  "open_position": null,
+  "portfolio": {
+    "balance_sar": 100,
+    "realized_pl_sar": 0,
+    "purified_total_sar": 0
+  },
+  "config": {
+    "watchlist": [
+      "2222.SR",
+      "1120.SR",
+      "2010.SR",
+      "7010.SR",
+      "1180.SR",
+      "1211.SR",
+      "2280.SR",
+      "1010.SR"
+    ],
+    "watchlist_names": {
+      "2222.SR": "Saudi Aramco",
+      "1120.SR": "Al Rajhi Bank",
+      "2010.SR": "SABIC",
+      "7010.SR": "STC",
+      "1180.SR": "Saudi National Bank",
+      "1211.SR": "Maaden",
+      "2280.SR": "Almarai",
+      "1010.SR": "Riyad Bank"
+    },
+    "purification_pct": 0.1
+  }
+}
