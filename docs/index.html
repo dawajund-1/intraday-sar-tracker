@@ -54,6 +54,8 @@
   .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.72rem; font-weight: 600; }
   .badge.bull { color: var(--bull); background: var(--bull-bg); }
   .badge.bear { color: var(--bear); background: var(--bear-bg); }
+  .badge.warn { color: #92620a; background: #fdf0d5; }
+  @media (prefers-color-scheme: dark) { .badge.warn { color: #f0c674; background: #3a2f14; } }
   .pl-pos { color: var(--bull); font-weight: 600; }
   .pl-neg { color: var(--bear); font-weight: 600; }
   .empty { color: var(--muted); font-size: 0.85rem; padding: 10px 4px; }
@@ -172,10 +174,15 @@ function render(snapshot, trades) {
 
   const wlBody = document.querySelector("#watchlist-table tbody");
   wlBody.innerHTML = "";
+  const heldTicker = op ? op.ticker : null;
   (snapshot.tickers || []).forEach(t => {
     const tr = document.createElement("tr");
+    if (t.ticker === heldTicker) tr.style.background = "var(--bull-bg)";
     const badge = `<span class="badge ${t.trend === 'BULL' ? 'bull' : 'bear'}">${t.trend === 'BULL' ? '▲ Bull' : '▼ Bear'}</span>`;
-    tr.innerHTML = `<td><strong>${t.ticker}</strong></td><td>$${t.price}</td><td>${t.ema9}</td><td>${t.ema21}</td><td>${badge}</td>`;
+    const warn = t.early_warning && t.early_warning !== 'NONE'
+      ? ` <span class="badge warn" title="Early warning — not a confirmed signal">⚠️ ${t.early_warning === 'WEAKENING' ? 'Weakening' : 'Strengthening'}</span>`
+      : '';
+    tr.innerHTML = `<td><strong>${t.ticker}</strong>${t.ticker === heldTicker ? ' 📍' : ''}</td><td>$${t.price}</td><td>${t.ema9}</td><td>${t.ema21}</td><td>${badge}${warn}</td>`;
     wlBody.appendChild(tr);
   });
   if (!snapshot.tickers || snapshot.tickers.length === 0) {

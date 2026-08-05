@@ -9,6 +9,9 @@ $state = Read-State
 $now   = Get-Date
 
 if (-not $state.ticker_state) { $state | Add-Member -NotePropertyName ticker_state -NotePropertyValue ([pscustomobject]@{}) -Force }
+if (-not $state.warning_state) { $state | Add-Member -NotePropertyName warning_state -NotePropertyValue ([pscustomobject]@{}) -Force }
+
+$heldTicker = if ($state.open_position) { $state.open_position.ticker } else { $null }
 
 $signalsThisRun = @()
 $tickerSnapshots = @()
@@ -32,6 +35,14 @@ foreach ($ticker in $cfg.watchlist) {
             $signal = if ($trend -eq "BULL") { "BUY" } else { "SELL" }
         }
 
+        # Early-warning tier: a faster, noisier read on price vs. the short EMA alone.
+        # Not a prediction — still reactive, just to a twitchier line, so it can flag
+        # possible weakening/strengthening before the slower EMA9/EMA21 cross confirms.
+        $earlyWarning = "NONE"
+        if ($trend -eq "BULL" -and $lastPrice -lt $emaFast) { $earlyWarning = "WEAKENING" }
+        elseif ($trend -eq "BEAR" -and $lastPrice -gt $emaFast) { $earlyWarning = "STRENGTHENING" }
+        $prevWarning = $state.warning_state.$ticker
+
         Append-Csv -Path (Join-Path $DataDir "signals_log.csv") -Row ([pscustomobject]@{
             timestamp_utc = $now.ToUniversalTime().ToString("s")
             ticker        = $ticker
@@ -40,22 +51,31 @@ foreach ($ticker in $cfg.watchlist) {
             ema21         = [math]::Round($emaSlow, 4)
             trend         = $trend
             signal        = $signal
+            early_warning = $earlyWarning
         })
 
         if ($signal -ne "NONE") {
             $signalsThisRun += [pscustomobject]@{ ticker = $ticker; signal = $signal; price = $lastPrice }
         }
 
+        # Only push for the ticker you're actually holding, and only on the transition
+        # into WEAKENING (not every check while it stays weak) to avoid spamming.
+        if ($ticker -eq $heldTicker -and $earlyWarning -eq "WEAKENING" -and $prevWarning -ne "WEAKENING") {
+            Notify-User -Topic $cfg.ntfy_topic -Title "⚠️ Early Warning: $ticker" -Message "Price ($([math]::Round($lastPrice,2))) dipped below its short-term average (EMA$($cfg.ema_fast)) while the trend is still Bull. This sometimes comes before a confirmed SELL, but often doesn't — not a confirmed signal, just a heads-up."
+        }
+
         $tickerSnapshots += [pscustomobject]@{
-            ticker = $ticker
-            price  = [math]::Round($lastPrice, 4)
-            ema9   = [math]::Round($emaFast, 4)
-            ema21  = [math]::Round($emaSlow, 4)
-            trend  = $trend
-            signal = $signal
+            ticker        = $ticker
+            price         = [math]::Round($lastPrice, 4)
+            ema9          = [math]::Round($emaFast, 4)
+            ema21         = [math]::Round($emaSlow, 4)
+            trend         = $trend
+            signal        = $signal
+            early_warning = $earlyWarning
         }
 
         $state.ticker_state | Add-Member -NotePropertyName $ticker -NotePropertyValue $trend -Force
+        $state.warning_state | Add-Member -NotePropertyName $ticker -NotePropertyValue $earlyWarning -Force
     } catch {
         Write-Warning "$ticker : failed to fetch/process - $($_.Exception.Message)"
     }
