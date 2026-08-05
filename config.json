@@ -1,6 +1,6 @@
 {
   "watchlist": ["AAPL", "MSFT", "NVDA", "TSLA", "AMZN", "GOOGL", "META", "AMD"],
-  "interval": "1h",
+  "interval": "15m",
   "range": "5d",
   "ema_fast": 9,
   "ema_slow": 21,
