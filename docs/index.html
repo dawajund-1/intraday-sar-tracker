@@ -27,7 +27,19 @@
     padding: 16px 14px 40px; max-width: 680px; margin-inline: auto;
   }
   h1 { font-size: 1.15rem; margin: 4px 0 2px; }
-  .updated { color: var(--muted); font-size: 0.8rem; margin-bottom: 16px; }
+  .updated { color: var(--muted); font-size: 0.8rem; margin-bottom: 4px; }
+  .live-indicator {
+    display: flex; align-items: center; gap: 6px; color: var(--muted);
+    font-size: 0.72rem; margin-bottom: 16px;
+  }
+  .live-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--bull);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--bull-bg); }
+    50% { opacity: 0.5; box-shadow: 0 0 0 4px transparent; }
+  }
   .card {
     background: var(--card); border: 1px solid var(--border); border-radius: 14px;
     padding: 14px 16px; margin-bottom: 14px;
@@ -56,6 +68,7 @@
 <body>
   <h1>📈 Intraday Signal Tracker</h1>
   <div class="updated" id="updated">Loading…</div>
+  <div class="live-indicator"><span class="live-dot"></span>Auto-refreshing every 30s</div>
 
   <div class="card">
     <div class="grid">
@@ -183,16 +196,21 @@ function render(snapshot, trades) {
   }
 }
 
-async function init() {
+const REFRESH_MS = 30000;
+
+async function init(isAutoRefresh) {
   try {
     const [snapshot, trades] = await Promise.all([loadSnapshot(), loadTradesCsv()]);
     render(snapshot, trades);
   } catch (e) {
-    document.getElementById("updated").textContent = "No data yet — the first scheduled run hasn't completed.";
+    if (!isAutoRefresh) {
+      document.getElementById("updated").textContent = "No data yet — the first scheduled run hasn't completed.";
+    }
   }
 }
 
-init();
+init(false);
+setInterval(() => init(true), REFRESH_MS);
 </script>
 </body>
 </html>
