@@ -61,6 +61,21 @@
   .empty { color: var(--muted); font-size: 0.85rem; padding: 10px 4px; }
   .table-wrap { overflow-x: auto; }
   .footer { color: var(--muted); font-size: 0.75rem; line-height: 1.5; margin-top: 24px; text-align: center; }
+  .calc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .calc-field { display: flex; flex-direction: column; gap: 4px; }
+  .calc-field label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
+  .calc-field input, .calc-field textarea {
+    background: var(--bg); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 10px; font-size: 0.9rem; font-family: inherit;
+    resize: vertical;
+  }
+  .calc-result { font-size: 1.05rem; font-weight: 600; margin-top: 12px; color: var(--accent); }
+  .calc-btn {
+    margin-top: 10px; background: var(--accent); color: white; border: none;
+    border-radius: 8px; padding: 8px 14px; font-size: 0.85rem; font-weight: 600; cursor: pointer;
+  }
+  .calc-btn:hover { opacity: 0.9; }
+  .calc-del { background: none; border: none; color: var(--bear); cursor: pointer; font-size: 0.9rem; }
   .refresh-btn {
     background: var(--accent); color: white; border: none; border-radius: 10px;
     padding: 8px 14px; font-size: 0.85rem; font-weight: 600;
@@ -90,6 +105,32 @@
         <div class="stat-label">Purified</div>
         <div class="stat-value" id="purified">—</div>
       </div>
+    </div>
+  </div>
+
+  <div class="section-title">My Purification Calculator</div>
+  <div class="card">
+    <div class="calc-row">
+      <div class="calc-field">
+        <label for="calc-profit">Profit amount ($)</label>
+        <input type="number" id="calc-profit" step="0.01" placeholder="e.g. 5.20">
+      </div>
+      <div class="calc-field">
+        <label for="calc-pct">Purification %</label>
+        <input type="number" id="calc-pct" step="0.1" value="10">
+      </div>
+    </div>
+    <div class="calc-result" id="calc-result">Amount to purify: —</div>
+    <div class="calc-field" style="margin-top:10px;">
+      <label for="calc-notes">Notes (your own reasoning/method)</label>
+      <textarea id="calc-notes" rows="2" placeholder="Optional notes about how you calculated this..."></textarea>
+    </div>
+    <button class="calc-btn" id="calc-add-btn">+ Add to my log</button>
+    <div class="table-wrap" style="margin-top:12px;">
+      <table id="calc-log-table">
+        <thead><tr><th>Date</th><th>Profit</th><th>%</th><th>Purified</th><th>Notes</th><th></th></tr></thead>
+        <tbody><tr><td colspan="6" class="empty">No entries yet — this log is saved only in this browser.</td></tr></tbody>
+      </table>
     </div>
   </div>
 
@@ -157,6 +198,75 @@ async function loadTradesCsv() {
   });
 }
 
+const CALC_LOG_KEY = "purification_calc_log";
+
+function loadCalcLog() {
+  try { return JSON.parse(localStorage.getItem(CALC_LOG_KEY)) || []; }
+  catch (e) { return []; }
+}
+
+function saveCalcLog(log) {
+  localStorage.setItem(CALC_LOG_KEY, JSON.stringify(log));
+}
+
+function updateCalcResult() {
+  const profit = parseFloat(document.getElementById("calc-profit").value);
+  const pct = parseFloat(document.getElementById("calc-pct").value);
+  const resultEl = document.getElementById("calc-result");
+  if (isNaN(profit) || isNaN(pct)) {
+    resultEl.textContent = "Amount to purify: —";
+    return;
+  }
+  const amount = profit * (pct / 100);
+  resultEl.textContent = `Amount to purify: $${amount.toFixed(2)}`;
+}
+
+function renderCalcLog() {
+  const log = loadCalcLog();
+  const tbody = document.querySelector("#calc-log-table tbody");
+  tbody.innerHTML = "";
+  if (log.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" class="empty">No entries yet — this log is saved only in this browser.</td></tr>';
+    return;
+  }
+  log.slice().reverse().forEach((entry) => {
+    const tr = document.createElement("tr");
+    const idx = log.indexOf(entry);
+    tr.innerHTML = `<td>${entry.date}</td><td>$${entry.profit.toFixed(2)}</td><td>${entry.pct}%</td><td>$${entry.amount.toFixed(2)}</td><td>${entry.notes || ""}</td><td><button class="calc-del" data-idx="${idx}">✕</button></td>`;
+    tbody.appendChild(tr);
+  });
+  tbody.querySelectorAll(".calc-del").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const log = loadCalcLog();
+      log.splice(parseInt(btn.dataset.idx), 1);
+      saveCalcLog(log);
+      renderCalcLog();
+    });
+  });
+}
+
+function initCalculator() {
+  document.getElementById("calc-profit").addEventListener("input", updateCalcResult);
+  document.getElementById("calc-pct").addEventListener("input", updateCalcResult);
+  document.getElementById("calc-add-btn").addEventListener("click", () => {
+    const profit = parseFloat(document.getElementById("calc-profit").value);
+    const pct = parseFloat(document.getElementById("calc-pct").value);
+    const notes = document.getElementById("calc-notes").value.trim();
+    if (isNaN(profit) || isNaN(pct)) { return; }
+    const log = loadCalcLog();
+    log.push({
+      date: new Date().toLocaleDateString(undefined, { dateStyle: "medium" }),
+      profit, pct, amount: profit * (pct / 100), notes
+    });
+    saveCalcLog(log);
+    document.getElementById("calc-profit").value = "";
+    document.getElementById("calc-notes").value = "";
+    updateCalcResult();
+    renderCalcLog();
+  });
+  renderCalcLog();
+}
+
 function render(snapshot, trades) {
   const gen = new Date(snapshot.generated_at_utc);
   document.getElementById("updated").textContent =
@@ -216,6 +326,7 @@ async function init(isAutoRefresh) {
   }
 }
 
+initCalculator();
 init(false);
 setInterval(() => init(true), REFRESH_MS);
 </script>
