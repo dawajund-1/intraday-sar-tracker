@@ -1,0 +1,24 @@
+{
+  "watchlist": ["2222.SR", "1120.SR", "2010.SR", "7010.SR", "1180.SR", "1211.SR", "2280.SR", "1010.SR"],
+  "watchlist_names": {
+    "2222.SR": "Saudi Aramco",
+    "1120.SR": "Al Rajhi Bank",
+    "2010.SR": "SABIC",
+    "7010.SR": "STC",
+    "1180.SR": "Saudi National Bank",
+    "1211.SR": "Maaden",
+    "2280.SR": "Almarai",
+    "1010.SR": "Riyad Bank"
+  },
+  "interval": "5m",
+  "range": "5d",
+  "ema_fast": 9,
+  "ema_slow": 21,
+  "purification_pct": 0.1,
+  "starting_capital_sar": 100,
+  "ntfy_topic": "intraday-sa-tadawul-279c0fd421",
+  "market_open_ast": "10:00",
+  "market_close_ast": "15:00",
+  "market_days": "Sunday-Thursday",
+  "notes": "This is the Tadawul (Saudi Exchange) version, separate/independent from the US config.json version. Trades directly in SAR, so there is no USD conversion here. Tadawul trades Sunday-Thursday ~10:00-15:00 AST, unlike the US market's Mon-Fri evening session, so it runs on its own schedule and does not overlap with the US tracker. purification_pct is the fraction of each realized profit set aside (0.1 = 10%). ntfy_topic is a separate channel from the US version so alerts don't mix -- subscribe to it separately in the ntfy app."
+}

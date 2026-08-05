@@ -1,0 +1,28 @@
+name: Tadawul Daily Summary
+
+on:
+  schedule:
+    # 12:10 UTC = 15:10 AST (Riyadh), shortly after Tadawul close, Sun-Thu.
+    - cron: "10 12 * * 0-4"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  summarize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Tadawul daily summary
+        shell: pwsh
+        run: ./scripts-sa/Get-DailySummary.ps1
+
+      - name: Commit updated data
+        run: |
+          git config user.name "intraday-tracker-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data-sa/
+          git diff --cached --quiet || git commit -m "Tadawul daily summary $(date -u +%Y-%m-%d)"
+          git push
