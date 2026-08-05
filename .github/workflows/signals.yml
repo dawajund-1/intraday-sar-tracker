@@ -2,10 +2,10 @@ name: Hourly Signal Check
 
 on:
   schedule:
-    # Every 15 min (offset :07/:22/:37/:52 to avoid GitHub's documented top-of-hour
-    # and on-the-mark scheduling congestion), 13:00-20:59 UTC, Mon-Fri = 16:00-23:59
-    # AST (Riyadh), covering US market hours across both EST and EDT with padding.
-    - cron: "7,22,37,52 13-20 * * 1-5"
+    # Every 5 min (GitHub Actions' shortest supported schedule interval),
+    # 13:00-20:59 UTC, Mon-Fri = 16:00-23:59 AST (Riyadh), covering US market hours
+    # across both EST and EDT with padding.
+    - cron: "*/5 13-20 * * 1-5"
   workflow_dispatch: {}
 
 permissions:
