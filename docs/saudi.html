@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Intraday Signals">
+<meta name="apple-mobile-web-app-title" content="Tadawul Signals">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Intraday Signal Tracker</title>
+<title>Tadawul Signal Tracker</title>
 <style>
   :root {
     --bg: #f5f6f8; --card: #ffffff; --text: #1a1c20; --muted: #6b7280;
@@ -77,17 +77,13 @@
   }
   .calc-btn:hover { opacity: 0.9; }
   .calc-del { background: none; border: none; color: var(--bear); cursor: pointer; font-size: 0.9rem; }
-  .refresh-btn {
-    background: var(--accent); color: white; border: none; border-radius: 10px;
-    padding: 8px 14px; font-size: 0.85rem; font-weight: 600;
-  }
 </style>
 </head>
 <body>
-  <a class="nav-link" href="saudi.html">🇸🇦 Tadawul Tracker →</a>
-  <h1>📈 Intraday Signal Tracker</h1>
+  <a class="nav-link" href="./">← US Market Tracker</a>
+  <h1>🇸🇦 Tadawul Signal Tracker</h1>
   <div class="updated" id="updated">Loading…</div>
-  <div class="live-indicator"><span class="live-dot"></span>Auto-refreshing every 30s</div>
+  <div class="live-indicator"><span class="live-dot"></span>Auto-refreshing every 30s · Sun–Thu, ~09:00–16:00 Riyadh time</div>
 
   <div class="card">
     <div class="grid">
@@ -114,7 +110,7 @@
   <div class="card">
     <div class="calc-row">
       <div class="calc-field">
-        <label for="calc-profit">Profit amount ($)</label>
+        <label for="calc-profit">Profit amount (SAR)</label>
         <input type="number" id="calc-profit" step="0.01" placeholder="e.g. 5.20">
       </div>
       <div class="calc-field">
@@ -139,7 +135,7 @@
   <div class="section-title">Watchlist</div>
   <div class="card table-wrap">
     <table id="watchlist-table">
-      <thead><tr><th>Ticker</th><th>Price</th><th>EMA9</th><th>EMA21</th><th>Trend</th></tr></thead>
+      <thead><tr><th>Company</th><th>Price (SAR)</th><th>EMA9</th><th>EMA21</th><th>Trend</th></tr></thead>
       <tbody><tr><td colspan="5" class="empty">Loading…</td></tr></tbody>
     </table>
   </div>
@@ -147,13 +143,13 @@
   <div class="section-title">Recent Paper Trades</div>
   <div class="card table-wrap">
     <table id="trades-table">
-      <thead><tr><th>Time (UTC)</th><th>Action</th><th>Ticker</th><th>Price</th><th>P/L</th></tr></thead>
+      <thead><tr><th>Time (UTC)</th><th>Action</th><th>Ticker</th><th>Price (SAR)</th><th>P/L</th></tr></thead>
       <tbody><tr><td colspan="5" class="empty">Loading…</td></tr></tbody>
     </table>
   </div>
 
   <div class="footer">
-    This page only tracks a hypothetical ("paper") position and public market signals.<br>
+    This page only tracks a hypothetical ("paper") position and public Tadawul market signals.<br>
     No real orders are ever placed — all real trading decisions happen manually in Awaed.
   </div>
 
@@ -162,15 +158,10 @@ const REPO = "dawajund-1/intraday-sar-tracker";
 const BRANCH = "main";
 const RAW = `https://raw.githubusercontent.com/${REPO}/${BRANCH}`;
 
-function fmtUsd(n) {
+function fmtSar(n) {
   if (n === null || n === undefined || n === "") return "—";
   const v = Number(n);
-  return (v < 0 ? "-$" : "$") + Math.abs(v).toFixed(2);
-}
-
-function fmtSar(n) {
-  if (n === null || n === undefined) return "";
-  return Number(n).toFixed(2) + " SAR";
+  return (v < 0 ? "-" : "") + Math.abs(v).toFixed(2) + " SAR";
 }
 
 function plClass(n) {
@@ -180,13 +171,13 @@ function plClass(n) {
 }
 
 async function loadSnapshot() {
-  const res = await fetch(`${RAW}/data/latest_snapshot.json?cachebust=${Date.now()}`);
+  const res = await fetch(`${RAW}/data-sa/latest_snapshot.json?cachebust=${Date.now()}`);
   if (!res.ok) throw new Error("no snapshot yet");
   return res.json();
 }
 
 async function loadTradesCsv() {
-  const res = await fetch(`${RAW}/data/paper_trades.csv?cachebust=${Date.now()}`);
+  const res = await fetch(`${RAW}/data-sa/paper_trades.csv?cachebust=${Date.now()}`);
   if (!res.ok) return [];
   const text = await res.text();
   const lines = text.trim().split("\n");
@@ -200,7 +191,7 @@ async function loadTradesCsv() {
   });
 }
 
-const CALC_LOG_KEY = "purification_calc_log";
+const CALC_LOG_KEY = "purification_calc_log_sa";
 
 function loadCalcLog() {
   try { return JSON.parse(localStorage.getItem(CALC_LOG_KEY)) || []; }
@@ -220,7 +211,7 @@ function updateCalcResult() {
     return;
   }
   const amount = profit * (pct / 100);
-  resultEl.textContent = `Amount to purify: $${amount.toFixed(2)}`;
+  resultEl.textContent = `Amount to purify: ${amount.toFixed(2)} SAR`;
 }
 
 function renderCalcLog() {
@@ -234,7 +225,7 @@ function renderCalcLog() {
   log.slice().reverse().forEach((entry) => {
     const tr = document.createElement("tr");
     const idx = log.indexOf(entry);
-    tr.innerHTML = `<td>${entry.date}</td><td>$${entry.profit.toFixed(2)}</td><td>${entry.pct}%</td><td>$${entry.amount.toFixed(2)}</td><td>${entry.notes || ""}</td><td><button class="calc-del" data-idx="${idx}">✕</button></td>`;
+    tr.innerHTML = `<td>${entry.date}</td><td>${entry.profit.toFixed(2)} SAR</td><td>${entry.pct}%</td><td>${entry.amount.toFixed(2)} SAR</td><td>${entry.notes || ""}</td><td><button class="calc-del" data-idx="${idx}">✕</button></td>`;
     tbody.appendChild(tr);
   });
   tbody.querySelectorAll(".calc-del").forEach(btn => {
@@ -275,26 +266,27 @@ function render(snapshot, trades) {
     "Last updated: " + gen.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
 
   const p = snapshot.portfolio;
-  document.getElementById("balance").textContent = fmtUsd(p.balance_usd);
-  document.getElementById("balance").title = fmtSar(p.balance_sar);
-  document.getElementById("pl").textContent = fmtUsd(p.realized_pl_usd);
-  document.getElementById("pl").className = "stat-value " + plClass(p.realized_pl_usd);
-  document.getElementById("purified").textContent = fmtUsd(p.purified_total_usd);
+  document.getElementById("balance").textContent = fmtSar(p.balance_sar);
+  document.getElementById("pl").textContent = fmtSar(p.realized_pl_sar);
+  document.getElementById("pl").className = "stat-value " + plClass(p.realized_pl_sar);
+  document.getElementById("purified").textContent = fmtSar(p.purified_total_sar);
 
   const op = snapshot.open_position;
-  document.getElementById("openpos").textContent = op ? `${op.ticker} @ $${op.entry_price}` : "None";
+  document.getElementById("openpos").textContent = op ? `${op.ticker} @ ${op.entry_price} SAR` : "None";
 
+  const names = (snapshot.config && snapshot.config.watchlist_names) || {};
   const wlBody = document.querySelector("#watchlist-table tbody");
   wlBody.innerHTML = "";
   const heldTicker = op ? op.ticker : null;
   (snapshot.tickers || []).forEach(t => {
     const tr = document.createElement("tr");
     if (t.ticker === heldTicker) tr.style.background = "var(--bull-bg)";
+    const label = t.name || names[t.ticker] || t.ticker;
     const badge = `<span class="badge ${t.trend === 'BULL' ? 'bull' : 'bear'}">${t.trend === 'BULL' ? '▲ Bull' : '▼ Bear'}</span>`;
     const warn = t.early_warning && t.early_warning !== 'NONE'
       ? ` <span class="badge warn" title="Early warning — not a confirmed signal">⚠️ ${t.early_warning === 'WEAKENING' ? 'Weakening' : 'Strengthening'}</span>`
       : '';
-    tr.innerHTML = `<td><strong>${t.ticker}</strong>${t.ticker === heldTicker ? ' 📍' : ''}</td><td>$${t.price}</td><td>${t.ema9}</td><td>${t.ema21}</td><td>${badge}${warn}</td>`;
+    tr.innerHTML = `<td><strong>${label}</strong>${t.ticker === heldTicker ? ' 📍' : ''}<br><span style="color:var(--muted);font-size:0.72rem;">${t.ticker}</span></td><td>${t.price}</td><td>${t.ema9}</td><td>${t.ema21}</td><td>${badge}${warn}</td>`;
     wlBody.appendChild(tr);
   });
   if (!snapshot.tickers || snapshot.tickers.length === 0) {
@@ -306,8 +298,8 @@ function render(snapshot, trades) {
   const recent = trades.slice(-15).reverse();
   recent.forEach(t => {
     const tr = document.createElement("tr");
-    const pl = t.pl_usd ? `<span class="${plClass(t.pl_usd)}">${fmtUsd(t.pl_usd)}</span>` : "—";
-    tr.innerHTML = `<td>${t.timestamp_utc || ""}</td><td>${t.action}</td><td>${t.ticker}</td><td>$${t.price}</td><td>${pl}</td>`;
+    const pl = t.pl_sar ? `<span class="${plClass(t.pl_sar)}">${fmtSar(t.pl_sar)}</span>` : "—";
+    tr.innerHTML = `<td>${t.timestamp_utc || ""}</td><td>${t.action}</td><td>${t.ticker}</td><td>${t.price_sar}</td><td>${pl}</td>`;
     trBody.appendChild(tr);
   });
   if (recent.length === 0) {
