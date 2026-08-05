@@ -1,67 +1,67 @@
 {
-  "generated_at_utc": "2026-08-04T20:28:48Z",
+  "generated_at_utc": "2026-08-05T13:42:11Z",
   "tickers": [
     {
       "ticker": "AAPL",
-      "price": 309.38,
-      "ema9": 308.3442,
-      "ema21": 311.8271,
+      "price": 307.525,
+      "ema9": 307.9044,
+      "ema21": 310.4215,
       "trend": "BEAR",
       "signal": "NONE"
     },
     {
       "ticker": "MSFT",
-      "price": 492.81,
-      "ema9": 492.7165,
-      "ema21": 479.5556,
+      "price": 494.1,
+      "ema9": 493.2655,
+      "ema21": 483.4246,
       "trend": "BULL",
       "signal": "NONE"
     },
     {
       "ticker": "NVDA",
-      "price": 211.94,
-      "ema9": 210.6193,
-      "ema21": 206.5651,
+      "price": 221.34,
+      "ema9": 214.3146,
+      "ema21": 208.3127,
       "trend": "BULL",
       "signal": "NONE"
     },
     {
       "ticker": "TSLA",
-      "price": 327.35,
-      "ema9": 325.4311,
-      "ema21": 320.4817,
+      "price": 325.29,
+      "ema9": 325.1127,
+      "ema21": 320.3392,
       "trend": "BULL",
       "signal": "NONE"
     },
     {
       "ticker": "AMZN",
-      "price": 277.42,
-      "ema9": 278.0951,
-      "ema21": 271.6356,
+      "price": 279.095,
+      "ema9": 278.5171,
+      "ema21": 272.2959,
       "trend": "BULL",
       "signal": "NONE"
     },
     {
       "ticker": "GOOGL",
-      "price": 377.65,
-      "ema9": 376.3716,
-      "ema21": 367.9478,
+      "price": 381.415,
+      "ema9": 377.9321,
+      "ema21": 367.9808,
       "trend": "BULL",
       "signal": "NONE"
     },
     {
       "ticker": "META",
-      "price": 587.94,
-      "ema9": 586.8035,
-      "ema21": 581.1909,
+      "price": 597.7776,
+      "ema9": 590.1463,
+      "ema21": 576.4831,
       "trend": "BULL",
       "signal": "NONE"
     },
     {
       "ticker": "AMD",
-      "price": 518.58,
-      "ema9": 516.708,
-      "ema21": 501.285,
+      "price": 491.51,
+      "ema9": 507.466,
+      "ema21": 502.3013,
       "trend": "BULL",
       "signal": "NONE"
     }
@@ -84,6 +84,6 @@
       "META",
       "AMD"
     ],
-    "purification_pct": 1.0
+    "purification_pct": 0.1
   }
 }
