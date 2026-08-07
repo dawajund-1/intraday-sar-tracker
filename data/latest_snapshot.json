@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-07T20:10:05Z",
+  "generated_at_utc": "2026-08-07T22:08:35Z",
   "tickers": [
     {
       "ticker": "AAPL",
@@ -16,7 +16,7 @@
       "ema9": 500.6816,
       "ema21": 500.6307,
       "trend": "BULL",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "WEAKENING"
     },
     {
@@ -25,7 +25,7 @@
       "ema9": 223.2767,
       "ema21": 222.8637,
       "trend": "BULL",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
@@ -34,7 +34,7 @@
       "ema9": 327.9993,
       "ema21": 327.885,
       "trend": "BULL",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
@@ -52,7 +52,7 @@
       "ema9": 354.7204,
       "ema21": 354.7005,
       "trend": "BULL",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "WEAKENING"
     },
     {
@@ -61,7 +61,7 @@
       "ema9": 592.6738,
       "ema21": 592.4716,
       "trend": "BULL",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "WEAKENING"
     },
     {
