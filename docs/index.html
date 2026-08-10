@@ -56,6 +56,7 @@
   .badge.bull { color: var(--bull); background: var(--bull-bg); }
   .badge.bear { color: var(--bear); background: var(--bear-bg); }
   .badge.warn { color: #92620a; background: #fdf0d5; }
+  .badge.live-badge { color: var(--bull); background: none; padding: 0; font-size: 0.6rem; vertical-align: middle; }
   @media (prefers-color-scheme: dark) { .badge.warn { color: #f0c674; background: #3a2f14; } }
   .pl-pos { color: var(--bull); font-weight: 600; }
   .pl-neg { color: var(--bear); font-weight: 600; }
@@ -87,7 +88,7 @@
   <a class="nav-link" href="saudi.html">🇸🇦 Tadawul Tracker →</a>
   <h1>📈 Intraday Signal Tracker</h1>
   <div class="updated" id="updated">Loading…</div>
-  <div class="live-indicator"><span class="live-dot"></span>Auto-refreshing every 30s</div>
+  <div class="live-indicator"><span class="live-dot"></span>Live prices every 30s · signals/trades every 5 min</div>
 
   <div class="card">
     <div class="grid">
@@ -161,6 +162,11 @@
 const REPO = "dawajund-1/intraday-sar-tracker";
 const BRANCH = "main";
 const RAW = `https://raw.githubusercontent.com/${REPO}/${BRANCH}`;
+
+const FINNHUB_KEY = "d9t1db9r01qqd5j34d90d9t1db9r01qqd5j34d9g";
+const livePrices = {}; // ticker -> { price, at }
+let lastSnapshot = null;
+let lastTrades = [];
 
 function fmtUsd(n) {
   if (n === null || n === undefined || n === "") return "—";
@@ -294,7 +300,12 @@ function render(snapshot, trades) {
     const warn = t.early_warning && t.early_warning !== 'NONE'
       ? ` <span class="badge warn" title="Early warning — not a confirmed signal">⚠️ ${t.early_warning === 'WEAKENING' ? 'Weakening' : 'Strengthening'}</span>`
       : '';
-    tr.innerHTML = `<td><strong>${t.ticker}</strong>${t.ticker === heldTicker ? ' 📍' : ''}</td><td>$${t.price}</td><td>${t.ema9}</td><td>${t.ema21}</td><td>${badge}${warn}</td>`;
+    const live = livePrices[t.ticker];
+    const shownPrice = live ? live.price : t.price;
+    const priceCell = live
+      ? `$${shownPrice} <span class="badge live-badge" title="Live from Finnhub, ${new Date(live.at).toLocaleTimeString()}">●</span>`
+      : `$${shownPrice}`;
+    tr.innerHTML = `<td><strong>${t.ticker}</strong>${t.ticker === heldTicker ? ' 📍' : ''}</td><td>${priceCell}</td><td>${t.ema9}</td><td>${t.ema21}</td><td>${badge}${warn}</td>`;
     wlBody.appendChild(tr);
   });
   if (!snapshot.tickers || snapshot.tickers.length === 0) {
@@ -316,10 +327,35 @@ function render(snapshot, trades) {
 }
 
 const REFRESH_MS = 30000;
+const LIVE_PRICE_MS = 30000;
+
+async function fetchLivePrice(ticker) {
+  const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${encodeURIComponent(ticker)}&token=${FINNHUB_KEY}`);
+  if (!res.ok) throw new Error(`finnhub ${ticker} ${res.status}`);
+  const data = await res.json();
+  if (!data || !data.c) throw new Error(`finnhub ${ticker} empty`);
+  return data.c;
+}
+
+async function refreshLivePrices() {
+  if (!lastSnapshot || !lastSnapshot.tickers) return;
+  const tickers = lastSnapshot.tickers.map(t => t.ticker);
+  await Promise.all(tickers.map(async (ticker) => {
+    try {
+      const price = await fetchLivePrice(ticker);
+      livePrices[ticker] = { price, at: Date.now() };
+    } catch (e) {
+      // keep last known live price (or fall back to snapshot price) on a transient failure
+    }
+  }));
+  if (lastSnapshot) render(lastSnapshot, lastTrades);
+}
 
 async function init(isAutoRefresh) {
   try {
     const [snapshot, trades] = await Promise.all([loadSnapshot(), loadTradesCsv()]);
+    lastSnapshot = snapshot;
+    lastTrades = trades;
     render(snapshot, trades);
   } catch (e) {
     if (!isAutoRefresh) {
@@ -329,8 +365,9 @@ async function init(isAutoRefresh) {
 }
 
 initCalculator();
-init(false);
+init(false).then(refreshLivePrices);
 setInterval(() => init(true), REFRESH_MS);
+setInterval(refreshLivePrices, LIVE_PRICE_MS);
 </script>
 </body>
 </html>
