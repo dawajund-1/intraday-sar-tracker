@@ -7,22 +7,17 @@
     "AMZN": "BEAR",
     "GOOGL": "BEAR",
     "META": "BULL",
-    "AMD": "BULL"
+    "AMD": "BEAR"
   },
-  "open_position": {
-    "ticker": "AMD",
-    "entry_price": 470.165,
-    "entry_time": "2026-08-11T15:20:24",
-    "shares": 0.055925
-  },
+  "open_position": null,
   "portfolio": {
-    "balance_usd": 26.2942,
-    "realized_pl_usd": -0.3407,
+    "balance_usd": 26.232,
+    "realized_pl_usd": -0.4029,
     "purified_total_usd": 0.0318
   },
   "warning_state": {
-    "AAPL": "NONE",
-    "MSFT": "STRENGTHENING",
+    "AAPL": "STRENGTHENING",
+    "MSFT": "NONE",
     "NVDA": "NONE",
     "TSLA": "WEAKENING",
     "AMZN": "NONE",
