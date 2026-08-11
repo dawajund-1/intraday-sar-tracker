@@ -88,7 +88,7 @@
   <a class="nav-link" href="saudi.html">🇸🇦 Tadawul Tracker →</a>
   <h1>📈 Intraday Signal Tracker</h1>
   <div class="updated" id="updated">Loading…</div>
-  <div class="live-indicator"><span class="live-dot"></span>Live prices every 30s · signals/trades every 5 min</div>
+  <div class="live-indicator"><span class="live-dot"></span><span id="live-clock">Live prices — waiting for first update…</span></div>
 
   <div class="card">
     <div class="grid">
@@ -167,6 +167,8 @@ const FINNHUB_KEY = "d9t1db9r01qqd5j34d90d9t1db9r01qqd5j34d9g";
 const livePrices = {}; // ticker -> { price, at }
 let lastSnapshot = null;
 let lastTrades = [];
+let lastLiveFetchAt = null;
+let lastLiveFetchHadSuccess = false;
 
 function fmtUsd(n) {
   if (n === null || n === undefined || n === "") return "—";
@@ -340,15 +342,36 @@ async function fetchLivePrice(ticker) {
 async function refreshLivePrices() {
   if (!lastSnapshot || !lastSnapshot.tickers) return;
   const tickers = lastSnapshot.tickers.map(t => t.ticker);
+  let anySuccess = false;
   await Promise.all(tickers.map(async (ticker) => {
     try {
       const price = await fetchLivePrice(ticker);
       livePrices[ticker] = { price, at: Date.now() };
+      anySuccess = true;
     } catch (e) {
       // keep last known live price (or fall back to snapshot price) on a transient failure
     }
   }));
+  lastLiveFetchAt = Date.now();
+  lastLiveFetchHadSuccess = anySuccess;
   if (lastSnapshot) render(lastSnapshot, lastTrades);
+}
+
+function tickClock() {
+  const el = document.getElementById("live-clock");
+  if (!el) return;
+  if (!lastLiveFetchAt) {
+    el.textContent = "Live prices — waiting for first update…";
+    return;
+  }
+  const secsAgo = Math.round((Date.now() - lastLiveFetchAt) / 1000);
+  if (!lastLiveFetchHadSuccess && secsAgo > 60) {
+    el.textContent = `Live price fetch failing (last tried ${secsAgo}s ago) — check connection`;
+    el.style.color = "var(--bear)";
+  } else {
+    el.textContent = `Live prices — last tick ${secsAgo}s ago (updates every 30s)`;
+    el.style.color = "";
+  }
 }
 
 async function init(isAutoRefresh) {
@@ -368,6 +391,8 @@ initCalculator();
 init(false).then(refreshLivePrices);
 setInterval(() => init(true), REFRESH_MS);
 setInterval(refreshLivePrices, LIVE_PRICE_MS);
+setInterval(tickClock, 1000);
+tickClock();
 </script>
 </body>
 </html>
