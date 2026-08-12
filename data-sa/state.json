@@ -5,7 +5,7 @@
     "2010.SR": "BEAR",
     "7010.SR": "BEAR",
     "1180.SR": "BULL",
-    "1211.SR": "BEAR",
+    "1211.SR": "BULL",
     "2280.SR": "BULL",
     "1010.SR": "BEAR"
   },
@@ -13,9 +13,9 @@
     "2222.SR": "NONE",
     "1120.SR": "NONE",
     "2010.SR": "NONE",
-    "7010.SR": "NONE",
+    "7010.SR": "STRENGTHENING",
     "1180.SR": "NONE",
-    "1211.SR": "NONE",
+    "1211.SR": "WEAKENING",
     "2280.SR": "NONE",
     "1010.SR": "NONE"
   },
