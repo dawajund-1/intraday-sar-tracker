@@ -3,31 +3,26 @@
     "2222.SR": "BEAR",
     "1120.SR": "BEAR",
     "2010.SR": "BEAR",
-    "7010.SR": "BULL",
+    "7010.SR": "BEAR",
     "1180.SR": "BULL",
     "1211.SR": "BEAR",
-    "2280.SR": "BEAR",
+    "2280.SR": "BULL",
     "1010.SR": "BEAR"
   },
   "warning_state": {
     "2222.SR": "NONE",
     "1120.SR": "NONE",
-    "2010.SR": "STRENGTHENING",
-    "7010.SR": "WEAKENING",
-    "1180.SR": "NONE",
+    "2010.SR": "NONE",
+    "7010.SR": "NONE",
+    "1180.SR": "WEAKENING",
     "1211.SR": "NONE",
-    "2280.SR": "STRENGTHENING",
+    "2280.SR": "NONE",
     "1010.SR": "STRENGTHENING"
   },
-  "open_position": {
-    "ticker": "7010.SR",
-    "entry_price": 43.58,
-    "entry_time": "2026-08-12T09:25:15",
-    "shares": 2.26053
-  },
+  "open_position": null,
   "portfolio": {
-    "balance_sar": 98.5139,
-    "realized_pl_sar": -1.4861,
+    "balance_sar": 98.4235,
+    "realized_pl_sar": -1.5765,
     "purified_total_sar": 0.0
   }
 }
