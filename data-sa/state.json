@@ -4,7 +4,7 @@
     "1120.SR": "BEAR",
     "2010.SR": "BEAR",
     "7010.SR": "BEAR",
-    "1180.SR": "BULL",
+    "1180.SR": "BEAR",
     "1211.SR": "BULL",
     "2280.SR": "BULL",
     "1010.SR": "BEAR"
@@ -14,9 +14,9 @@
     "1120.SR": "NONE",
     "2010.SR": "NONE",
     "7010.SR": "NONE",
-    "1180.SR": "WEAKENING",
+    "1180.SR": "NONE",
     "1211.SR": "NONE",
-    "2280.SR": "NONE",
+    "2280.SR": "WEAKENING",
     "1010.SR": "NONE"
   },
   "open_position": {
