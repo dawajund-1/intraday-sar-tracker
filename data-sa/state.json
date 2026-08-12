@@ -4,7 +4,7 @@
     "1120.SR": "BEAR",
     "2010.SR": "BEAR",
     "7010.SR": "BEAR",
-    "1180.SR": "BEAR",
+    "1180.SR": "BULL",
     "1211.SR": "BULL",
     "2280.SR": "BEAR",
     "1010.SR": "BEAR"
@@ -14,12 +14,17 @@
     "1120.SR": "STRENGTHENING",
     "2010.SR": "NONE",
     "7010.SR": "STRENGTHENING",
-    "1180.SR": "STRENGTHENING",
+    "1180.SR": "NONE",
     "1211.SR": "NONE",
     "2280.SR": "NONE",
-    "1010.SR": "STRENGTHENING"
+    "1010.SR": "NONE"
   },
-  "open_position": null,
+  "open_position": {
+    "ticker": "1180.SR",
+    "entry_price": 40.9,
+    "entry_time": "2026-08-12T09:05:15",
+    "shares": 2.41101
+  },
   "portfolio": {
     "balance_sar": 98.6103,
     "realized_pl_sar": -1.3897,
