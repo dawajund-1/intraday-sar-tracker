@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-13T08:15:22Z",
+  "generated_at_utc": "2026-08-13T08:35:23Z",
   "tickers": [
     {
       "ticker": "AAPL",
@@ -49,8 +49,8 @@
     {
       "ticker": "GOOGL",
       "price": 343.54,
-      "ema9": 343.8824,
-      "ema21": 343.6716,
+      "ema9": 343.8832,
+      "ema21": 343.6721,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "WEAKENING"
