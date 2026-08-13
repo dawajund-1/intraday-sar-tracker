@@ -6,7 +6,7 @@
     "7010.SR": "BEAR",
     "1180.SR": "BEAR",
     "1211.SR": "BEAR",
-    "2280.SR": "BEAR",
+    "2280.SR": "BULL",
     "1010.SR": "BULL"
   },
   "warning_state": {
@@ -16,7 +16,7 @@
     "7010.SR": "STRENGTHENING",
     "1180.SR": "STRENGTHENING",
     "1211.SR": "NONE",
-    "2280.SR": "STRENGTHENING",
+    "2280.SR": "NONE",
     "1010.SR": "NONE"
   },
   "open_position": {
