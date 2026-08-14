@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-14T20:08:07Z",
+  "generated_at_utc": "2026-08-14T21:02:28Z",
   "tickers": [
     {
       "ticker": "AAPL",
@@ -7,7 +7,7 @@
       "ema9": 305.8272,
       "ema21": 305.7711,
       "trend": "BULL",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
@@ -22,10 +22,10 @@
     {
       "ticker": "NVDA",
       "price": 225.16,
-      "ema9": 225.1755,
-      "ema21": 225.1619,
+      "ema9": 225.1627,
+      "ema21": 225.1553,
       "trend": "BULL",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "WEAKENING"
     },
     {
