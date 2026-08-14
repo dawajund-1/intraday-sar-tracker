@@ -1,13 +1,13 @@
 {
   "ticker_state": {
     "AAPL": "BULL",
-    "MSFT": "BULL",
+    "MSFT": "BEAR",
     "NVDA": "BEAR",
     "TSLA": "BEAR",
     "AMZN": "BEAR",
     "GOOGL": "BEAR",
     "META": "BEAR",
-    "AMD": "BEAR"
+    "AMD": "BULL"
   },
   "open_position": {
     "ticker": "AAPL",
@@ -22,12 +22,12 @@
   },
   "warning_state": {
     "AAPL": "NONE",
-    "MSFT": "WEAKENING",
+    "MSFT": "NONE",
     "NVDA": "STRENGTHENING",
-    "TSLA": "STRENGTHENING",
+    "TSLA": "NONE",
     "AMZN": "NONE",
-    "GOOGL": "NONE",
-    "META": "NONE",
+    "GOOGL": "STRENGTHENING",
+    "META": "STRENGTHENING",
     "AMD": "NONE"
   }
 }
