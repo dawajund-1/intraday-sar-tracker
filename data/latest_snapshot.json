@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-15T16:10:29Z",
+  "generated_at_utc": "2026-08-15T17:25:21Z",
   "tickers": [
     {
       "ticker": "AAPL",
@@ -31,8 +31,8 @@
     {
       "ticker": "TSLA",
       "price": 342.27,
-      "ema9": 341.8856,
-      "ema21": 341.5834,
+      "ema9": 341.8848,
+      "ema21": 341.583,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -58,8 +58,8 @@
     {
       "ticker": "META",
       "price": 589.85,
-      "ema9": 590.4285,
-      "ema21": 590.9035,
+      "ema9": 590.4524,
+      "ema21": 590.9159,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
