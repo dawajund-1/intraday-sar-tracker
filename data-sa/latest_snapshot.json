@@ -1,12 +1,12 @@
 {
-  "generated_at_utc": "2026-08-16T10:52:51Z",
+  "generated_at_utc": "2026-08-16T10:55:16Z",
   "tickers": [
     {
       "ticker": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 26.68,
-      "ema9": 26.6627,
-      "ema21": 26.659,
+      "price": 26.66,
+      "ema9": 26.6587,
+      "ema21": 26.6571,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -24,9 +24,9 @@
     {
       "ticker": "2010.SR",
       "name": "SABIC",
-      "price": 50.05,
-      "ema9": 50.0595,
-      "ema21": 50.0512,
+      "price": 50.0,
+      "ema9": 50.0495,
+      "ema21": 50.0467,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "WEAKENING"
@@ -34,9 +34,9 @@
     {
       "ticker": "7010.SR",
       "name": "STC",
-      "price": 43.62,
-      "ema9": 43.6315,
-      "ema21": 43.6223,
+      "price": 43.6,
+      "ema9": 43.6211,
+      "ema21": 43.6172,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "WEAKENING"
@@ -44,9 +44,9 @@
     {
       "ticker": "1180.SR",
       "name": "Saudi National Bank",
-      "price": 41.68,
-      "ema9": 41.6429,
-      "ema21": 41.5783,
+      "price": 41.66,
+      "ema9": 41.6389,
+      "ema21": 41.5765,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -54,19 +54,19 @@
     {
       "ticker": "1211.SR",
       "name": "Maaden",
-      "price": 64.7,
-      "ema9": 64.7021,
-      "ema21": 64.6991,
+      "price": 64.75,
+      "ema9": 64.7201,
+      "ema21": 64.7078,
       "trend": "BULL",
       "signal": "NONE",
-      "early_warning": "WEAKENING"
+      "early_warning": "NONE"
     },
     {
       "ticker": "2280.SR",
       "name": "Almarai",
-      "price": 48.8,
-      "ema9": 48.6523,
-      "ema21": 48.4265,
+      "price": 48.78,
+      "ema9": 48.6483,
+      "ema21": 48.4247,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -74,12 +74,12 @@
     {
       "ticker": "1010.SR",
       "name": "Riyad Bank",
-      "price": 20.43,
-      "ema9": 20.4281,
-      "ema21": 20.4201,
+      "price": 20.42,
+      "ema9": 20.4277,
+      "ema21": 20.42,
       "trend": "BULL",
       "signal": "NONE",
-      "early_warning": "NONE"
+      "early_warning": "WEAKENING"
     }
   ],
   "open_position": {
