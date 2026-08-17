@@ -3,31 +3,26 @@
     "AAPL": "BEAR",
     "MSFT": "BEAR",
     "NVDA": "BULL",
-    "TSLA": "BULL",
+    "TSLA": "BEAR",
     "AMZN": "BEAR",
     "GOOGL": "BEAR",
     "META": "BEAR",
-    "AMD": "BULL"
+    "AMD": "BEAR"
   },
-  "open_position": {
-    "ticker": "TSLA",
-    "entry_price": 341.5,
-    "entry_time": "2026-08-17T14:58:29",
-    "shares": 0.078828
-  },
+  "open_position": null,
   "portfolio": {
-    "balance_usd": 26.9197,
-    "realized_pl_usd": 0.3955,
+    "balance_usd": 26.7936,
+    "realized_pl_usd": 0.2694,
     "purified_total_usd": 0.1425
   },
   "warning_state": {
     "AAPL": "NONE",
-    "MSFT": "STRENGTHENING",
+    "MSFT": "NONE",
     "NVDA": "NONE",
     "TSLA": "NONE",
     "AMZN": "NONE",
     "GOOGL": "NONE",
     "META": "NONE",
-    "AMD": "WEAKENING"
+    "AMD": "NONE"
   }
 }
