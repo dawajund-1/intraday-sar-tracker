@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-17T04:40:17Z",
+  "generated_at_utc": "2026-08-17T04:45:19Z",
   "tickers": [
     {
       "ticker": "2222.SR",
@@ -26,7 +26,7 @@
       "name": "SABIC",
       "price": 50.2,
       "ema9": 50.0911,
-      "ema21": 50.0754,
+      "ema21": 50.0753,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
