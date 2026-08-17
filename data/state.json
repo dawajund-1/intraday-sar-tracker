@@ -3,9 +3,9 @@
     "AAPL": "BULL",
     "MSFT": "BULL",
     "NVDA": "BEAR",
-    "TSLA": "BULL",
+    "TSLA": "BEAR",
     "AMZN": "BULL",
-    "GOOGL": "BEAR",
+    "GOOGL": "BULL",
     "META": "BULL",
     "AMD": "BEAR"
   },
@@ -22,12 +22,12 @@
   },
   "warning_state": {
     "AAPL": "WEAKENING",
-    "MSFT": "WEAKENING",
-    "NVDA": "STRENGTHENING",
-    "TSLA": "WEAKENING",
-    "AMZN": "WEAKENING",
+    "MSFT": "NONE",
+    "NVDA": "NONE",
+    "TSLA": "NONE",
+    "AMZN": "NONE",
     "GOOGL": "NONE",
     "META": "WEAKENING",
-    "AMD": "STRENGTHENING"
+    "AMD": "NONE"
   }
 }
