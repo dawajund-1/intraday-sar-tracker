@@ -10,13 +10,13 @@
     "1010.SR": "BULL"
   },
   "warning_state": {
-    "2222.SR": "NONE",
-    "1120.SR": "NONE",
+    "2222.SR": "STRENGTHENING",
+    "1120.SR": "STRENGTHENING",
     "2010.SR": "NONE",
     "7010.SR": "NONE",
     "1180.SR": "NONE",
     "1211.SR": "NONE",
-    "2280.SR": "NONE",
+    "2280.SR": "STRENGTHENING",
     "1010.SR": "NONE"
   },
   "open_position": {
