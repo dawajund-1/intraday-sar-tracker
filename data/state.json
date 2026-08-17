@@ -5,7 +5,7 @@
     "NVDA": "BULL",
     "TSLA": "BULL",
     "AMZN": "BEAR",
-    "GOOGL": "BEAR",
+    "GOOGL": "BULL",
     "META": "BEAR",
     "AMD": "BULL"
   },
@@ -21,12 +21,12 @@
     "purified_total_usd": 0.1425
   },
   "warning_state": {
-    "AAPL": "STRENGTHENING",
+    "AAPL": "NONE",
     "MSFT": "STRENGTHENING",
     "NVDA": "NONE",
     "TSLA": "NONE",
-    "AMZN": "STRENGTHENING",
-    "GOOGL": "STRENGTHENING",
+    "AMZN": "NONE",
+    "GOOGL": "NONE",
     "META": "NONE",
     "AMD": "NONE"
   }
