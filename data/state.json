@@ -23,11 +23,11 @@
   "warning_state": {
     "AAPL": "NONE",
     "MSFT": "STRENGTHENING",
-    "NVDA": "NONE",
+    "NVDA": "STRENGTHENING",
     "TSLA": "STRENGTHENING",
     "AMZN": "NONE",
     "GOOGL": "NONE",
     "META": "STRENGTHENING",
-    "AMD": "NONE"
+    "AMD": "STRENGTHENING"
   }
 }
