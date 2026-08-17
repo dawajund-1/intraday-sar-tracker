@@ -24,5 +24,19 @@ jobs:
           git config user.name "intraday-tracker-bot"
           git config user.email "actions@users.noreply.github.com"
           git add data-sa/
-          git diff --cached --quiet || git commit -m "Tadawul daily summary $(date -u +%Y-%m-%d)"
-          git push
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Tadawul daily summary $(date -u +%Y-%m-%d)"
+          # Signal checks write to the same branch, so a push can lose the race.
+          # Rebase onto whatever landed and retry.
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              exit 0
+            fi
+            echo "Push rejected (attempt $attempt); rebasing onto origin/main."
+            git pull --rebase origin main
+          done
+          echo "::error::Push failed after 5 attempts."
+          exit 1
