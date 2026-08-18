@@ -10,13 +10,13 @@
     "1010.SR": "BEAR"
   },
   "warning_state": {
-    "2222.SR": "NONE",
+    "2222.SR": "WEAKENING",
     "1120.SR": "NONE",
-    "2010.SR": "NONE",
+    "2010.SR": "WEAKENING",
     "7010.SR": "NONE",
     "1180.SR": "NONE",
     "1211.SR": "NONE",
-    "2280.SR": "NONE",
+    "2280.SR": "WEAKENING",
     "1010.SR": "STRENGTHENING"
   },
   "open_position": {
