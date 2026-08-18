@@ -1,9 +1,9 @@
 {
   "ticker_state": {
-    "AAPL": "BEAR",
+    "AAPL": "BULL",
     "MSFT": "BULL",
     "NVDA": "BEAR",
-    "TSLA": "BULL",
+    "TSLA": "BEAR",
     "AMZN": "BEAR",
     "GOOGL": "BULL",
     "META": "BEAR",
@@ -21,13 +21,13 @@
     "purified_total_usd": 0.1937
   },
   "warning_state": {
-    "AAPL": "STRENGTHENING",
+    "AAPL": "NONE",
     "MSFT": "WEAKENING",
     "NVDA": "STRENGTHENING",
     "TSLA": "NONE",
     "AMZN": "NONE",
     "GOOGL": "NONE",
-    "META": "STRENGTHENING",
+    "META": "NONE",
     "AMD": "NONE"
   }
 }
