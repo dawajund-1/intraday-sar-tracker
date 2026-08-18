@@ -1,74 +1,74 @@
 {
-  "generated_at_utc": "2026-08-18T14:30:38Z",
+  "generated_at_utc": "2026-08-18T14:35:25Z",
   "tickers": [
     {
       "ticker": "AAPL",
-      "price": 309.8747,
-      "ema9": 308.9419,
-      "ema21": 307.7276,
+      "price": 310.93,
+      "ema9": 309.506,
+      "ema21": 308.1047,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
     },
     {
       "ticker": "MSFT",
-      "price": 480.87,
-      "ema9": 481.3268,
-      "ema21": 481.0667,
+      "price": 481.26,
+      "ema9": 481.3094,
+      "ema21": 481.0822,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "WEAKENING"
     },
     {
       "ticker": "NVDA",
-      "price": 220.19,
-      "ema9": 220.1485,
-      "ema21": 221.5584,
+      "price": 220.375,
+      "ema9": 220.2042,
+      "ema21": 221.4562,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "STRENGTHENING"
     },
     {
       "ticker": "TSLA",
-      "price": 336.78,
-      "ema9": 337.0586,
-      "ema21": 337.8069,
+      "price": 337.38,
+      "ema9": 337.1445,
+      "ema21": 337.7793,
       "trend": "BEAR",
       "signal": "NONE",
-      "early_warning": "NONE"
+      "early_warning": "STRENGTHENING"
     },
     {
       "ticker": "AMZN",
-      "price": 260.95,
-      "ema9": 260.1145,
-      "ema21": 259.8862,
+      "price": 261.24,
+      "ema9": 260.3604,
+      "ema21": 260.02,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
     },
     {
       "ticker": "GOOGL",
-      "price": 343.825,
-      "ema9": 343.1296,
-      "ema21": 343.108,
+      "price": 343.57,
+      "ema9": 343.1625,
+      "ema21": 343.1215,
       "trend": "BULL",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
       "ticker": "META",
-      "price": 547.73,
-      "ema9": 549.2449,
-      "ema21": 554.1082,
+      "price": 546.23,
+      "ema9": 548.3069,
+      "ema21": 553.2189,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
     },
     {
       "ticker": "AMD",
-      "price": 482.09,
-      "ema9": 482.8632,
-      "ema21": 489.512,
+      "price": 481.2989,
+      "ema9": 482.2896,
+      "ema21": 488.6307,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
