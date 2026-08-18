@@ -1,6 +1,6 @@
 {
   "ticker_state": {
-    "2222.SR": "BULL",
+    "2222.SR": "BEAR",
     "1120.SR": "BEAR",
     "2010.SR": "BEAR",
     "7010.SR": "BULL",
@@ -10,14 +10,14 @@
     "1010.SR": "BULL"
   },
   "warning_state": {
-    "2222.SR": "NONE",
-    "1120.SR": "STRENGTHENING",
+    "2222.SR": "STRENGTHENING",
+    "1120.SR": "NONE",
     "2010.SR": "STRENGTHENING",
     "7010.SR": "NONE",
     "1180.SR": "NONE",
     "1211.SR": "NONE",
     "2280.SR": "NONE",
-    "1010.SR": "NONE"
+    "1010.SR": "WEAKENING"
   },
   "open_position": {
     "ticker": "7010.SR",
