@@ -4,7 +4,7 @@
     "MSFT": "BULL",
     "NVDA": "BEAR",
     "TSLA": "BULL",
-    "AMZN": "BEAR",
+    "AMZN": "BULL",
     "GOOGL": "BEAR",
     "META": "BULL",
     "AMD": "BEAR"
@@ -26,7 +26,7 @@
     "NVDA": "STRENGTHENING",
     "TSLA": "NONE",
     "AMZN": "NONE",
-    "GOOGL": "NONE",
+    "GOOGL": "STRENGTHENING",
     "META": "NONE",
     "AMD": "STRENGTHENING"
   }
