@@ -3,10 +3,10 @@
     "AAPL": "BULL",
     "MSFT": "BULL",
     "NVDA": "BEAR",
-    "TSLA": "BEAR",
-    "AMZN": "BULL",
+    "TSLA": "BULL",
+    "AMZN": "BEAR",
     "GOOGL": "BEAR",
-    "META": "BEAR",
+    "META": "BULL",
     "AMD": "BEAR"
   },
   "open_position": {
@@ -21,13 +21,13 @@
     "purified_total_usd": 0.1425
   },
   "warning_state": {
-    "AAPL": "NONE",
-    "MSFT": "NONE",
-    "NVDA": "NONE",
-    "TSLA": "STRENGTHENING",
-    "AMZN": "WEAKENING",
+    "AAPL": "WEAKENING",
+    "MSFT": "WEAKENING",
+    "NVDA": "STRENGTHENING",
+    "TSLA": "NONE",
+    "AMZN": "NONE",
     "GOOGL": "NONE",
-    "META": "STRENGTHENING",
-    "AMD": "NONE"
+    "META": "NONE",
+    "AMD": "STRENGTHENING"
   }
 }
