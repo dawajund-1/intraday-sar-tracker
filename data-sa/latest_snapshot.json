@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-18T06:15:21Z",
+  "generated_at_utc": "2026-08-18T06:20:16Z",
   "tickers": [
     {
       "ticker": "2222.SR",
@@ -66,7 +66,7 @@
       "name": "Almarai",
       "price": 48.18,
       "ema9": 47.9627,
-      "ema21": 47.9816,
+      "ema21": 47.9817,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "STRENGTHENING"
