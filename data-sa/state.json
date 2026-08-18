@@ -2,10 +2,10 @@
   "ticker_state": {
     "2222.SR": "BULL",
     "1120.SR": "BEAR",
-    "2010.SR": "BULL",
+    "2010.SR": "BEAR",
     "7010.SR": "BULL",
     "1180.SR": "BEAR",
-    "1211.SR": "BULL",
+    "1211.SR": "BEAR",
     "2280.SR": "BEAR",
     "1010.SR": "BEAR"
   },
@@ -15,7 +15,7 @@
     "2010.SR": "NONE",
     "7010.SR": "NONE",
     "1180.SR": "NONE",
-    "1211.SR": "WEAKENING",
+    "1211.SR": "NONE",
     "2280.SR": "NONE",
     "1010.SR": "NONE"
   },
