@@ -6,7 +6,7 @@
     "TSLA": "BULL",
     "AMZN": "BULL",
     "GOOGL": "BULL",
-    "META": "BULL",
+    "META": "BEAR",
     "AMD": "BEAR"
   },
   "open_position": {
@@ -22,12 +22,12 @@
   },
   "warning_state": {
     "AAPL": "NONE",
-    "MSFT": "WEAKENING",
+    "MSFT": "NONE",
     "NVDA": "NONE",
     "TSLA": "WEAKENING",
     "AMZN": "NONE",
     "GOOGL": "NONE",
-    "META": "WEAKENING",
+    "META": "NONE",
     "AMD": "NONE"
   }
 }
