@@ -4,7 +4,7 @@
     "MSFT": "BULL",
     "NVDA": "BEAR",
     "TSLA": "BEAR",
-    "AMZN": "BEAR",
+    "AMZN": "BULL",
     "GOOGL": "BEAR",
     "META": "BEAR",
     "AMD": "BEAR"
@@ -21,13 +21,13 @@
     "purified_total_usd": 0.1425
   },
   "warning_state": {
-    "AAPL": "WEAKENING",
+    "AAPL": "NONE",
     "MSFT": "NONE",
-    "NVDA": "STRENGTHENING",
+    "NVDA": "NONE",
     "TSLA": "STRENGTHENING",
-    "AMZN": "NONE",
+    "AMZN": "WEAKENING",
     "GOOGL": "NONE",
     "META": "STRENGTHENING",
-    "AMD": "STRENGTHENING"
+    "AMD": "NONE"
   }
 }
