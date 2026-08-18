@@ -14,10 +14,10 @@
     "1120.SR": "NONE",
     "2010.SR": "NONE",
     "7010.SR": "NONE",
-    "1180.SR": "NONE",
+    "1180.SR": "WEAKENING",
     "1211.SR": "NONE",
-    "2280.SR": "NONE",
-    "1010.SR": "STRENGTHENING"
+    "2280.SR": "WEAKENING",
+    "1010.SR": "NONE"
   },
   "open_position": {
     "ticker": "2010.SR",
