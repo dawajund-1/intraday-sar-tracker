@@ -21,13 +21,13 @@
     "purified_total_usd": 0.1425
   },
   "warning_state": {
-    "AAPL": "NONE",
+    "AAPL": "WEAKENING",
     "MSFT": "WEAKENING",
     "NVDA": "NONE",
-    "TSLA": "NONE",
+    "TSLA": "WEAKENING",
     "AMZN": "NONE",
     "GOOGL": "WEAKENING",
     "META": "NONE",
-    "AMD": "NONE"
+    "AMD": "STRENGTHENING"
   }
 }
