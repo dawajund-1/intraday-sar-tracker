@@ -4,7 +4,7 @@
     "MSFT": "BULL",
     "NVDA": "BEAR",
     "TSLA": "BULL",
-    "AMZN": "BULL",
+    "AMZN": "BEAR",
     "GOOGL": "BULL",
     "META": "BULL",
     "AMD": "BEAR"
@@ -22,10 +22,10 @@
   },
   "warning_state": {
     "AAPL": "WEAKENING",
-    "MSFT": "WEAKENING",
+    "MSFT": "NONE",
     "NVDA": "STRENGTHENING",
     "TSLA": "NONE",
-    "AMZN": "WEAKENING",
+    "AMZN": "STRENGTHENING",
     "GOOGL": "NONE",
     "META": "NONE",
     "AMD": "STRENGTHENING"
