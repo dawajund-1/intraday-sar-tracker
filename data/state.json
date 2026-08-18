@@ -7,7 +7,7 @@
     "AMZN": "BEAR",
     "GOOGL": "BULL",
     "META": "BEAR",
-    "AMD": "BEAR"
+    "AMD": "BULL"
   },
   "open_position": {
     "ticker": "AAPL",
@@ -28,6 +28,6 @@
     "AMZN": "NONE",
     "GOOGL": "WEAKENING",
     "META": "NONE",
-    "AMD": "STRENGTHENING"
+    "AMD": "NONE"
   }
 }
