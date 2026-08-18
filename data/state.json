@@ -5,8 +5,8 @@
     "NVDA": "BEAR",
     "TSLA": "BEAR",
     "AMZN": "BULL",
-    "GOOGL": "BULL",
-    "META": "BULL",
+    "GOOGL": "BEAR",
+    "META": "BEAR",
     "AMD": "BEAR"
   },
   "open_position": {
@@ -21,11 +21,11 @@
     "purified_total_usd": 0.1425
   },
   "warning_state": {
-    "AAPL": "WEAKENING",
-    "MSFT": "WEAKENING",
+    "AAPL": "NONE",
+    "MSFT": "NONE",
     "NVDA": "NONE",
     "TSLA": "NONE",
-    "AMZN": "NONE",
+    "AMZN": "WEAKENING",
     "GOOGL": "NONE",
     "META": "NONE",
     "AMD": "NONE"
