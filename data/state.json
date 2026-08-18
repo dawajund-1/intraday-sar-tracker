@@ -5,7 +5,7 @@
     "NVDA": "BEAR",
     "TSLA": "BEAR",
     "AMZN": "BULL",
-    "GOOGL": "BEAR",
+    "GOOGL": "BULL",
     "META": "BEAR",
     "AMD": "BEAR"
   },
@@ -22,11 +22,11 @@
   },
   "warning_state": {
     "AAPL": "NONE",
-    "MSFT": "NONE",
-    "NVDA": "NONE",
-    "TSLA": "STRENGTHENING",
+    "MSFT": "WEAKENING",
+    "NVDA": "STRENGTHENING",
+    "TSLA": "NONE",
     "AMZN": "NONE",
-    "GOOGL": "STRENGTHENING",
+    "GOOGL": "NONE",
     "META": "NONE",
     "AMD": "NONE"
   }
