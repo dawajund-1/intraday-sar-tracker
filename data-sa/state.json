@@ -16,8 +16,8 @@
     "7010.SR": "NONE",
     "1180.SR": "STRENGTHENING",
     "1211.SR": "WEAKENING",
-    "2280.SR": "NONE",
-    "1010.SR": "NONE"
+    "2280.SR": "WEAKENING",
+    "1010.SR": "STRENGTHENING"
   },
   "open_position": null,
   "portfolio": {
