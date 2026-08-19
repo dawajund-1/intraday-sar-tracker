@@ -5,19 +5,14 @@
     "NVDA": "BULL",
     "TSLA": "BULL",
     "AMZN": "BEAR",
-    "GOOGL": "BULL",
+    "GOOGL": "BEAR",
     "META": "BEAR",
     "AMD": "BULL"
   },
-  "open_position": {
-    "ticker": "GOOGL",
-    "entry_price": 343.72,
-    "entry_time": "2026-08-18T19:20:24",
-    "shares": 0.079045
-  },
+  "open_position": null,
   "portfolio": {
-    "balance_usd": 27.1694,
-    "realized_pl_usd": 0.6964,
+    "balance_usd": 27.0034,
+    "realized_pl_usd": 0.5304,
     "purified_total_usd": 0.1937
   },
   "warning_state": {
@@ -25,8 +20,8 @@
     "MSFT": "NONE",
     "NVDA": "NONE",
     "TSLA": "NONE",
-    "AMZN": "STRENGTHENING",
-    "GOOGL": "WEAKENING",
+    "AMZN": "NONE",
+    "GOOGL": "NONE",
     "META": "NONE",
     "AMD": "WEAKENING"
   }
