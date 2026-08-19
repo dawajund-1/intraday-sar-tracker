@@ -24,10 +24,10 @@
     "AAPL": "STRENGTHENING",
     "MSFT": "NONE",
     "NVDA": "NONE",
-    "TSLA": "NONE",
+    "TSLA": "WEAKENING",
     "AMZN": "NONE",
-    "GOOGL": "NONE",
-    "META": "NONE",
+    "GOOGL": "STRENGTHENING",
+    "META": "STRENGTHENING",
     "AMD": "STRENGTHENING"
   }
 }
