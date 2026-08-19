@@ -7,7 +7,7 @@
     "AMZN": "BULL",
     "GOOGL": "BULL",
     "META": "BULL",
-    "AMD": "BEAR"
+    "AMD": "BULL"
   },
   "open_position": {
     "ticker": "MSFT",
@@ -25,9 +25,9 @@
     "MSFT": "WEAKENING",
     "NVDA": "WEAKENING",
     "TSLA": "WEAKENING",
-    "AMZN": "WEAKENING",
+    "AMZN": "NONE",
     "GOOGL": "WEAKENING",
     "META": "WEAKENING",
-    "AMD": "STRENGTHENING"
+    "AMD": "NONE"
   }
 }
