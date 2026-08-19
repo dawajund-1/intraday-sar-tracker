@@ -23,9 +23,9 @@
   "warning_state": {
     "AAPL": "NONE",
     "MSFT": "NONE",
-    "NVDA": "NONE",
+    "NVDA": "WEAKENING",
     "TSLA": "NONE",
-    "AMZN": "WEAKENING",
+    "AMZN": "NONE",
     "GOOGL": "NONE",
     "META": "NONE",
     "AMD": "STRENGTHENING"
