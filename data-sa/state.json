@@ -10,9 +10,9 @@
     "1010.SR": "BULL"
   },
   "warning_state": {
-    "2222.SR": "WEAKENING",
+    "2222.SR": "NONE",
     "1120.SR": "NONE",
-    "2010.SR": "NONE",
+    "2010.SR": "STRENGTHENING",
     "7010.SR": "NONE",
     "1180.SR": "NONE",
     "1211.SR": "NONE",
