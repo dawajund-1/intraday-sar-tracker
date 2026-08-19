@@ -1,7 +1,7 @@
 {
   "ticker_state": {
     "AAPL": "BULL",
-    "MSFT": "BEAR",
+    "MSFT": "BULL",
     "NVDA": "BEAR",
     "TSLA": "BULL",
     "AMZN": "BEAR",
@@ -9,7 +9,12 @@
     "META": "BEAR",
     "AMD": "BEAR"
   },
-  "open_position": null,
+  "open_position": {
+    "ticker": "MSFT",
+    "entry_price": 482.775,
+    "entry_time": "2026-08-19T14:05:37",
+    "shares": 0.055587
+  },
   "portfolio": {
     "balance_usd": 26.8362,
     "realized_pl_usd": 0.3632,
@@ -17,7 +22,7 @@
   },
   "warning_state": {
     "AAPL": "NONE",
-    "MSFT": "STRENGTHENING",
+    "MSFT": "NONE",
     "NVDA": "NONE",
     "TSLA": "NONE",
     "AMZN": "STRENGTHENING",
