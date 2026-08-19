@@ -1,13 +1,13 @@
 {
   "ticker_state": {
-    "AAPL": "BULL",
-    "MSFT": "BEAR",
-    "NVDA": "BEAR",
-    "TSLA": "BULL",
-    "AMZN": "BULL",
-    "GOOGL": "BULL",
-    "META": "BEAR",
-    "AMD": "BULL"
+    "AAPL": "FLAT",
+    "MSFT": "FLAT",
+    "NVDA": "FLAT",
+    "TSLA": "FLAT",
+    "AMZN": "FLAT",
+    "GOOGL": "FLAT",
+    "META": "FLAT",
+    "AMD": "FLAT"
   },
   "open_position": null,
   "portfolio": {
