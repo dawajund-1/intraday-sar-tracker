@@ -13,42 +13,89 @@ if (-not $state.warning_state) { $state | Add-Member -NotePropertyName warning_s
 
 $heldTicker = if ($state.open_position) { $state.open_position.ticker } else { $null }
 
+# --- Which rule are we trading? -------------------------------------------
+# 'rsi_revert' is RSI(2) mean reversion on DAILY bars. It is the only rule in
+# this project that beat a matched random control after correcting for
+# multiple testing (p = 0.03 over 2000-2013 US large caps).
+#
+# It is deliberately NOT used on the Tadawul tracker: measured there it came
+# 14th of 15 with NEGATIVE per-trade expectancy. It was also measured on 5m
+# bars for this same watchlist and came out worse than random. The daily US
+# timeframe is not incidental, it IS the result. See FINDINGS.md in the
+# research repo.
+#
+# Set live.strategy to 'ema_cross' to restore the previous behaviour.
+$live     = $cfg.live
+$strategy = if ($live -and $live.strategy) { $live.strategy } else { "ema_cross" }
+$barIntvl = if ($live -and $live.interval) { $live.interval } else { $cfg.interval }
+$barRange = if ($live -and $live.range)    { $live.range }    else { $cfg.range }
+$closeUtc = if ($live -and $live.market_close_utc) { $live.market_close_utc } else { "20:00" }
+
 $signalsThisRun = @()
 $tickerSnapshots = @()
 
 foreach ($ticker in $cfg.watchlist) {
     try {
-        $bars = Get-HourlyBars -Ticker $ticker -Interval $cfg.interval -Range $cfg.range
-        if ($bars.Count -lt $cfg.ema_slow + 1) {
+        $bars = Get-HourlyBars -Ticker $ticker -Interval $barIntvl -Range $barRange
+        $bars = Remove-PartialBar -Bars $bars -Interval $barIntvl -MarketCloseUtc $closeUtc
+
+        $minBars = if ($strategy -eq "rsi_revert") { [int]$live.rsi_period + 2 } else { $cfg.ema_slow + 1 }
+        if ($bars.Count -lt $minBars) {
             Write-Warning "$ticker : not enough bars ($($bars.Count)), skipping"
             continue
         }
         $closes = $bars.close
         $lastPrice = $closes[-1]
-        $emaFast = Get-EmaLast -Closes $closes -Period $cfg.ema_fast
-        $emaSlow = Get-EmaLast -Closes $closes -Period $cfg.ema_slow
-        $trend = if ($emaFast -gt $emaSlow) { "BULL" } else { "BEAR" }
-        $prevTrend = $state.ticker_state.$ticker
 
-        $signal = "NONE"
-        if ($prevTrend -and $prevTrend -ne $trend) {
-            $signal = if ($trend -eq "BULL") { "BUY" } else { "SELL" }
+        $rsi = $null; $emaFast = $null; $emaSlow = $null
+        $trend = ""; $signal = "NONE"; $earlyWarning = "NONE"
+
+        if ($strategy -eq "rsi_revert") {
+            # Position state machine, identical to St-RsiRevert in the research
+            # harness: flat -> long when RSI closes below the buy level, long ->
+            # flat when it closes above the exit level. Level-based, not
+            # cross-based, so a signal missed one day still fires the next.
+            $rsi = Get-RsiLast -Closes $closes -Period ([int]$live.rsi_period)
+            if ($null -eq $rsi) { Write-Warning "$ticker : RSI unavailable, skipping"; continue }
+
+            $prevPos = $state.ticker_state.$ticker
+            if ($prevPos -ne "LONG" -and $prevPos -ne "FLAT") { $prevPos = "FLAT" }
+
+            if ($prevPos -eq "FLAT" -and $rsi -lt [double]$live.rsi_buy_below) { $signal = "BUY" }
+            elseif ($prevPos -eq "LONG" -and $rsi -gt [double]$live.rsi_exit_above) { $signal = "SELL" }
+
+            # Log the position held GOING INTO this bar, not the one the rule
+            # would like. Most BUY signals are never acted on (one position at a
+            # time), so logging the desired state would fill the audit trail
+            # with LONG rows for tickers that were never bought.
+            $trend = $prevPos
         }
+        else {
+            $emaFast = Get-EmaLast -Closes $closes -Period $cfg.ema_fast
+            $emaSlow = Get-EmaLast -Closes $closes -Period $cfg.ema_slow
+            $trend = if ($emaFast -gt $emaSlow) { "BULL" } else { "BEAR" }
+            $prevTrend = $state.ticker_state.$ticker
+            if ($prevTrend -and $prevTrend -ne $trend) {
+                $signal = if ($trend -eq "BULL") { "BUY" } else { "SELL" }
+            }
 
-        # Early-warning tier: a faster, noisier read on price vs. the short EMA alone.
-        # Not a prediction — still reactive, just to a twitchier line, so it can flag
-        # possible weakening/strengthening before the slower EMA9/EMA21 cross confirms.
-        $earlyWarning = "NONE"
-        if ($trend -eq "BULL" -and $lastPrice -lt $emaFast) { $earlyWarning = "WEAKENING" }
-        elseif ($trend -eq "BEAR" -and $lastPrice -gt $emaFast) { $earlyWarning = "STRENGTHENING" }
+            # Early-warning tier: a faster, noisier read on price vs. the short EMA alone.
+            # Not a prediction — still reactive, just to a twitchier line, so it can flag
+            # possible weakening/strengthening before the slower EMA9/EMA21 cross confirms.
+            if ($trend -eq "BULL" -and $lastPrice -lt $emaFast) { $earlyWarning = "WEAKENING" }
+            elseif ($trend -eq "BEAR" -and $lastPrice -gt $emaFast) { $earlyWarning = "STRENGTHENING" }
+        }
         $prevWarning = $state.warning_state.$ticker
 
         Append-Csv -Path (Join-Path $DataDir "signals_log.csv") -Row ([pscustomobject]@{
             timestamp_utc = $now.ToUniversalTime().ToString("s")
             ticker        = $ticker
+            strategy      = $strategy
+            interval      = $barIntvl
             price         = [math]::Round($lastPrice, 4)
-            ema9          = [math]::Round($emaFast, 4)
-            ema21         = [math]::Round($emaSlow, 4)
+            rsi           = if ($null -ne $rsi)     { [math]::Round($rsi, 2) }     else { "" }
+            ema9          = if ($null -ne $emaFast) { [math]::Round($emaFast, 4) } else { "" }
+            ema21         = if ($null -ne $emaSlow) { [math]::Round($emaSlow, 4) } else { "" }
             trend         = $trend
             signal        = $signal
             early_warning = $earlyWarning
@@ -66,9 +113,11 @@ foreach ($ticker in $cfg.watchlist) {
 
         $tickerSnapshots += [pscustomobject]@{
             ticker        = $ticker
+            strategy      = $strategy
             price         = [math]::Round($lastPrice, 4)
-            ema9          = [math]::Round($emaFast, 4)
-            ema21         = [math]::Round($emaSlow, 4)
+            rsi           = if ($null -ne $rsi)     { [math]::Round($rsi, 2) }     else { $null }
+            ema9          = if ($null -ne $emaFast) { [math]::Round($emaFast, 4) } else { $null }
+            ema21         = if ($null -ne $emaSlow) { [math]::Round($emaSlow, 4) } else { $null }
             trend         = $trend
             signal        = $signal
             early_warning = $earlyWarning
@@ -144,6 +193,24 @@ if ($state.open_position) {
             balance_after_usd = $balance
         })
         Notify-User -Topic $cfg.ntfy_topic -Title "BUY signal: $($buySignal.ticker)" -Message "Entry @ `$$([math]::Round($buySignal.price,2)) | Balance `$$balance"
+    }
+}
+
+# --- Reconcile strategy state with the portfolio --------------------------
+# The backtest traded every ticker independently. This account holds AT MOST
+# ONE position (capital is ~$27), so most BUY signals are logged and not acted
+# on. Without this step those tickers would stay marked LONG forever: never
+# bought so never sellable, and because they already "hold" they would never
+# signal BUY again -- entries would silently dry up after the first busy day.
+#
+# The rule that actually trades is therefore: go long the first watchlist
+# ticker whose RSI closes below the buy level while flat, and exit it when its
+# RSI closes above the exit level.
+if ($strategy -eq "rsi_revert") {
+    $openTicker = if ($state.open_position) { $state.open_position.ticker } else { $null }
+    foreach ($ticker in $cfg.watchlist) {
+        $shouldBe = if ($ticker -eq $openTicker) { "LONG" } else { "FLAT" }
+        $state.ticker_state | Add-Member -NotePropertyName $ticker -NotePropertyValue $shouldBe -Force
     }
 }
 

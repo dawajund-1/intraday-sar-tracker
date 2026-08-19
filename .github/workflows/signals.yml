@@ -1,11 +1,17 @@
-name: Hourly Signal Check
+name: Daily Signal Check
 
 on:
   schedule:
-    # Every 5 min (GitHub Actions' shortest supported schedule interval),
-    # 13:00-20:59 UTC, Mon-Fri = 16:00-23:59 AST (Riyadh), covering US market hours
-    # across both EST and EDT with padding.
-    - cron: "*/5 13-20 * * 1-5"
+    # The live rule (config.json -> live.strategy) is RSI(2) on DAILY bars, so
+    # it can only change once a day, when the daily bar closes. Polling every
+    # 5 minutes would burn ~96 runs a day to re-read the same settled close.
+    #
+    # 20:20 UTC = 16:20 ET, shortly after the US close, Mon-Fri. The second
+    # entry covers the EST half of the year, when the close is 21:00 UTC.
+    # Remove-PartialBar discards a still-forming bar, so an early run is safe:
+    # it simply reads yesterday's close and does nothing.
+    - cron: "20 20 * * 1-5"
+    - cron: "20 21 * * 1-5"
   workflow_dispatch: {}
 
 permissions:

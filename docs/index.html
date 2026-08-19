@@ -140,7 +140,7 @@
   <div class="section-title">Watchlist</div>
   <div class="card table-wrap">
     <table id="watchlist-table">
-      <thead><tr><th>Ticker</th><th>Price</th><th>EMA9</th><th>EMA21</th><th>Trend</th></tr></thead>
+      <thead><tr><th>Ticker</th><th>Price</th><th id="indicatorHead1">EMA9</th><th id="indicatorHead2">EMA21</th><th>Position</th></tr></thead>
       <tbody><tr><td colspan="5" class="empty">Loading…</td></tr></tbody>
     </table>
   </div>
@@ -295,10 +295,23 @@ function render(snapshot, trades) {
   const wlBody = document.querySelector("#watchlist-table tbody");
   wlBody.innerHTML = "";
   const heldTicker = op ? op.ticker : null;
+  // The RSI rule reports a POSITION (LONG/FLAT) rather than a trend, and fills
+  // the rsi column instead of the two EMA columns. Relabel the headers so the
+  // table matches whichever rule actually produced the snapshot.
+  const isRsi = (snapshot.tickers || []).some(t => t.strategy === 'rsi_revert');
+  const h1 = document.getElementById('indicatorHead1');
+  const h2 = document.getElementById('indicatorHead2');
+  if (h1 && h2) {
+    h1.textContent = isRsi ? 'RSI(2)' : 'EMA9';
+    h2.textContent = isRsi ? 'Signal' : 'EMA21';
+  }
+
   (snapshot.tickers || []).forEach(t => {
     const tr = document.createElement("tr");
     if (t.ticker === heldTicker) tr.style.background = "var(--bull-bg)";
-    const badge = `<span class="badge ${t.trend === 'BULL' ? 'bull' : 'bear'}">${t.trend === 'BULL' ? '▲ Bull' : '▼ Bear'}</span>`;
+    const badge = t.strategy === 'rsi_revert'
+      ? `<span class="badge ${t.trend === 'LONG' ? 'bull' : 'bear'}">${t.trend === 'LONG' ? '● Holding' : '○ Flat'}</span>`
+      : `<span class="badge ${t.trend === 'BULL' ? 'bull' : 'bear'}">${t.trend === 'BULL' ? '▲ Bull' : '▼ Bear'}</span>`;
     const warn = t.early_warning && t.early_warning !== 'NONE'
       ? ` <span class="badge warn" title="Early warning — not a confirmed signal">⚠️ ${t.early_warning === 'WEAKENING' ? 'Weakening' : 'Strengthening'}</span>`
       : '';
@@ -307,7 +320,11 @@ function render(snapshot, trades) {
     const priceCell = live
       ? `$${shownPrice} <span class="badge live-badge" title="Live from Finnhub, ${new Date(live.at).toLocaleTimeString()}">●</span>`
       : `$${shownPrice}`;
-    tr.innerHTML = `<td><strong>${t.ticker}</strong>${t.ticker === heldTicker ? ' 📍' : ''}</td><td>${priceCell}</td><td>${t.ema9}</td><td>${t.ema21}</td><td>${badge}${warn}</td>`;
+    const col1 = t.strategy === 'rsi_revert' ? (t.rsi ?? '—') : t.ema9;
+    const col2 = t.strategy === 'rsi_revert'
+      ? (t.signal && t.signal !== 'NONE' ? `<strong>${t.signal}</strong>` : '—')
+      : t.ema21;
+    tr.innerHTML = `<td><strong>${t.ticker}</strong>${t.ticker === heldTicker ? ' 📍' : ''}</td><td>${priceCell}</td><td>${col1}</td><td>${col2}</td><td>${badge}${warn}</td>`;
     wlBody.appendChild(tr);
   });
   if (!snapshot.tickers || snapshot.tickers.length === 0) {

@@ -63,6 +63,52 @@ function Get-EmaLast {
     return $ema
 }
 
+function Get-RsiLast {
+    # Wilder's RSI over the close series. Identical maths to Ind-Rsi in the
+    # research harness, so the live signal matches what was backtested.
+    param([double[]]$Closes, [int]$Period)
+    $n = $Closes.Count
+    if ($n -lt $Period + 1) { return $null }
+    $g = 0.0; $l = 0.0
+    for ($i = 1; $i -le $Period; $i++) {
+        $d = $Closes[$i] - $Closes[$i - 1]
+        if ($d -gt 0) { $g += $d } else { $l -= $d }
+    }
+    $ag = $g / $Period; $al = $l / $Period
+    for ($i = $Period + 1; $i -lt $n; $i++) {
+        $d = $Closes[$i] - $Closes[$i - 1]
+        $cg = if ($d -gt 0) { $d } else { 0.0 }
+        $cl = if ($d -lt 0) { -$d } else { 0.0 }
+        $ag = ($ag * ($Period - 1) + $cg) / $Period
+        $al = ($al * ($Period - 1) + $cl) / $Period
+    }
+    if ($al -eq 0) { return 100.0 }
+    return 100.0 - 100.0 / (1 + $ag / $al)
+}
+
+function Remove-PartialBar {
+    # A daily strategy must act on CLOSED bars only. Yahoo returns today's bar
+    # while the session is still running and it keeps moving -- RSI could dip
+    # below the buy level mid-session and close back above it, firing a trade
+    # the backtest would never have taken. Today's bar is therefore dropped
+    # until the market has actually closed.
+    #
+    # MarketCloseUtc is "HH:mm" in UTC, because GitHub Actions runners are UTC.
+    param($Bars, [string]$Interval, [string]$MarketCloseUtc)
+    if ($Interval -ne "1d" -or $Bars.Count -eq 0) { return $Bars }
+
+    $nowUtc   = (Get-Date).ToUniversalTime()
+    $lastDate = $Bars[-1].time.Date
+    if ($lastDate -ne $nowUtc.Date) { return $Bars }   # already a closed prior day
+
+    $parts    = $MarketCloseUtc -split ":"
+    $closeUtc = $nowUtc.Date.AddHours([int]$parts[0]).AddMinutes([int]$parts[1])
+    if ($nowUtc -ge $closeUtc) { return $Bars }        # session over, bar is final
+
+    if ($Bars.Count -eq 1) { return @() }
+    return $Bars[0..($Bars.Count - 2)]
+}
+
 function Send-Toast {
     param([string]$Title, [string]$Message)
     if (-not $IsWindows) { return }

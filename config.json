@@ -8,5 +8,18 @@
   "starting_capital_sar": 100,
   "sar_per_usd": 3.75,
   "ntfy_topic": "intraday-sar-7a1d968b28",
+
+  "live": {
+    "strategy": "rsi_revert",
+    "interval": "1d",
+    "range": "1y",
+    "rsi_period": 2,
+    "rsi_buy_below": 30,
+    "rsi_exit_above": 70,
+    "market_close_utc": "20:00"
+  },
+
+  "live_notes": "live.strategy selects the rule Get-Signals.ps1 actually trades. 'rsi_revert' is RSI(2) mean reversion on DAILY bars: buy when RSI closes below rsi_buy_below, sell when it closes above rsi_exit_above. It is the only configuration tested in this project that beat a matched random control after correcting for multiple testing (p=0.03, US large caps 2000-2013). Set live.strategy to 'ema_cross' to restore the previous EMA9/21 behaviour, which uses the top-level interval/range/ema_fast/ema_slow values instead. market_close_utc is when the US session ends in UTC (20:00 = 16:00 ET); before that time today's still-forming daily bar is discarded so the rule only ever acts on closed bars. WARNINGS: the same rule measured on 5m bars for this exact watchlist came out WORSE THAN RANDOM and loss-making even at zero cost, and on Tadawul it ranked 14th of 15 with NEGATIVE per-trade expectancy -- which is why the Saudi tracker deliberately still runs ema_cross. Do not copy this block into config-sa.json.",
+
   "notes": "purification_pct is the fraction of each realized profit set aside (0.1 = 10%). Edit any value here and commit/push; the next scheduled run picks it up automatically. sar_per_usd uses SAR's fixed peg to the dollar. ntfy_topic is reused from the PC version so your existing phone subscription keeps working without resubscribing."
 }
