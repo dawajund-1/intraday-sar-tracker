@@ -2,29 +2,24 @@
   "ticker_state": {
     "AAPL": "BULL",
     "MSFT": "BEAR",
-    "NVDA": "BULL",
+    "NVDA": "BEAR",
     "TSLA": "BULL",
     "AMZN": "BULL",
     "GOOGL": "BULL",
     "META": "BEAR",
     "AMD": "BULL"
   },
-  "open_position": {
-    "ticker": "NVDA",
-    "entry_price": 219.52,
-    "entry_time": "2026-08-19T18:35:24",
-    "shares": 0.122102
-  },
+  "open_position": null,
   "portfolio": {
-    "balance_usd": 26.8039,
-    "realized_pl_usd": 0.339,
+    "balance_usd": 26.6794,
+    "realized_pl_usd": 0.2145,
     "purified_total_usd": 0.2018
   },
   "warning_state": {
     "AAPL": "WEAKENING",
     "MSFT": "NONE",
-    "NVDA": "WEAKENING",
-    "TSLA": "NONE",
+    "NVDA": "NONE",
+    "TSLA": "WEAKENING",
     "AMZN": "NONE",
     "GOOGL": "NONE",
     "META": "NONE",
