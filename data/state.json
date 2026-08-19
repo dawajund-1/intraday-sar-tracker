@@ -6,7 +6,7 @@
     "TSLA": "BULL",
     "AMZN": "BULL",
     "GOOGL": "BEAR",
-    "META": "BULL",
+    "META": "BEAR",
     "AMD": "BEAR"
   },
   "open_position": null,
@@ -16,13 +16,13 @@
     "purified_total_usd": 0.2018
   },
   "warning_state": {
-    "AAPL": "NONE",
+    "AAPL": "STRENGTHENING",
     "MSFT": "STRENGTHENING",
     "NVDA": "NONE",
     "TSLA": "NONE",
-    "AMZN": "WEAKENING",
-    "GOOGL": "NONE",
-    "META": "WEAKENING",
+    "AMZN": "NONE",
+    "GOOGL": "STRENGTHENING",
+    "META": "NONE",
     "AMD": "NONE"
   }
 }
