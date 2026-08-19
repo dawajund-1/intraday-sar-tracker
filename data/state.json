@@ -1,7 +1,7 @@
 {
   "ticker_state": {
     "AAPL": "BULL",
-    "MSFT": "BULL",
+    "MSFT": "BEAR",
     "NVDA": "BULL",
     "TSLA": "BULL",
     "AMZN": "BULL",
@@ -22,8 +22,8 @@
   },
   "warning_state": {
     "AAPL": "NONE",
-    "MSFT": "NONE",
-    "NVDA": "WEAKENING",
+    "MSFT": "STRENGTHENING",
+    "NVDA": "NONE",
     "TSLA": "NONE",
     "AMZN": "NONE",
     "GOOGL": "NONE",
