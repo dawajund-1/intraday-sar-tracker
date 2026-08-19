@@ -1,12 +1,12 @@
 {
-  "generated_at_utc": "2026-08-19T08:31:45Z",
+  "generated_at_utc": "2026-08-19T08:35:17Z",
   "tickers": [
     {
       "ticker": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 26.66,
-      "ema9": 26.6532,
-      "ema21": 26.6369,
+      "price": 26.68,
+      "ema9": 26.6604,
+      "ema21": 26.6403,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -15,8 +15,8 @@
       "ticker": "1120.SR",
       "name": "Al Rajhi Bank",
       "price": 64.3,
-      "ema9": 64.3741,
-      "ema21": 64.4628,
+      "ema9": 64.3661,
+      "ema21": 64.4586,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -38,15 +38,15 @@
       "ema9": 43.6296,
       "ema21": 43.6283,
       "trend": "BULL",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
       "ticker": "1180.SR",
       "name": "Saudi National Bank",
-      "price": 41.86,
-      "ema9": 41.8015,
-      "ema21": 41.7738,
+      "price": 41.88,
+      "ema9": 41.8119,
+      "ema21": 41.7789,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -55,18 +55,18 @@
       "ticker": "1211.SR",
       "name": "Maaden",
       "price": 65.55,
-      "ema9": 65.5424,
-      "ema21": 65.5232,
+      "ema9": 65.5504,
+      "ema21": 65.5273,
       "trend": "BULL",
       "signal": "NONE",
-      "early_warning": "NONE"
+      "early_warning": "WEAKENING"
     },
     {
       "ticker": "2280.SR",
       "name": "Almarai",
       "price": 48.42,
-      "ema9": 48.3441,
-      "ema21": 48.2622,
+      "ema9": 48.3593,
+      "ema21": 48.2765,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -74,9 +74,9 @@
     {
       "ticker": "1010.SR",
       "name": "Riyad Bank",
-      "price": 20.28,
-      "ema9": 20.2653,
-      "ema21": 20.2474,
+      "price": 20.29,
+      "ema9": 20.2718,
+      "ema21": 20.2521,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
