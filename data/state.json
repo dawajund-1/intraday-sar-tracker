@@ -25,9 +25,9 @@
     "MSFT": "NONE",
     "NVDA": "NONE",
     "TSLA": "NONE",
-    "AMZN": "NONE",
-    "GOOGL": "WEAKENING",
-    "META": "WEAKENING",
-    "AMD": "NONE"
+    "AMZN": "WEAKENING",
+    "GOOGL": "NONE",
+    "META": "NONE",
+    "AMD": "STRENGTHENING"
   }
 }
