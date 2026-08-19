@@ -19,10 +19,10 @@
     "AAPL": "NONE",
     "MSFT": "NONE",
     "NVDA": "NONE",
-    "TSLA": "NONE",
+    "TSLA": "WEAKENING",
     "AMZN": "WEAKENING",
     "GOOGL": "NONE",
     "META": "NONE",
-    "AMD": "WEAKENING"
+    "AMD": "NONE"
   }
 }
