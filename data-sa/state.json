@@ -4,13 +4,13 @@
     "1120.SR": "BEAR",
     "2010.SR": "BEAR",
     "7010.SR": "BEAR",
-    "1180.SR": "BEAR",
+    "1180.SR": "BULL",
     "1211.SR": "BULL",
     "2280.SR": "BULL",
     "1010.SR": "BULL"
   },
   "warning_state": {
-    "2222.SR": "WEAKENING",
+    "2222.SR": "NONE",
     "1120.SR": "NONE",
     "2010.SR": "NONE",
     "7010.SR": "NONE",
