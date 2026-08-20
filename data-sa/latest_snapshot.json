@@ -1,12 +1,12 @@
 {
-  "generated_at_utc": "2026-08-20T10:00:35Z",
+  "generated_at_utc": "2026-08-20T10:05:17Z",
   "tickers": [
     {
       "ticker": "2222.SR",
       "name": "Saudi Aramco",
       "price": 26.3,
-      "ema9": 26.3132,
-      "ema21": 26.3309,
+      "ema9": 26.3138,
+      "ema21": 26.3298,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -14,9 +14,9 @@
     {
       "ticker": "1120.SR",
       "name": "Al Rajhi Bank",
-      "price": 64.6,
-      "ema9": 64.5669,
-      "ema21": 64.5587,
+      "price": 64.65,
+      "ema9": 64.5915,
+      "ema21": 64.5711,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -24,29 +24,29 @@
     {
       "ticker": "2010.SR",
       "name": "SABIC",
-      "price": 49.5,
-      "ema9": 49.5022,
-      "ema21": 49.5132,
+      "price": 49.52,
+      "ema9": 49.5058,
+      "ema21": 49.5138,
       "trend": "BEAR",
       "signal": "NONE",
-      "early_warning": "NONE"
+      "early_warning": "STRENGTHENING"
     },
     {
       "ticker": "7010.SR",
       "name": "STC",
-      "price": 43.92,
-      "ema9": 43.9305,
-      "ema21": 43.9207,
+      "price": 43.94,
+      "ema9": 43.9356,
+      "ema21": 43.9241,
       "trend": "BULL",
       "signal": "NONE",
-      "early_warning": "WEAKENING"
+      "early_warning": "NONE"
     },
     {
       "ticker": "1180.SR",
       "name": "Saudi National Bank",
-      "price": 41.62,
-      "ema9": 41.5974,
-      "ema21": 41.6034,
+      "price": 41.6,
+      "ema9": 41.5979,
+      "ema21": 41.6031,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "STRENGTHENING"
@@ -55,8 +55,8 @@
       "ticker": "1211.SR",
       "name": "Maaden",
       "price": 66.8,
-      "ema9": 66.8101,
-      "ema21": 66.9122,
+      "ema9": 66.8081,
+      "ema21": 66.902,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -65,8 +65,8 @@
       "ticker": "2280.SR",
       "name": "Almarai",
       "price": 48.08,
-      "ema9": 48.0811,
-      "ema21": 48.1426,
+      "ema9": 48.086,
+      "ema21": 48.1399,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -74,12 +74,12 @@
     {
       "ticker": "1010.SR",
       "name": "Riyad Bank",
-      "price": 20.45,
-      "ema9": 20.4534,
-      "ema21": 20.4521,
+      "price": 20.48,
+      "ema9": 20.4651,
+      "ema21": 20.4579,
       "trend": "BULL",
       "signal": "NONE",
-      "early_warning": "WEAKENING"
+      "early_warning": "NONE"
     }
   ],
   "open_position": {
