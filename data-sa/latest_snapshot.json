@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-24T12:25:19Z",
+  "generated_at_utc": "2026-08-24T12:30:37Z",
   "tickers": [
     {
       "ticker": "2222.SR",
@@ -78,7 +78,7 @@
       "ema9": 20.7359,
       "ema21": 20.734,
       "trend": "BULL",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "NONE"
     }
   ],
