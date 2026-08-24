@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-24T20:00:41Z",
+  "generated_at_utc": "2026-08-24T20:05:26Z",
   "tickers": [
     {
       "ticker": "AAPL",
@@ -19,8 +19,8 @@
       "rsi": 80.71,
       "ema9": null,
       "ema21": null,
-      "trend": "LONG",
-      "signal": "SELL",
+      "trend": "FLAT",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
@@ -90,7 +90,12 @@
       "early_warning": "NONE"
     }
   ],
-  "open_position": null,
+  "open_position": {
+    "ticker": "NVDA",
+    "entry_price": 208.48,
+    "entry_time": "2026-08-24T20:05:24",
+    "shares": 0.129329
+  },
   "portfolio": {
     "balance_usd": 26.9625,
     "balance_sar": 101.11,
