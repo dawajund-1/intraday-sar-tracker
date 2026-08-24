@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-24T12:15:22Z",
+  "generated_at_utc": "2026-08-24T12:20:20Z",
   "tickers": [
     {
       "ticker": "2222.SR",
@@ -25,8 +25,8 @@
       "ticker": "2010.SR",
       "name": "SABIC",
       "price": 50.65,
-      "ema9": 50.6563,
-      "ema21": 50.7307,
+      "ema9": 50.6549,
+      "ema21": 50.7288,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -35,8 +35,8 @@
       "ticker": "7010.SR",
       "name": "STC",
       "price": 44.36,
-      "ema9": 44.3944,
-      "ema21": 44.4355,
+      "ema9": 44.3943,
+      "ema21": 44.4351,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
