@@ -1,7 +1,7 @@
 {
   "ticker_state": {
     "AAPL": "FLAT",
-    "MSFT": "LONG",
+    "MSFT": "FLAT",
     "NVDA": "FLAT",
     "TSLA": "FLAT",
     "AMZN": "FLAT",
@@ -9,16 +9,11 @@
     "META": "FLAT",
     "AMD": "FLAT"
   },
-  "open_position": {
-    "ticker": "MSFT",
-    "entry_price": 481.63,
-    "entry_time": "2026-08-19T19:50:26",
-    "shares": 0.055394
-  },
+  "open_position": null,
   "portfolio": {
-    "balance_usd": 26.6794,
-    "realized_pl_usd": 0.2145,
-    "purified_total_usd": 0.2018
+    "balance_usd": 26.9625,
+    "realized_pl_usd": 0.5291,
+    "purified_total_usd": 0.2333
   },
   "warning_state": {
     "AAPL": "NONE",
