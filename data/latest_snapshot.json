@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-08-25T19:55:24Z",
+  "generated_at_utc": "2026-08-25T20:00:38Z",
   "tickers": [
     {
       "ticker": "AAPL",
       "strategy": "rsi_revert",
-      "price": 310.34,
-      "rsi": 47.38,
+      "price": 309.9,
+      "rsi": 39.7,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -15,8 +15,8 @@
     {
       "ticker": "MSFT",
       "strategy": "rsi_revert",
-      "price": 487.31,
-      "rsi": 80.71,
+      "price": 491.71,
+      "rsi": 91.51,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -26,8 +26,8 @@
     {
       "ticker": "NVDA",
       "strategy": "rsi_revert",
-      "price": 208.48,
-      "rsi": 0.48,
+      "price": 213.05,
+      "rsi": 53.13,
       "ema9": null,
       "ema21": null,
       "trend": "LONG",
@@ -37,8 +37,8 @@
     {
       "ticker": "TSLA",
       "strategy": "rsi_revert",
-      "price": 348.95,
-      "rsi": 40.77,
+      "price": 350.25,
+      "rsi": 46.07,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -48,8 +48,8 @@
     {
       "ticker": "AMZN",
       "strategy": "rsi_revert",
-      "price": 262.07,
-      "rsi": 63.71,
+      "price": 261.06,
+      "rsi": 48.88,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -59,8 +59,8 @@
     {
       "ticker": "GOOGL",
       "strategy": "rsi_revert",
-      "price": 348.06,
-      "rsi": 82.98,
+      "price": 346.96,
+      "rsi": 62.07,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -70,8 +70,8 @@
     {
       "ticker": "META",
       "strategy": "rsi_revert",
-      "price": 559.02,
-      "rsi": 82.59,
+      "price": 570.05,
+      "rsi": 93.23,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -81,12 +81,12 @@
     {
       "ticker": "AMD",
       "strategy": "rsi_revert",
-      "price": 456.75,
-      "rsi": 13.55,
+      "price": 479.18,
+      "rsi": 70.22,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "NONE"
     }
   ],
