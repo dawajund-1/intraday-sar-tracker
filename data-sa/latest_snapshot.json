@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-25T12:20:19Z",
+  "generated_at_utc": "2026-08-25T12:25:17Z",
   "tickers": [
     {
       "ticker": "2222.SR",
@@ -74,12 +74,12 @@
     {
       "ticker": "1010.SR",
       "name": "Riyad Bank",
-      "price": 20.87,
-      "ema9": 20.8715,
-      "ema21": 20.8606,
+      "price": 20.88,
+      "ema9": 20.8735,
+      "ema21": 20.8615,
       "trend": "BULL",
       "signal": "NONE",
-      "early_warning": "WEAKENING"
+      "early_warning": "NONE"
     }
   ],
   "open_position": {
