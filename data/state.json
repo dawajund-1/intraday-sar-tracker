@@ -4,12 +4,17 @@
     "MSFT": "FLAT",
     "NVDA": "FLAT",
     "TSLA": "FLAT",
-    "AMZN": "FLAT",
+    "AMZN": "LONG",
     "GOOGL": "FLAT",
     "META": "FLAT",
     "AMD": "FLAT"
   },
-  "open_position": null,
+  "open_position": {
+    "ticker": "AMZN",
+    "entry_price": 256.26,
+    "entry_time": "2026-08-27T20:05:26",
+    "shares": 0.114072
+  },
   "portfolio": {
     "balance_usd": 29.2322,
     "realized_pl_usd": 3.051,
