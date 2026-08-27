@@ -2,23 +2,18 @@
   "ticker_state": {
     "AAPL": "FLAT",
     "MSFT": "FLAT",
-    "NVDA": "LONG",
+    "NVDA": "FLAT",
     "TSLA": "FLAT",
     "AMZN": "FLAT",
     "GOOGL": "FLAT",
     "META": "FLAT",
     "AMD": "FLAT"
   },
-  "open_position": {
-    "ticker": "NVDA",
-    "entry_price": 208.48,
-    "entry_time": "2026-08-24T20:05:24",
-    "shares": 0.129329
-  },
+  "open_position": null,
   "portfolio": {
-    "balance_usd": 26.9625,
-    "realized_pl_usd": 0.5291,
-    "purified_total_usd": 0.2333
+    "balance_usd": 29.2322,
+    "realized_pl_usd": 3.051,
+    "purified_total_usd": 0.4855
   },
   "warning_state": {
     "AAPL": "NONE",
