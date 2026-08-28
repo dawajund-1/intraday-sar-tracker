@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-28T20:05:35Z",
+  "generated_at_utc": "2026-08-28T20:10:28Z",
   "tickers": [
     {
       "ticker": "AAPL",
@@ -85,8 +85,8 @@
       "rsi": 19.19,
       "ema9": null,
       "ema21": null,
-      "trend": "FLAT",
-      "signal": "BUY",
+      "trend": "LONG",
+      "signal": "NONE",
       "early_warning": "NONE"
     }
   ],
