@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-28T20:00:37Z",
+  "generated_at_utc": "2026-08-28T20:05:35Z",
   "tickers": [
     {
       "ticker": "AAPL",
@@ -52,8 +52,8 @@
       "rsi": 80.78,
       "ema9": null,
       "ema21": null,
-      "trend": "LONG",
-      "signal": "SELL",
+      "trend": "FLAT",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
@@ -90,7 +90,12 @@
       "early_warning": "NONE"
     }
   ],
-  "open_position": null,
+  "open_position": {
+    "ticker": "AMD",
+    "entry_price": 465.58,
+    "entry_time": "2026-08-28T20:05:33",
+    "shares": 0.065029
+  },
   "portfolio": {
     "balance_usd": 30.2763,
     "balance_sar": 113.54,
