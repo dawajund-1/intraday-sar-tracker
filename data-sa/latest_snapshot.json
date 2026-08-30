@@ -1,12 +1,12 @@
 {
-  "generated_at_utc": "2026-08-30T11:41:42Z",
+  "generated_at_utc": "2026-08-30T11:45:21Z",
   "tickers": [
     {
       "ticker": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 26.12,
-      "ema9": 26.1106,
-      "ema21": 26.1022,
+      "price": 26.14,
+      "ema9": 26.1146,
+      "ema21": 26.104,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -14,9 +14,9 @@
     {
       "ticker": "1120.SR",
       "name": "Al Rajhi Bank",
-      "price": 67.95,
-      "ema9": 67.921,
-      "ema21": 67.9232,
+      "price": 67.9,
+      "ema9": 67.895,
+      "ema21": 67.9104,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "STRENGTHENING"
@@ -25,8 +25,8 @@
       "ticker": "2010.SR",
       "name": "SABIC",
       "price": 50.2,
-      "ema9": 50.2068,
-      "ema21": 50.2218,
+      "ema9": 50.2228,
+      "ema21": 50.2301,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -34,19 +34,19 @@
     {
       "ticker": "7010.SR",
       "name": "STC",
-      "price": 44.48,
-      "ema9": 44.4624,
-      "ema21": 44.4599,
-      "trend": "BULL",
-      "signal": "NONE",
+      "price": 44.42,
+      "ema9": 44.444,
+      "ema21": 44.4511,
+      "trend": "BEAR",
+      "signal": "SELL",
       "early_warning": "NONE"
     },
     {
       "ticker": "1180.SR",
       "name": "Saudi National Bank",
       "price": 42.68,
-      "ema9": 42.6915,
-      "ema21": 42.7429,
+      "ema9": 42.7075,
+      "ema21": 42.7512,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -54,19 +54,19 @@
     {
       "ticker": "1211.SR",
       "name": "Maaden",
-      "price": 67.25,
-      "ema9": 67.2661,
-      "ema21": 67.3054,
+      "price": 67.3,
+      "ema9": 67.2841,
+      "ema21": 67.3141,
       "trend": "BEAR",
       "signal": "NONE",
-      "early_warning": "NONE"
+      "early_warning": "STRENGTHENING"
     },
     {
       "ticker": "2280.SR",
       "name": "Almarai",
-      "price": 49.36,
-      "ema9": 49.3716,
-      "ema21": 49.3864,
+      "price": 49.34,
+      "ema9": 49.3644,
+      "ema21": 49.3829,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -82,15 +82,10 @@
       "early_warning": "NONE"
     }
   ],
-  "open_position": {
-    "ticker": "7010.SR",
-    "entry_price": 44.46,
-    "entry_time": "2026-08-30T11:40:16",
-    "shares": 2.224285
-  },
+  "open_position": null,
   "portfolio": {
-    "balance_sar": 98.8917,
-    "realized_pl_sar": -0.5028,
+    "balance_sar": 98.8027,
+    "realized_pl_sar": -0.5918,
     "purified_total_sar": 0.6055
   },
   "config": {
