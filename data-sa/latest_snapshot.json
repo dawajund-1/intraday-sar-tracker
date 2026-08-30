@@ -1,25 +1,25 @@
 {
-  "generated_at_utc": "2026-08-30T11:17:21Z",
+  "generated_at_utc": "2026-08-30T11:20:20Z",
   "tickers": [
     {
       "ticker": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 26.1,
-      "ema9": 26.0842,
-      "ema21": 26.0878,
-      "trend": "BEAR",
-      "signal": "NONE",
-      "early_warning": "STRENGTHENING"
+      "price": 26.12,
+      "ema9": 26.0914,
+      "ema21": 26.0913,
+      "trend": "BULL",
+      "signal": "BUY",
+      "early_warning": "NONE"
     },
     {
       "ticker": "1120.SR",
       "name": "Al Rajhi Bank",
-      "price": 67.9,
-      "ema9": 67.911,
-      "ema21": 67.9238,
+      "price": 67.95,
+      "ema9": 67.921,
+      "ema21": 67.9283,
       "trend": "BEAR",
       "signal": "NONE",
-      "early_warning": "NONE"
+      "early_warning": "STRENGTHENING"
     },
     {
       "ticker": "2010.SR",
@@ -35,8 +35,8 @@
       "ticker": "7010.SR",
       "name": "STC",
       "price": 44.46,
-      "ema9": 44.4428,
-      "ema21": 44.4514,
+      "ema9": 44.446,
+      "ema21": 44.453,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "STRENGTHENING"
@@ -44,19 +44,19 @@
     {
       "ticker": "1180.SR",
       "name": "Saudi National Bank",
-      "price": 42.74,
-      "ema9": 42.7385,
-      "ema21": 42.7835,
+      "price": 42.72,
+      "ema9": 42.7377,
+      "ema21": 42.7833,
       "trend": "BEAR",
       "signal": "NONE",
-      "early_warning": "STRENGTHENING"
+      "early_warning": "NONE"
     },
     {
       "ticker": "1211.SR",
       "name": "Maaden",
       "price": 67.4,
-      "ema9": 67.3936,
-      "ema21": 67.375,
+      "ema9": 67.3856,
+      "ema21": 67.3709,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -64,12 +64,12 @@
     {
       "ticker": "2280.SR",
       "name": "Almarai",
-      "price": 49.4,
-      "ema9": 49.3978,
-      "ema21": 49.4017,
+      "price": 49.36,
+      "ema9": 49.3962,
+      "ema21": 49.4014,
       "trend": "BEAR",
       "signal": "NONE",
-      "early_warning": "STRENGTHENING"
+      "early_warning": "NONE"
     },
     {
       "ticker": "1010.SR",
