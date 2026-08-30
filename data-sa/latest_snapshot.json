@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-30T11:29:22Z",
+  "generated_at_utc": "2026-08-30T11:30:24Z",
   "tickers": [
     {
       "ticker": "2222.SR",
@@ -14,12 +14,12 @@
     {
       "ticker": "1120.SR",
       "name": "Al Rajhi Bank",
-      "price": 68.0,
-      "ema9": 67.9414,
-      "ema21": 67.9366,
-      "trend": "BULL",
-      "signal": "BUY",
-      "early_warning": "NONE"
+      "price": 67.95,
+      "ema9": 67.9234,
+      "ema21": 67.9279,
+      "trend": "BEAR",
+      "signal": "SELL",
+      "early_warning": "STRENGTHENING"
     },
     {
       "ticker": "2010.SR",
@@ -35,10 +35,10 @@
       "ticker": "7010.SR",
       "name": "STC",
       "price": 44.48,
-      "ema9": 44.4576,
-      "ema21": 44.4576,
+      "ema9": 44.4608,
+      "ema21": 44.4592,
       "trend": "BULL",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
@@ -54,9 +54,9 @@
     {
       "ticker": "1211.SR",
       "name": "Maaden",
-      "price": 67.3,
-      "ema9": 67.334,
-      "ema21": 67.3469,
+      "price": 67.2,
+      "ema9": 67.314,
+      "ema21": 67.3378,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -82,15 +82,10 @@
       "early_warning": "NONE"
     }
   ],
-  "open_position": {
-    "ticker": "1120.SR",
-    "entry_price": 68.0,
-    "entry_time": "2026-08-30T11:29:19",
-    "shares": 1.45536
-  },
+  "open_position": null,
   "portfolio": {
-    "balance_sar": 98.9645,
-    "realized_pl_sar": -0.43,
+    "balance_sar": 98.8917,
+    "realized_pl_sar": -0.5028,
     "purified_total_sar": 0.6055
   },
   "config": {
