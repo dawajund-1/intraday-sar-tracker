@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-31T19:10:33Z",
+  "generated_at_utc": "2026-08-31T19:15:34Z",
   "tickers": [
     {
       "ticker": "AAPL",
@@ -48,23 +48,23 @@
     {
       "ticker": "AMZN",
       "strategy": "rsi_revert",
-      "price": 256.26,
-      "rsi": 9.65,
+      "price": 266.43,
+      "rsi": 80.78,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
       "ticker": "GOOGL",
       "strategy": "rsi_revert",
-      "price": 340.65,
-      "rsi": 13.76,
+      "price": 346.59,
+      "rsi": 74.74,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
@@ -81,8 +81,8 @@
     {
       "ticker": "AMD",
       "strategy": "rsi_revert",
-      "price": 476.67,
-      "rsi": 50.27,
+      "price": 465.58,
+      "rsi": 19.19,
       "ema9": null,
       "ema21": null,
       "trend": "LONG",
