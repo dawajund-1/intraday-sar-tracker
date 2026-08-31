@@ -1,12 +1,12 @@
 {
-  "generated_at_utc": "2026-08-31T07:48:46Z",
+  "generated_at_utc": "2026-08-31T07:50:17Z",
   "tickers": [
     {
       "ticker": "2222.SR",
       "name": "Saudi Aramco",
       "price": 26.24,
-      "ema9": 26.211,
-      "ema21": 26.1749,
+      "ema9": 26.2142,
+      "ema21": 26.1766,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -15,10 +15,10 @@
       "ticker": "1120.SR",
       "name": "Al Rajhi Bank",
       "price": 67.85,
-      "ema9": 67.8876,
-      "ema21": 67.8985,
+      "ema9": 67.8956,
+      "ema21": 67.9026,
       "trend": "BEAR",
-      "signal": "SELL",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
@@ -28,7 +28,7 @@
       "ema9": 50.2373,
       "ema21": 50.2414,
       "trend": "BEAR",
-      "signal": "SELL",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
@@ -45,8 +45,8 @@
       "ticker": "1180.SR",
       "name": "Saudi National Bank",
       "price": 43.04,
-      "ema9": 42.9592,
-      "ema21": 42.8729,
+      "ema9": 42.956,
+      "ema21": 42.8712,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -54,9 +54,9 @@
     {
       "ticker": "1211.SR",
       "name": "Maaden",
-      "price": 67.2,
-      "ema9": 67.3766,
-      "ema21": 67.3728,
+      "price": 67.4,
+      "ema9": 67.4246,
+      "ema21": 67.3951,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "WEAKENING"
@@ -64,9 +64,9 @@
     {
       "ticker": "2280.SR",
       "name": "Almarai",
-      "price": 49.18,
-      "ema9": 49.2573,
-      "ema21": 49.3144,
+      "price": 49.12,
+      "ema9": 49.2485,
+      "ema21": 49.3106,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -74,9 +74,9 @@
     {
       "ticker": "1010.SR",
       "name": "Riyad Bank",
-      "price": 20.79,
-      "ema9": 20.7562,
-      "ema21": 20.7365,
+      "price": 20.78,
+      "ema9": 20.7574,
+      "ema21": 20.7372,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
