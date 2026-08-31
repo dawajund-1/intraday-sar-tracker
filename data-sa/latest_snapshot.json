@@ -1,22 +1,22 @@
 {
-  "generated_at_utc": "2026-08-31T09:52:43Z",
+  "generated_at_utc": "2026-08-31T09:55:15Z",
   "tickers": [
     {
       "ticker": "2222.SR",
       "name": "Saudi Aramco",
       "price": 26.22,
-      "ema9": 26.2137,
-      "ema21": 26.2143,
-      "trend": "BEAR",
-      "signal": "SELL",
-      "early_warning": "STRENGTHENING"
+      "ema9": 26.2169,
+      "ema21": 26.2159,
+      "trend": "BULL",
+      "signal": "BUY",
+      "early_warning": "NONE"
     },
     {
       "ticker": "1120.SR",
       "name": "Al Rajhi Bank",
-      "price": 67.9,
-      "ema9": 67.9157,
-      "ema21": 67.9295,
+      "price": 67.85,
+      "ema9": 67.8977,
+      "ema21": 67.9208,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -24,9 +24,9 @@
     {
       "ticker": "2010.SR",
       "name": "SABIC",
-      "price": 50.15,
-      "ema9": 50.1698,
-      "ema21": 50.1769,
+      "price": 50.05,
+      "ema9": 50.1178,
+      "ema21": 50.1513,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -44,9 +44,9 @@
     {
       "ticker": "1180.SR",
       "name": "Saudi National Bank",
-      "price": 43.18,
-      "ema9": 43.1781,
-      "ema21": 43.1439,
+      "price": 43.22,
+      "ema9": 43.1925,
+      "ema21": 43.1508,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -54,22 +54,22 @@
     {
       "ticker": "1211.SR",
       "name": "Maaden",
-      "price": 67.55,
-      "ema9": 67.5448,
-      "ema21": 67.5274,
+      "price": 67.5,
+      "ema9": 67.5428,
+      "ema21": 67.527,
       "trend": "BULL",
       "signal": "NONE",
-      "early_warning": "NONE"
+      "early_warning": "WEAKENING"
     },
     {
       "ticker": "2280.SR",
       "name": "Almarai",
-      "price": 49.4,
-      "ema9": 49.3935,
-      "ema21": 49.348,
+      "price": 49.34,
+      "ema9": 49.3687,
+      "ema21": 49.3359,
       "trend": "BULL",
       "signal": "NONE",
-      "early_warning": "NONE"
+      "early_warning": "WEAKENING"
     },
     {
       "ticker": "1010.SR",
@@ -82,7 +82,12 @@
       "early_warning": "NONE"
     }
   ],
-  "open_position": null,
+  "open_position": {
+    "ticker": "2222.SR",
+    "entry_price": 26.22,
+    "entry_time": "2026-08-31T09:55:14",
+    "shares": 3.751449
+  },
   "portfolio": {
     "balance_sar": 98.363,
     "realized_pl_sar": -1.0315,
