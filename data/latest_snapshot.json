@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-31T20:10:33Z",
+  "generated_at_utc": "2026-08-31T20:15:24Z",
   "tickers": [
     {
       "ticker": "AAPL",
@@ -26,8 +26,8 @@
     {
       "ticker": "NVDA",
       "strategy": "rsi_revert",
-      "price": 220.5,
-      "rsi": 52.42,
+      "price": 220.78,
+      "rsi": 53.23,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
