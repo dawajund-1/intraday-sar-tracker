@@ -1,12 +1,12 @@
 {
-  "generated_at_utc": "2026-08-31T12:15:29Z",
+  "generated_at_utc": "2026-08-31T12:20:19Z",
   "tickers": [
     {
       "ticker": "2222.SR",
       "name": "Saudi Aramco",
       "price": 26.2,
       "ema9": 26.2008,
-      "ema21": 26.2041,
+      "ema21": 26.2039,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
