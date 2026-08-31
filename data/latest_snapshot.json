@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-31T20:50:25Z",
+  "generated_at_utc": "2026-08-31T20:55:22Z",
   "tickers": [
     {
       "ticker": "AAPL",
@@ -60,7 +60,7 @@
       "ticker": "GOOGL",
       "strategy": "rsi_revert",
       "price": 339.35,
-      "rsi": 9.01,
+      "rsi": 27.44,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
