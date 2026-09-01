@@ -1,12 +1,12 @@
 {
-  "generated_at_utc": "2026-09-01T10:58:02Z",
+  "generated_at_utc": "2026-09-01T11:00:30Z",
   "tickers": [
     {
       "ticker": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 26.06,
-      "ema9": 26.0537,
-      "ema21": 26.0676,
+      "price": 26.08,
+      "ema9": 26.0609,
+      "ema21": 26.0711,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "STRENGTHENING"
@@ -14,12 +14,12 @@
     {
       "ticker": "1120.SR",
       "name": "Al Rajhi Bank",
-      "price": 66.9,
-      "ema9": 66.8756,
-      "ema21": 67.0041,
+      "price": 66.85,
+      "ema9": 66.8736,
+      "ema21": 67.0037,
       "trend": "BEAR",
       "signal": "NONE",
-      "early_warning": "STRENGTHENING"
+      "early_warning": "NONE"
     },
     {
       "ticker": "2010.SR",
@@ -34,19 +34,19 @@
     {
       "ticker": "7010.SR",
       "name": "STC",
-      "price": 44.24,
-      "ema9": 44.2462,
-      "ema21": 44.2824,
+      "price": 44.28,
+      "ema9": 44.2574,
+      "ema21": 44.2877,
       "trend": "BEAR",
       "signal": "NONE",
-      "early_warning": "NONE"
+      "early_warning": "STRENGTHENING"
     },
     {
       "ticker": "1180.SR",
       "name": "Saudi National Bank",
-      "price": 42.68,
-      "ema9": 42.6724,
-      "ema21": 42.713,
+      "price": 42.76,
+      "ema9": 42.698,
+      "ema21": 42.7253,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "STRENGTHENING"
@@ -54,9 +54,9 @@
     {
       "ticker": "1211.SR",
       "name": "Maaden",
-      "price": 66.4,
-      "ema9": 66.4074,
-      "ema21": 66.4838,
+      "price": 66.2,
+      "ema9": 66.3354,
+      "ema21": 66.4491,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -64,9 +64,9 @@
     {
       "ticker": "2280.SR",
       "name": "Almarai",
-      "price": 48.8,
-      "ema9": 48.7818,
-      "ema21": 48.8248,
+      "price": 48.78,
+      "ema9": 48.7778,
+      "ema21": 48.823,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "STRENGTHENING"
