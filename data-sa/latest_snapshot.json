@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-01T14:10:20Z",
+  "generated_at_utc": "2026-09-01T14:15:24Z",
   "tickers": [
     {
       "ticker": "2222.SR",
@@ -47,6 +47,16 @@
       "price": 42.82,
       "ema9": 42.7598,
       "ema21": 42.7501,
+      "trend": "BULL",
+      "signal": "NONE",
+      "early_warning": "NONE"
+    },
+    {
+      "ticker": "1211.SR",
+      "name": "Maaden",
+      "price": 66.6,
+      "ema9": 66.3084,
+      "ema21": 66.2991,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
