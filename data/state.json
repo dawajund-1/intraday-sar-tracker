@@ -21,11 +21,11 @@
     "purified_total_usd": 0.6015
   },
   "warning_state": {
-    "AMZN": "NONE",
     "AAPL": "NONE",
     "MSFT": "NONE",
     "NVDA": "NONE",
     "TSLA": "NONE",
+    "AMZN": "NONE",
     "GOOGL": "NONE",
     "META": "NONE",
     "AMD": "NONE"

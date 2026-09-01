@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-01T08:35:20Z",
+  "generated_at_utc": "2026-09-01T08:40:25Z",
   "tickers": [
     {
       "ticker": "AAPL",
@@ -39,6 +39,17 @@
       "strategy": "rsi_revert",
       "price": 367.95,
       "rsi": 84.3,
+      "ema9": null,
+      "ema21": null,
+      "trend": "FLAT",
+      "signal": "NONE",
+      "early_warning": "NONE"
+    },
+    {
+      "ticker": "AMZN",
+      "strategy": "rsi_revert",
+      "price": 259.77,
+      "rsi": 39.77,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
