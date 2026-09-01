@@ -1,12 +1,12 @@
 {
-  "generated_at_utc": "2026-09-01T09:15:19Z",
+  "generated_at_utc": "2026-09-01T09:17:05Z",
   "tickers": [
     {
       "ticker": "2222.SR",
       "name": "Saudi Aramco",
       "price": 26.06,
-      "ema9": 26.1208,
-      "ema21": 26.1597,
+      "ema9": 26.1086,
+      "ema21": 26.1506,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -14,9 +14,9 @@
     {
       "ticker": "1120.SR",
       "name": "Al Rajhi Bank",
-      "price": 67.3,
-      "ema9": 67.3614,
-      "ema21": 67.5019,
+      "price": 67.35,
+      "ema9": 67.3671,
+      "ema21": 67.4922,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -25,8 +25,8 @@
       "ticker": "2010.SR",
       "name": "SABIC",
       "price": 50.0,
-      "ema9": 50.0072,
-      "ema21": 50.0123,
+      "ema9": 50.0058,
+      "ema21": 50.0112,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -35,8 +35,8 @@
       "ticker": "7010.SR",
       "name": "STC",
       "price": 44.42,
-      "ema9": 44.4229,
-      "ema21": 44.4257,
+      "ema9": 44.4223,
+      "ema21": 44.4252,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -45,8 +45,8 @@
       "ticker": "1180.SR",
       "name": "Saudi National Bank",
       "price": 42.86,
-      "ema9": 42.8625,
-      "ema21": 42.8935,
+      "ema9": 42.862,
+      "ema21": 42.8905,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -54,9 +54,9 @@
     {
       "ticker": "1211.SR",
       "name": "Maaden",
-      "price": 66.75,
-      "ema9": 66.7468,
-      "ema21": 66.8108,
+      "price": 66.8,
+      "ema9": 66.7574,
+      "ema21": 66.8098,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "STRENGTHENING"
@@ -75,8 +75,8 @@
       "ticker": "1010.SR",
       "name": "Riyad Bank",
       "price": 20.85,
-      "ema9": 20.8448,
-      "ema21": 20.8431,
+      "ema9": 20.8458,
+      "ema21": 20.8437,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
