@@ -1,12 +1,12 @@
 {
-  "generated_at_utc": "2026-09-01T08:40:17Z",
+  "generated_at_utc": "2026-09-01T08:41:30Z",
   "tickers": [
     {
       "ticker": "2222.SR",
       "name": "Saudi Aramco",
       "price": 26.18,
-      "ema9": 26.1951,
-      "ema21": 26.2037,
+      "ema9": 26.1921,
+      "ema21": 26.2015,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -14,9 +14,9 @@
     {
       "ticker": "1120.SR",
       "name": "Al Rajhi Bank",
-      "price": 67.45,
-      "ema9": 67.6284,
-      "ema21": 67.7117,
+      "price": 67.4,
+      "ema9": 67.5748,
+      "ema21": 67.6793,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -25,8 +25,8 @@
       "ticker": "2010.SR",
       "name": "SABIC",
       "price": 50.05,
-      "ema9": 50.0446,
-      "ema21": 50.0286,
+      "ema9": 50.0456,
+      "ema21": 50.0305,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -44,9 +44,9 @@
     {
       "ticker": "1180.SR",
       "name": "Saudi National Bank",
-      "price": 42.84,
-      "ema9": 42.8781,
-      "ema21": 42.9261,
+      "price": 42.8,
+      "ema9": 42.8593,
+      "ema21": 42.9129,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -54,9 +54,9 @@
     {
       "ticker": "1211.SR",
       "name": "Maaden",
-      "price": 66.75,
-      "ema9": 66.8509,
-      "ema21": 66.8942,
+      "price": 66.8,
+      "ema9": 66.8423,
+      "ema21": 66.886,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -65,8 +65,8 @@
       "ticker": "2280.SR",
       "name": "Almarai",
       "price": 48.98,
-      "ema9": 49.0942,
-      "ema21": 49.1533,
+      "ema9": 49.0714,
+      "ema21": 49.1375,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -74,12 +74,12 @@
     {
       "ticker": "1010.SR",
       "name": "Riyad Bank",
-      "price": 20.84,
-      "ema9": 20.8382,
-      "ema21": 20.8415,
+      "price": 20.82,
+      "ema9": 20.8345,
+      "ema21": 20.8396,
       "trend": "BEAR",
       "signal": "NONE",
-      "early_warning": "STRENGTHENING"
+      "early_warning": "NONE"
     }
   ],
   "open_position": null,
