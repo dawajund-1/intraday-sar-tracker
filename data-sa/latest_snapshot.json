@@ -1,22 +1,22 @@
 {
-  "generated_at_utc": "2026-09-02T09:47:04Z",
+  "generated_at_utc": "2026-09-02T09:50:17Z",
   "tickers": [
     {
       "ticker": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 26.08,
-      "ema9": 26.0741,
-      "ema21": 26.0803,
+      "price": 26.06,
+      "ema9": 26.0733,
+      "ema21": 26.0801,
       "trend": "BEAR",
       "signal": "NONE",
-      "early_warning": "STRENGTHENING"
+      "early_warning": "NONE"
     },
     {
       "ticker": "1120.SR",
       "name": "Al Rajhi Bank",
-      "price": 66.6,
-      "ema9": 66.6867,
-      "ema21": 66.7362,
+      "price": 66.55,
+      "ema9": 66.6607,
+      "ema21": 66.7234,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -34,29 +34,29 @@
     {
       "ticker": "7010.SR",
       "name": "STC",
-      "price": 44.14,
-      "ema9": 44.1476,
-      "ema21": 44.1637,
+      "price": 44.16,
+      "ema9": 44.1548,
+      "ema21": 44.1672,
+      "trend": "BEAR",
+      "signal": "NONE",
+      "early_warning": "STRENGTHENING"
+    },
+    {
+      "ticker": "1180.SR",
+      "name": "Saudi National Bank",
+      "price": 42.62,
+      "ema9": 42.6841,
+      "ema21": 42.6889,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
     },
     {
-      "ticker": "1180.SR",
-      "name": "Saudi National Bank",
-      "price": 42.64,
-      "ema9": 42.6913,
-      "ema21": 42.6924,
-      "trend": "BEAR",
-      "signal": "SELL",
-      "early_warning": "NONE"
-    },
-    {
       "ticker": "1211.SR",
       "name": "Maaden",
-      "price": 65.7,
-      "ema9": 65.7193,
-      "ema21": 65.7562,
+      "price": 65.65,
+      "ema9": 65.7093,
+      "ema21": 65.7516,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -64,9 +64,9 @@
     {
       "ticker": "2280.SR",
       "name": "Almarai",
-      "price": 48.04,
-      "ema9": 48.0801,
-      "ema21": 48.118,
+      "price": 48.0,
+      "ema9": 48.0593,
+      "ema21": 48.1078,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
