@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-02T12:25:18Z",
+  "generated_at_utc": "2026-09-02T12:30:26Z",
   "tickers": [
     {
       "ticker": "2222.SR",
@@ -34,12 +34,12 @@
     {
       "ticker": "7010.SR",
       "name": "STC",
-      "price": 44.0,
-      "ema9": 43.9653,
-      "ema21": 44.0018,
+      "price": 43.86,
+      "ema9": 43.9442,
+      "ema21": 43.9889,
       "trend": "BEAR",
       "signal": "NONE",
-      "early_warning": "STRENGTHENING"
+      "early_warning": "NONE"
     },
     {
       "ticker": "1180.SR",
