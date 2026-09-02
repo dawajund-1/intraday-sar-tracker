@@ -1,12 +1,12 @@
 {
-  "generated_at_utc": "2026-09-02T07:19:45Z",
+  "generated_at_utc": "2026-09-02T07:20:18Z",
   "tickers": [
     {
       "ticker": "2222.SR",
       "name": "Saudi Aramco",
       "price": 26.16,
-      "ema9": 26.132,
-      "ema21": 26.11,
+      "ema9": 26.1288,
+      "ema21": 26.1084,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -18,7 +18,7 @@
       "ema9": 66.8881,
       "ema21": 66.9132,
       "trend": "BEAR",
-      "signal": "SELL",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
@@ -34,9 +34,9 @@
     {
       "ticker": "7010.SR",
       "name": "STC",
-      "price": 44.32,
-      "ema9": 44.2832,
-      "ema21": 44.2766,
+      "price": 44.3,
+      "ema9": 44.2792,
+      "ema21": 44.2748,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -48,17 +48,17 @@
       "ema9": 42.7134,
       "ema21": 42.7285,
       "trend": "BEAR",
-      "signal": "SELL",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
       "ticker": "1211.SR",
       "name": "Maaden",
       "price": 66.2,
-      "ema9": 66.2387,
-      "ema21": 66.2653,
+      "ema9": 66.2147,
+      "ema21": 66.2529,
       "trend": "BEAR",
-      "signal": "SELL",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
