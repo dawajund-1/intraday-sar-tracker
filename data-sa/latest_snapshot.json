@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-02T08:24:25Z",
+  "generated_at_utc": "2026-09-02T08:25:19Z",
   "tickers": [
     {
       "ticker": "2222.SR",
@@ -15,18 +15,18 @@
       "ticker": "1120.SR",
       "name": "Al Rajhi Bank",
       "price": 66.9,
-      "ema9": 66.9043,
-      "ema21": 66.8809,
+      "ema9": 66.8963,
+      "ema21": 66.8768,
       "trend": "BULL",
       "signal": "NONE",
-      "early_warning": "WEAKENING"
+      "early_warning": "NONE"
     },
     {
       "ticker": "2010.SR",
       "name": "SABIC",
       "price": 49.84,
-      "ema9": 49.8552,
-      "ema21": 49.8469,
+      "ema9": 49.8616,
+      "ema21": 49.8502,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "WEAKENING"
@@ -34,19 +34,19 @@
     {
       "ticker": "7010.SR",
       "name": "STC",
-      "price": 44.28,
-      "ema9": 44.2697,
-      "ema21": 44.2687,
-      "trend": "BULL",
-      "signal": "NONE",
+      "price": 44.26,
+      "ema9": 44.2657,
+      "ema21": 44.2669,
+      "trend": "BEAR",
+      "signal": "SELL",
       "early_warning": "NONE"
     },
     {
       "ticker": "1180.SR",
       "name": "Saudi National Bank",
-      "price": 42.76,
-      "ema9": 42.7228,
-      "ema21": 42.7019,
+      "price": 42.74,
+      "ema9": 42.7252,
+      "ema21": 42.7034,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -64,9 +64,9 @@
     {
       "ticker": "2280.SR",
       "name": "Almarai",
-      "price": 48.28,
-      "ema9": 48.2212,
-      "ema21": 48.2463,
+      "price": 48.26,
+      "ema9": 48.2172,
+      "ema21": 48.2444,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "STRENGTHENING"
@@ -74,12 +74,12 @@
     {
       "ticker": "1010.SR",
       "name": "Riyad Bank",
-      "price": 20.7,
-      "ema9": 20.6952,
-      "ema21": 20.6883,
+      "price": 20.69,
+      "ema9": 20.6932,
+      "ema21": 20.6874,
       "trend": "BULL",
       "signal": "NONE",
-      "early_warning": "NONE"
+      "early_warning": "WEAKENING"
     }
   ],
   "open_position": null,
