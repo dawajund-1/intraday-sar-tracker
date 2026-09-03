@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-03T10:23:24Z",
+  "generated_at_utc": "2026-09-03T10:25:18Z",
   "tickers": [
     {
       "ticker": "2222.SR",
@@ -15,8 +15,8 @@
       "ticker": "1120.SR",
       "name": "Al Rajhi Bank",
       "price": 66.65,
-      "ema9": 66.6061,
-      "ema21": 66.576,
+      "ema9": 66.5981,
+      "ema21": 66.5719,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -24,42 +24,42 @@
     {
       "ticker": "2010.SR",
       "name": "SABIC",
-      "price": 49.62,
-      "ema9": 49.6198,
-      "ema21": 49.5949,
+      "price": 49.6,
+      "ema9": 49.6126,
+      "ema21": 49.5915,
       "trend": "BULL",
       "signal": "NONE",
-      "early_warning": "NONE"
+      "early_warning": "WEAKENING"
     },
     {
       "ticker": "7010.SR",
       "name": "STC",
       "price": 43.84,
-      "ema9": 43.9307,
-      "ema21": 43.9503,
+      "ema9": 43.9339,
+      "ema21": 43.952,
       "trend": "BEAR",
-      "signal": "SELL",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
       "ticker": "1180.SR",
       "name": "Saudi National Bank",
-      "price": 42.64,
-      "ema9": 42.6545,
-      "ema21": 42.6559,
+      "price": 42.5,
+      "ema9": 42.6297,
+      "ema21": 42.6448,
       "trend": "BEAR",
-      "signal": "SELL",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
       "ticker": "1211.SR",
       "name": "Maaden",
-      "price": 66.6,
-      "ema9": 66.5584,
-      "ema21": 66.5184,
+      "price": 66.55,
+      "ema9": 66.5564,
+      "ema21": 66.518,
       "trend": "BULL",
       "signal": "NONE",
-      "early_warning": "NONE"
+      "early_warning": "WEAKENING"
     },
     {
       "ticker": "2280.SR",
@@ -74,9 +74,9 @@
     {
       "ticker": "1010.SR",
       "name": "Riyad Bank",
-      "price": 20.68,
-      "ema9": 20.6763,
-      "ema21": 20.6692,
+      "price": 20.69,
+      "ema9": 20.6783,
+      "ema21": 20.6702,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
