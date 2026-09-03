@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-03T11:55:19Z",
+  "generated_at_utc": "2026-09-03T12:00:30Z",
   "tickers": [
     {
       "ticker": "2222.SR",
@@ -8,7 +8,7 @@
       "ema9": 26.0512,
       "ema21": 26.0546,
       "trend": "BEAR",
-      "signal": "SELL",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
@@ -34,9 +34,9 @@
     {
       "ticker": "7010.SR",
       "name": "STC",
-      "price": 43.9,
-      "ema9": 43.9003,
-      "ema21": 43.9125,
+      "price": 43.88,
+      "ema9": 43.8963,
+      "ema21": 43.9106,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -58,18 +58,18 @@
       "ema9": 66.5767,
       "ema21": 66.5796,
       "trend": "BEAR",
-      "signal": "SELL",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
       "ticker": "2280.SR",
       "name": "Almarai",
-      "price": 47.3,
-      "ema9": 47.2925,
-      "ema21": 47.339,
+      "price": 47.22,
+      "ema9": 47.2797,
+      "ema21": 47.3333,
       "trend": "BEAR",
       "signal": "NONE",
-      "early_warning": "STRENGTHENING"
+      "early_warning": "NONE"
     },
     {
       "ticker": "1010.SR",
