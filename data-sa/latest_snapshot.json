@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-03T07:10:20Z",
+  "generated_at_utc": "2026-09-03T07:15:20Z",
   "tickers": [
     {
       "ticker": "2222.SR",
@@ -14,19 +14,19 @@
     {
       "ticker": "1120.SR",
       "name": "Al Rajhi Bank",
-      "price": 66.2,
-      "ema9": 66.2282,
-      "ema21": 66.2574,
+      "price": 66.35,
+      "ema9": 66.2582,
+      "ema21": 66.271,
       "trend": "BEAR",
       "signal": "NONE",
-      "early_warning": "NONE"
+      "early_warning": "STRENGTHENING"
     },
     {
       "ticker": "2010.SR",
       "name": "SABIC",
-      "price": 49.5,
-      "ema9": 49.5495,
-      "ema21": 49.5832,
+      "price": 49.52,
+      "ema9": 49.5535,
+      "ema21": 49.5851,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -44,9 +44,9 @@
     {
       "ticker": "1180.SR",
       "name": "Saudi National Bank",
-      "price": 42.14,
-      "ema9": 42.2856,
-      "ema21": 42.3397,
+      "price": 42.3,
+      "ema9": 42.3176,
+      "ema21": 42.3542,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -54,19 +54,19 @@
     {
       "ticker": "1211.SR",
       "name": "Maaden",
-      "price": 65.7,
-      "ema9": 65.4885,
-      "ema21": 65.5354,
-      "trend": "BEAR",
-      "signal": "NONE",
-      "early_warning": "STRENGTHENING"
+      "price": 66.15,
+      "ema9": 65.5785,
+      "ema21": 65.5763,
+      "trend": "BULL",
+      "signal": "BUY",
+      "early_warning": "NONE"
     },
     {
       "ticker": "2280.SR",
       "name": "Almarai",
-      "price": 47.5,
-      "ema9": 47.5639,
-      "ema21": 47.6839,
+      "price": 47.32,
+      "ema9": 47.5279,
+      "ema21": 47.6675,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -74,15 +74,20 @@
     {
       "ticker": "1010.SR",
       "name": "Riyad Bank",
-      "price": 20.48,
-      "ema9": 20.5093,
-      "ema21": 20.5336,
+      "price": 20.5,
+      "ema9": 20.5133,
+      "ema21": 20.5354,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
     }
   ],
-  "open_position": null,
+  "open_position": {
+    "ticker": "1211.SR",
+    "entry_price": 66.15,
+    "entry_time": "2026-09-03T07:15:19",
+    "shares": 1.455534
+  },
   "portfolio": {
     "balance_sar": 96.2836,
     "realized_pl_sar": -3.1035,
