@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-04T20:00:40Z",
+  "generated_at_utc": "2026-09-04T20:05:21Z",
   "tickers": [
     {
       "ticker": "AAPL",
@@ -85,12 +85,17 @@
       "rsi": 88.17,
       "ema9": null,
       "ema21": null,
-      "trend": "LONG",
-      "signal": "SELL",
+      "trend": "FLAT",
+      "signal": "NONE",
       "early_warning": "NONE"
     }
   ],
-  "open_position": null,
+  "open_position": {
+    "ticker": "AAPL",
+    "entry_price": 319.97,
+    "entry_time": "2026-09-04T20:05:19",
+    "shares": 0.096815
+  },
   "portfolio": {
     "balance_usd": 30.978,
     "balance_sar": 116.17,

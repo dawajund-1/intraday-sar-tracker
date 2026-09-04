@@ -1,6 +1,6 @@
 {
   "ticker_state": {
-    "AAPL": "FLAT",
+    "AAPL": "LONG",
     "MSFT": "FLAT",
     "NVDA": "FLAT",
     "TSLA": "FLAT",
@@ -9,7 +9,12 @@
     "META": "FLAT",
     "AMD": "FLAT"
   },
-  "open_position": null,
+  "open_position": {
+    "ticker": "AAPL",
+    "entry_price": 319.97,
+    "entry_time": "2026-09-04T20:05:19",
+    "shares": 0.096815
+  },
   "portfolio": {
     "balance_usd": 30.978,
     "realized_pl_usd": 4.9908,
