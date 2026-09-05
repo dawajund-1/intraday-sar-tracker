@@ -7,9 +7,14 @@
     "AMZN": "FLAT",
     "GOOGL": "FLAT",
     "META": "FLAT",
-    "AMD": "FLAT"
+    "AMD": "LONG"
   },
-  "open_position": null,
+  "open_position": {
+    "ticker": "AMD",
+    "entry_price": 456.16,
+    "entry_time": "2026-09-05T00:05:26",
+    "shares": 0.069484
+  },
   "portfolio": {
     "balance_usd": 31.696,
     "realized_pl_usd": 5.7886,
