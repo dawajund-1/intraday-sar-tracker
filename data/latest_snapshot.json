@@ -1,22 +1,22 @@
 {
-  "generated_at_utc": "2026-09-05T01:55:20Z",
+  "generated_at_utc": "2026-09-05T02:00:40Z",
   "tickers": [
     {
       "ticker": "AAPL",
       "strategy": "rsi_revert",
-      "price": 328.21,
-      "rsi": 92.67,
+      "price": 319.97,
+      "rsi": 25.31,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
-      "signal": "NONE",
+      "signal": "BUY",
       "early_warning": "NONE"
     },
     {
       "ticker": "MSFT",
       "strategy": "rsi_revert",
-      "price": 510.12,
-      "rsi": 76.17,
+      "price": 499.7,
+      "rsi": 36.0,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -26,8 +26,8 @@
     {
       "ticker": "NVDA",
       "strategy": "rsi_revert",
-      "price": 228.45,
-      "rsi": 84.45,
+      "price": 230.36,
+      "rsi": 88.72,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -37,8 +37,8 @@
     {
       "ticker": "TSLA",
       "strategy": "rsi_revert",
-      "price": 376.37,
-      "rsi": 86.65,
+      "price": 354.08,
+      "rsi": 31.94,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -48,8 +48,8 @@
     {
       "ticker": "AMZN",
       "strategy": "rsi_revert",
-      "price": 258.9,
-      "rsi": 67.66,
+      "price": 258.51,
+      "rsi": 60.7,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -59,8 +59,8 @@
     {
       "ticker": "GOOGL",
       "strategy": "rsi_revert",
-      "price": 342.48,
-      "rsi": 76.24,
+      "price": 338.46,
+      "rsi": 40.1,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -70,8 +70,8 @@
     {
       "ticker": "META",
       "strategy": "rsi_revert",
-      "price": 610.68,
-      "rsi": 96.88,
+      "price": 616.77,
+      "rsi": 97.82,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -81,26 +81,21 @@
     {
       "ticker": "AMD",
       "strategy": "rsi_revert",
-      "price": 456.16,
-      "rsi": 12.77,
+      "price": 477.57,
+      "rsi": 88.17,
       "ema9": null,
       "ema21": null,
       "trend": "LONG",
-      "signal": "NONE",
+      "signal": "SELL",
       "early_warning": "NONE"
     }
   ],
-  "open_position": {
-    "ticker": "AMD",
-    "entry_price": 456.16,
-    "entry_time": "2026-09-05T00:05:26",
-    "shares": 0.069484
-  },
+  "open_position": null,
   "portfolio": {
-    "balance_usd": 31.696,
-    "balance_sar": 118.86,
-    "realized_pl_usd": 5.7886,
-    "purified_total_usd": 0.7593
+    "balance_usd": 33.0349,
+    "balance_sar": 123.88,
+    "realized_pl_usd": 7.2763,
+    "purified_total_usd": 0.9081
   },
   "config": {
     "watchlist": [
