@@ -1,6 +1,6 @@
 {
   "ticker_state": {
-    "2222.SR": "BULL",
+    "2222.SR": "BEAR",
     "1120.SR": "BEAR",
     "2010.SR": "BEAR",
     "7010.SR": "BEAR",
@@ -19,15 +19,10 @@
     "2280.SR": "STRENGTHENING",
     "1010.SR": "NONE"
   },
-  "open_position": {
-    "ticker": "2222.SR",
-    "entry_price": 26.04,
-    "entry_time": "2026-09-07T09:50:25",
-    "shares": 3.703809
-  },
+  "open_position": null,
   "portfolio": {
-    "balance_sar": 96.4472,
-    "realized_pl_sar": -2.881,
+    "balance_sar": 96.225,
+    "realized_pl_sar": -3.1032,
     "purified_total_sar": 0.6718
   }
 }
