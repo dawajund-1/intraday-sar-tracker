@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-07T12:03:59Z",
+  "generated_at_utc": "2026-09-07T12:05:17Z",
   "tickers": [
     {
       "ticker": "2222.SR",
@@ -34,9 +34,9 @@
     {
       "ticker": "7010.SR",
       "name": "STC",
-      "price": 43.88,
-      "ema9": 43.8563,
-      "ema21": 43.8689,
+      "price": 43.86,
+      "ema9": 43.8523,
+      "ema21": 43.8671,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "STRENGTHENING"
@@ -74,9 +74,9 @@
     {
       "ticker": "1010.SR",
       "name": "Riyad Bank",
-      "price": 20.6,
-      "ema9": 20.6078,
-      "ema21": 20.6265,
+      "price": 20.59,
+      "ema9": 20.6058,
+      "ema21": 20.6256,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
