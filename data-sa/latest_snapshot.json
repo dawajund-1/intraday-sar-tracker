@@ -1,15 +1,15 @@
 {
-  "generated_at_utc": "2026-09-08T11:55:21Z",
+  "generated_at_utc": "2026-09-08T12:00:32Z",
   "tickers": [
     {
       "ticker": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 26.08,
-      "ema9": 26.0707,
-      "ema21": 26.0717,
+      "price": 26.06,
+      "ema9": 26.0667,
+      "ema21": 26.0699,
       "trend": "BEAR",
-      "signal": "SELL",
-      "early_warning": "STRENGTHENING"
+      "signal": "NONE",
+      "early_warning": "NONE"
     },
     {
       "ticker": "1120.SR",
@@ -24,12 +24,12 @@
     {
       "ticker": "2010.SR",
       "name": "SABIC",
-      "price": 49.46,
-      "ema9": 49.4721,
-      "ema21": 49.4558,
+      "price": 49.48,
+      "ema9": 49.4729,
+      "ema21": 49.456,
       "trend": "BULL",
       "signal": "NONE",
-      "early_warning": "WEAKENING"
+      "early_warning": "NONE"
     },
     {
       "ticker": "7010.SR",
@@ -44,9 +44,9 @@
     {
       "ticker": "1180.SR",
       "name": "Saudi National Bank",
-      "price": 42.4,
-      "ema9": 42.3989,
-      "ema21": 42.3985,
+      "price": 42.42,
+      "ema9": 42.4029,
+      "ema21": 42.4004,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -54,9 +54,9 @@
     {
       "ticker": "1211.SR",
       "name": "Maaden",
-      "price": 66.55,
-      "ema9": 66.6086,
-      "ema21": 66.5863,
+      "price": 66.6,
+      "ema9": 66.6186,
+      "ema21": 66.5909,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "WEAKENING"
@@ -64,9 +64,9 @@
     {
       "ticker": "2280.SR",
       "name": "Almarai",
-      "price": 46.98,
-      "ema9": 47.0338,
-      "ema21": 47.0927,
+      "price": 47.0,
+      "ema9": 47.0378,
+      "ema21": 47.0946,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -74,12 +74,12 @@
     {
       "ticker": "1010.SR",
       "name": "Riyad Bank",
-      "price": 20.65,
-      "ema9": 20.6421,
-      "ema21": 20.6325,
+      "price": 20.63,
+      "ema9": 20.6381,
+      "ema21": 20.6307,
       "trend": "BULL",
       "signal": "NONE",
-      "early_warning": "NONE"
+      "early_warning": "WEAKENING"
     }
   ],
   "open_position": {
