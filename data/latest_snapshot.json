@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-09T20:00:40Z",
+  "generated_at_utc": "2026-09-09T20:05:26Z",
   "tickers": [
     {
       "ticker": "AAPL",
@@ -81,8 +81,8 @@
     {
       "ticker": "AMD",
       "strategy": "rsi_revert",
-      "price": 521.12,
-      "rsi": 97.95,
+      "price": 521.095,
+      "rsi": 97.94,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
