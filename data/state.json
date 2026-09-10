@@ -1,7 +1,7 @@
 {
   "ticker_state": {
     "AAPL": "FLAT",
-    "MSFT": "FLAT",
+    "MSFT": "LONG",
     "NVDA": "FLAT",
     "TSLA": "FLAT",
     "AMZN": "FLAT",
@@ -9,7 +9,12 @@
     "META": "FLAT",
     "AMD": "FLAT"
   },
-  "open_position": null,
+  "open_position": {
+    "ticker": "MSFT",
+    "entry_price": 492.44,
+    "entry_time": "2026-09-10T20:05:30",
+    "shares": 0.06833
+  },
   "portfolio": {
     "balance_usd": 33.6482,
     "realized_pl_usd": 7.9577,

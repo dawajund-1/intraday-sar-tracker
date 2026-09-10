@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-10T20:00:46Z",
+  "generated_at_utc": "2026-09-10T20:05:33Z",
   "tickers": [
     {
       "ticker": "AAPL",
@@ -8,8 +8,8 @@
       "rsi": 82.63,
       "ema9": null,
       "ema21": null,
-      "trend": "LONG",
-      "signal": "SELL",
+      "trend": "FLAT",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
@@ -90,7 +90,12 @@
       "early_warning": "NONE"
     }
   ],
-  "open_position": null,
+  "open_position": {
+    "ticker": "MSFT",
+    "entry_price": 492.44,
+    "entry_time": "2026-09-10T20:05:30",
+    "shares": 0.06833
+  },
   "portfolio": {
     "balance_usd": 33.6482,
     "balance_sar": 126.18,
