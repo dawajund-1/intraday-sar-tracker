@@ -1,6 +1,16 @@
 {
-  "generated_at_utc": "2026-09-11T06:56:13Z",
+  "generated_at_utc": "2026-09-11T07:00:27Z",
   "tickers": [
+    {
+      "ticker": "2222.SR",
+      "name": "Saudi Aramco",
+      "price": 26.14,
+      "ema9": 26.1127,
+      "ema21": 26.1178,
+      "trend": "BEAR",
+      "signal": "NONE",
+      "early_warning": "STRENGTHENING"
+    },
     {
       "ticker": "1120.SR",
       "name": "Al Rajhi Bank",
