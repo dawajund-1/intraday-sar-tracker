@@ -3,7 +3,7 @@
     "2222.SR": "BEAR",
     "1120.SR": "BEAR",
     "2010.SR": "BULL",
-    "7010.SR": "BEAR",
+    "7010.SR": "BULL",
     "1180.SR": "BEAR",
     "1211.SR": "BEAR",
     "2280.SR": "BEAR",
@@ -11,10 +11,10 @@
   },
   "warning_state": {
     "2222.SR": "NONE",
-    "1120.SR": "STRENGTHENING",
+    "1120.SR": "NONE",
     "2010.SR": "NONE",
-    "7010.SR": "STRENGTHENING",
-    "1180.SR": "NONE",
+    "7010.SR": "NONE",
+    "1180.SR": "STRENGTHENING",
     "1211.SR": "NONE",
     "2280.SR": "STRENGTHENING",
     "1010.SR": "STRENGTHENING"
