@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-14T06:55:17Z",
+  "generated_at_utc": "2026-09-14T07:00:58Z",
   "tickers": [
     {
       "ticker": "2222.SR",
@@ -37,16 +37,6 @@
       "price": 43.8,
       "ema9": 43.7292,
       "ema21": 43.6842,
-      "trend": "BULL",
-      "signal": "NONE",
-      "early_warning": "NONE"
-    },
-    {
-      "ticker": "1180.SR",
-      "name": "Saudi National Bank",
-      "price": 41.22,
-      "ema9": 41.1538,
-      "ema21": 41.098,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
