@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-14T12:25:20Z",
+  "generated_at_utc": "2026-09-14T12:30:33Z",
   "tickers": [
     {
       "ticker": "2222.SR",
@@ -8,7 +8,7 @@
       "ema9": 25.7007,
       "ema21": 25.7037,
       "trend": "BEAR",
-      "signal": "SELL",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
@@ -68,7 +68,7 @@
       "ema9": 47.0391,
       "ema21": 47.0595,
       "trend": "BEAR",
-      "signal": "SELL",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
@@ -78,7 +78,7 @@
       "ema9": 20.3082,
       "ema21": 20.3072,
       "trend": "BULL",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "NONE"
     }
   ],
