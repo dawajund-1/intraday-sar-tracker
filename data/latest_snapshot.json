@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-09-14T23:55:22Z",
+  "generated_at_utc": "2026-09-15T00:00:39Z",
   "tickers": [
     {
       "ticker": "AAPL",
       "strategy": "rsi_revert",
-      "price": 333.08,
-      "rsi": 91.5,
+      "price": 332.27,
+      "rsi": 90.42,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -15,8 +15,8 @@
     {
       "ticker": "MSFT",
       "strategy": "rsi_revert",
-      "price": 505.41,
-      "rsi": 91.88,
+      "price": 495.63,
+      "rsi": 65.91,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -26,8 +26,8 @@
     {
       "ticker": "NVDA",
       "strategy": "rsi_revert",
-      "price": 210.96,
-      "rsi": 2.04,
+      "price": 218.29,
+      "rsi": 9.08,
       "ema9": null,
       "ema21": null,
       "trend": "LONG",
@@ -37,19 +37,19 @@
     {
       "ticker": "TSLA",
       "strategy": "rsi_revert",
-      "price": 358.97,
-      "rsi": 20.69,
+      "price": 365.44,
+      "rsi": 53.91,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
       "ticker": "AMZN",
       "strategy": "rsi_revert",
-      "price": 253.54,
-      "rsi": 38.14,
+      "price": 256.78,
+      "rsi": 74.94,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -59,8 +59,8 @@
     {
       "ticker": "GOOGL",
       "strategy": "rsi_revert",
-      "price": 349.39,
-      "rsi": 92.75,
+      "price": 338.5,
+      "rsi": 75.84,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -70,8 +70,8 @@
     {
       "ticker": "META",
       "strategy": "rsi_revert",
-      "price": 665.6,
-      "rsi": 90.77,
+      "price": 648.03,
+      "rsi": 74.57,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -81,12 +81,12 @@
     {
       "ticker": "AMD",
       "strategy": "rsi_revert",
-      "price": 493.41,
-      "rsi": 28.11,
+      "price": 516.13,
+      "rsi": 70.41,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "NONE"
     }
   ],
