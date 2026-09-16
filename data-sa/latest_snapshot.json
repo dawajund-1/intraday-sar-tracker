@@ -1,22 +1,22 @@
 {
-  "generated_at_utc": "2026-09-16T12:25:18Z",
+  "generated_at_utc": "2026-09-16T12:30:24Z",
   "tickers": [
     {
       "ticker": "2222.SR",
       "name": "Saudi Aramco",
-      "price": 25.7,
-      "ema9": 25.6801,
-      "ema21": 25.6641,
+      "price": 25.68,
+      "ema9": 25.6832,
+      "ema21": 25.6672,
       "trend": "BULL",
       "signal": "NONE",
-      "early_warning": "NONE"
+      "early_warning": "WEAKENING"
     },
     {
       "ticker": "1120.SR",
       "name": "Al Rajhi Bank",
       "price": 65.9,
-      "ema9": 65.9209,
-      "ema21": 65.9486,
+      "ema9": 65.9167,
+      "ema21": 65.9442,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -24,9 +24,9 @@
     {
       "ticker": "2010.SR",
       "name": "SABIC",
-      "price": 48.1,
-      "ema9": 48.1082,
-      "ema21": 48.1167,
+      "price": 48.04,
+      "ema9": 48.0945,
+      "ema21": 48.1097,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -34,9 +34,9 @@
     {
       "ticker": "7010.SR",
       "name": "STC",
-      "price": 43.68,
-      "ema9": 43.6718,
-      "ema21": 43.6603,
+      "price": 43.8,
+      "ema9": 43.6974,
+      "ema21": 43.673,
       "trend": "BULL",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -44,9 +44,9 @@
     {
       "ticker": "1180.SR",
       "name": "Saudi National Bank",
-      "price": 40.82,
-      "ema9": 40.8204,
-      "ema21": 40.8297,
+      "price": 40.7,
+      "ema9": 40.7963,
+      "ema21": 40.8179,
       "trend": "BEAR",
       "signal": "NONE",
       "early_warning": "NONE"
@@ -54,22 +54,22 @@
     {
       "ticker": "1211.SR",
       "name": "Maaden",
-      "price": 62.8,
-      "ema9": 62.8983,
-      "ema21": 63.0163,
+      "price": 63.0,
+      "ema9": 62.9107,
+      "ema21": 63.0107,
       "trend": "BEAR",
       "signal": "NONE",
-      "early_warning": "NONE"
+      "early_warning": "STRENGTHENING"
     },
     {
       "ticker": "2280.SR",
       "name": "Almarai",
-      "price": 45.54,
-      "ema9": 45.6286,
-      "ema21": 45.6655,
+      "price": 45.68,
+      "ema9": 45.6389,
+      "ema21": 45.6668,
       "trend": "BEAR",
       "signal": "NONE",
-      "early_warning": "NONE"
+      "early_warning": "STRENGTHENING"
     },
     {
       "ticker": "1010.SR",
