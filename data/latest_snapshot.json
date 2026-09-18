@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-09-18T20:00:44Z",
+  "generated_at_utc": "2026-09-18T20:05:28Z",
   "tickers": [
     {
       "ticker": "AAPL",
       "strategy": "rsi_revert",
-      "price": 335.58,
-      "rsi": 63.95,
+      "price": 336.13,
+      "rsi": 72.53,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -15,8 +15,8 @@
     {
       "ticker": "MSFT",
       "strategy": "rsi_revert",
-      "price": 493.46,
-      "rsi": 38.6,
+      "price": 493.78,
+      "rsi": 39.7,
       "ema9": null,
       "ema21": null,
       "trend": "LONG",
@@ -26,8 +26,8 @@
     {
       "ticker": "NVDA",
       "strategy": "rsi_revert",
-      "price": 222.09,
-      "rsi": 91.29,
+      "price": 222.27,
+      "rsi": 91.52,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -48,8 +48,8 @@
     {
       "ticker": "AMZN",
       "strategy": "rsi_revert",
-      "price": 253.51,
-      "rsi": 77.13,
+      "price": 253.71,
+      "rsi": 77.8,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -59,8 +59,8 @@
     {
       "ticker": "GOOGL",
       "strategy": "rsi_revert",
-      "price": 349.01,
-      "rsi": 80.72,
+      "price": 349.54,
+      "rsi": 82.3,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -70,8 +70,8 @@
     {
       "ticker": "META",
       "strategy": "rsi_revert",
-      "price": 665.52,
-      "rsi": 30.43,
+      "price": 665.75,
+      "rsi": 30.72,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
