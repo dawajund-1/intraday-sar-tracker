@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-19T02:20:25Z",
+  "generated_at_utc": "2026-09-19T02:25:18Z",
   "tickers": [
     {
       "ticker": "AAPL",
@@ -70,8 +70,8 @@
     {
       "ticker": "META",
       "strategy": "rsi_revert",
-      "price": 682.31,
-      "rsi": 97.9,
+      "price": 665.75,
+      "rsi": 30.72,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
