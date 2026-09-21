@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-09-21T19:55:24Z",
+  "generated_at_utc": "2026-09-21T20:00:43Z",
   "tickers": [
     {
       "ticker": "AAPL",
       "strategy": "rsi_revert",
-      "price": 336.13,
-      "rsi": 72.53,
+      "price": 338.98,
+      "rsi": 88.51,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -15,19 +15,19 @@
     {
       "ticker": "MSFT",
       "strategy": "rsi_revert",
-      "price": 493.78,
-      "rsi": 39.7,
+      "price": 501.61,
+      "rsi": 74.81,
       "ema9": null,
       "ema21": null,
       "trend": "LONG",
-      "signal": "NONE",
+      "signal": "SELL",
       "early_warning": "NONE"
     },
     {
       "ticker": "NVDA",
       "strategy": "rsi_revert",
-      "price": 222.27,
-      "rsi": 91.52,
+      "price": 227.38,
+      "rsi": 96.6,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -37,8 +37,8 @@
     {
       "ticker": "TSLA",
       "strategy": "rsi_revert",
-      "price": 364.27,
-      "rsi": 62.44,
+      "price": 375.2096,
+      "rsi": 90.58,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -48,8 +48,8 @@
     {
       "ticker": "AMZN",
       "strategy": "rsi_revert",
-      "price": 253.71,
-      "rsi": 77.8,
+      "price": 258.45,
+      "rsi": 90.73,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -59,8 +59,8 @@
     {
       "ticker": "GOOGL",
       "strategy": "rsi_revert",
-      "price": 349.54,
-      "rsi": 82.3,
+      "price": 354.97,
+      "rsi": 93.38,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -70,8 +70,8 @@
     {
       "ticker": "META",
       "strategy": "rsi_revert",
-      "price": 665.75,
-      "rsi": 30.72,
+      "price": 741.245,
+      "rsi": 90.45,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -81,8 +81,8 @@
     {
       "ticker": "AMD",
       "strategy": "rsi_revert",
-      "price": 559.82,
-      "rsi": 95.38,
+      "price": 615.52,
+      "rsi": 98.85,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -90,17 +90,12 @@
       "early_warning": "NONE"
     }
   ],
-  "open_position": {
-    "ticker": "MSFT",
-    "entry_price": 490.3,
-    "entry_time": "2026-09-18T00:00:37",
-    "shares": 0.072766
-  },
+  "open_position": null,
   "portfolio": {
-    "balance_usd": 35.6773,
-    "balance_sar": 133.79,
-    "realized_pl_usd": 10.2122,
-    "purified_total_usd": 1.2016
+    "balance_usd": 36.418,
+    "balance_sar": 136.57,
+    "realized_pl_usd": 11.0352,
+    "purified_total_usd": 1.2839
   },
   "config": {
     "watchlist": [
