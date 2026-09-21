@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-21T20:10:27Z",
+  "generated_at_utc": "2026-09-21T20:15:27Z",
   "tickers": [
     {
       "ticker": "AAPL",
@@ -37,8 +37,8 @@
     {
       "ticker": "TSLA",
       "strategy": "rsi_revert",
-      "price": 375.2096,
-      "rsi": 90.58,
+      "price": 375.3,
+      "rsi": 90.64,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
