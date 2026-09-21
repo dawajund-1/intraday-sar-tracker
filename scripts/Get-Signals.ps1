@@ -3,10 +3,16 @@
 # writes a dashboard snapshot. Runs on GitHub Actions — places no real trades anywhere.
 
 . (Join-Path $PSScriptRoot "TrackerLib.ps1")
+. (Join-Path $PSScriptRoot "OutboxLib.ps1")
 
 $cfg   = Read-Config
 $state = Read-State
 $now   = Get-Date
+
+# Deliver anything left queued by an earlier run before doing new work, so a run
+# that died between "decide" and "announce" is resolved first. Safe to call on
+# every dispatch: the drain is a no-op when the outbox is empty.
+Invoke-OutboxDrain
 
 if (-not $state.ticker_state) { $state | Add-Member -NotePropertyName ticker_state -NotePropertyValue ([pscustomobject]@{}) -Force }
 if (-not $state.warning_state) { $state | Add-Member -NotePropertyName warning_state -NotePropertyValue ([pscustomobject]@{}) -Force }
@@ -33,11 +39,14 @@ $closeUtc = if ($live -and $live.market_close_utc) { $live.market_close_utc } el
 
 $signalsThisRun = @()
 $tickerSnapshots = @()
+$barIds = @()
 
 foreach ($ticker in $cfg.watchlist) {
     try {
         $bars = Get-HourlyBars -Ticker $ticker -Interval $barIntvl -Range $barRange
         $bars = Remove-PartialBar -Bars $bars -Interval $barIntvl -MarketCloseUtc $closeUtc
+        $tickerBarId = Get-BarId -Bars $bars
+        if ($tickerBarId) { $barIds += $tickerBarId }
 
         $minBars = if ($strategy -eq "rsi_revert") { [int]$live.rsi_period + 2 } else { $cfg.ema_slow + 1 }
         if ($bars.Count -lt $minBars) {
@@ -108,7 +117,8 @@ foreach ($ticker in $cfg.watchlist) {
         # Only push for the ticker you're actually holding, and only on the transition
         # into WEAKENING (not every check while it stays weak) to avoid spamming.
         if ($ticker -eq $heldTicker -and $earlyWarning -eq "WEAKENING" -and $prevWarning -ne "WEAKENING") {
-            Notify-User -Topic $cfg.ntfy_topic -Title "⚠️ Early Warning: $ticker" -Message "Price ($([math]::Round($lastPrice,2))) dipped below its short-term average (EMA$($cfg.ema_fast)) while the trend is still Bull. This sometimes comes before a confirmed SELL, but often doesn't — not a confirmed signal, just a heads-up."
+            Add-OutboxEvent -Id "WARN:${ticker}:${tickerBarId}" -Title "Early Warning: $ticker" `
+                -Message "Price ($([math]::Round($lastPrice,2))) dipped below its short-term average (EMA$($cfg.ema_fast)) while the trend is still Bull. This sometimes comes before a confirmed SELL, but often doesn't - not a confirmed signal, just a heads-up." | Out-Null
         }
 
         $tickerSnapshots += [pscustomobject]@{
@@ -134,10 +144,36 @@ foreach ($ticker in $cfg.watchlist) {
 $tradesPath = Join-Path $DataDir "paper_trades.csv"
 $portfolioPath = Join-Path $DataDir "portfolio_history.csv"
 
-if ($state.open_position) {
-    $held = $state.open_position
-    $sellSignal = $signalsThisRun | Where-Object { $_.ticker -eq $held.ticker -and $_.signal -eq "SELL" } | Select-Object -First 1
-    if ($sellSignal) {
+# --- Once-per-completed-bar guard ----------------------------------------
+# Every action is keyed to the identity of the closed daily bar it was derived
+# from, and each bar gets exactly ONE decision cycle: exit if held and
+# signalled, then enter if that leaves the account flat, then stamp the bar as
+# decided.
+#
+# This is what makes the tracker safe to dispatch repeatedly: the 2nd..Nth run
+# against a settled bar is a no-op, so weekends, US market holidays, retries and
+# manual re-runs all collapse to "nothing to do" with no calendar logic at all -
+# on a non-session day Yahoo serves no new bar, so the bar id stays stale and
+# the cycle is already spent.
+$sessionBarId = if ($barIds.Count -gt 0) { ($barIds | Sort-Object -Descending | Select-Object -First 1) } else { $null }
+$guard = Get-BarGuard -State $state -BarId $sessionBarId
+
+if (-not $sessionBarId) {
+    Write-Warning "No closed bar available this run; no trading decisions will be made."
+}
+elseif (Test-BarDecided -Guard $guard) {
+    Write-Host "guard: bar $sessionBarId has already been decided; no action this run."
+}
+else {
+    # --- leg 1: exit ------------------------------------------------------
+    if ($state.open_position) {
+        $held = $state.open_position
+        $sellSignal = $signalsThisRun | Where-Object { $_.ticker -eq $held.ticker -and $_.signal -eq "SELL" } | Select-Object -First 1
+        if ($sellSignal -and -not (Test-CanExit -Guard $guard -Ticker $held.ticker)) {
+            Write-Host "guard: exit for $($held.ticker) already taken on bar $sessionBarId; ignoring repeat SELL."
+            $sellSignal = $null
+        }
+        if ($sellSignal) {
         $exitPrice = $sellSignal.price
         $pl = [math]::Round(($exitPrice - $held.entry_price) * $held.shares, 4)
         $purification = if ($pl -gt 0) { [math]::Round($pl * $cfg.purification_pct, 4) } else { 0 }
@@ -167,12 +203,23 @@ if ($state.open_position) {
         $state.portfolio.realized_pl_usd = [math]::Round($state.portfolio.realized_pl_usd + $pl, 4)
         $state.portfolio.purified_total_usd = [math]::Round($state.portfolio.purified_total_usd + $purification, 4)
         $state.open_position = $null
+        Register-Exit -Guard $guard -Ticker $held.ticker
 
-        Notify-User -Topic $cfg.ntfy_topic -Title "SELL signal: $($held.ticker)" -Message "Exit @ `$$([math]::Round($exitPrice,2)) | P/L `$$pl | Purified `$$purification | Balance `$$newBalance"
+        Add-OutboxEvent -Id "SELL:$($held.ticker):${sessionBarId}" -Title "SELL signal: $($held.ticker)" `
+            -Message "Exit @ `$$([math]::Round($exitPrice,2)) | P/L `$$pl | Purified `$$purification | Balance `$$newBalance" | Out-Null
+        }
     }
-} else {
-    $buySignal = $signalsThisRun | Where-Object { $_.signal -eq "BUY" } | Select-Object -First 1
-    if ($buySignal) {
+
+    # --- leg 2: entry -----------------------------------------------------
+    # Runs in the SAME cycle as the exit above. Both legs price off the same
+    # closed bar, so the fill price is identical to the old split-across-two-
+    # dispatches behaviour - but it no longer needs a second dispatch, which is
+    # what makes a twice-daily schedule safe.
+    if (-not $state.open_position) {
+        $buySignal = $signalsThisRun |
+            Where-Object { $_.signal -eq "BUY" -and (Test-CanEnter -Guard $guard -Ticker $_.ticker) } |
+            Select-Object -First 1
+        if ($buySignal) {
         $balance = $state.portfolio.balance_usd
         $shares = [math]::Round($balance / $buySignal.price, 6)
         $state.open_position = [pscustomobject]@{
@@ -192,8 +239,14 @@ if ($state.open_position) {
             purification_usd = ""
             balance_after_usd = $balance
         })
-        Notify-User -Topic $cfg.ntfy_topic -Title "BUY signal: $($buySignal.ticker)" -Message "Entry @ `$$([math]::Round($buySignal.price,2)) | Balance `$$balance"
+        Register-Entry -Guard $guard -Ticker $buySignal.ticker
+
+            Add-OutboxEvent -Id "BUY:$($buySignal.ticker):${sessionBarId}" -Title "BUY signal: $($buySignal.ticker)" `
+                -Message "Entry @ `$$([math]::Round($buySignal.price,2)) | Balance `$$balance" | Out-Null
+        }
     }
+
+    Complete-BarDecision -Guard $guard
 }
 
 # --- Reconcile strategy state with the portfolio --------------------------
@@ -214,5 +267,24 @@ if ($strategy -eq "rsi_revert") {
     }
 }
 
+if ($sessionBarId) {
+    $state | Add-Member -NotePropertyName bar_guard -NotePropertyValue $guard -Force
+}
+
 Save-State $state
 Write-Snapshot -Tickers $tickerSnapshots -State $state -Cfg $cfg
+
+# --- Transaction boundary -------------------------------------------------
+# State, ledger and the queued announcement are now on disk together. Commit
+# them as one unit BEFORE anything is delivered. If this push fails, nothing was
+# announced and nothing is durable, so a later run re-derives the identical
+# decision from the identical bar and acts exactly once.
+$committed = Publish-DataCommit "Update signals $((Get-Date).ToUniversalTime().ToString('s'))Z"
+
+if ($committed) {
+    # Only now may the outbox be drained: every event about to be sent is
+    # already durable on origin/main.
+    Invoke-OutboxDrain
+} else {
+    Write-Warning "Data commit did not land; leaving the outbox undelivered on purpose."
+}

@@ -20,6 +20,9 @@ function Read-State {
     return [pscustomobject]@{
         ticker_state   = [pscustomobject]@{}
         open_position  = $null
+        # Which completed daily bar has already been acted on, and how.
+        # See Get-BarGuard in OutboxLib.ps1.
+        bar_guard      = $null
         portfolio      = [pscustomobject]@{
             balance_usd       = [math]::Round($cfg.starting_capital_sar / $cfg.sar_per_usd, 4)
             realized_pl_usd   = 0
@@ -128,21 +131,25 @@ function Send-Toast {
     }
 }
 
+# Send-Push and Notify-User were REMOVED on 2026-09-21.
+#
+# They sent to ntfy directly from inside a run, before the commit that made the
+# corresponding trade durable. A failed push step therefore meant "alert sent,
+# trade lost", and a workflow re-run meant "alert sent twice".
+#
+# All notification now goes through the outbox in OutboxLib.ps1:
+#   Add-OutboxEvent  -> queued in the same commit as the state change
+#   Invoke-OutboxDrain -> two-phase, claim-before-send delivery
+#
+# They are deliberately left as throwing stubs rather than deleted, so that any
+# caller that is added back by mistake fails loudly instead of quietly
+# reintroducing the duplicate-alert path.
 function Send-Push {
-    param([string]$Title, [string]$Message, [string]$Topic)
-    if ([string]::IsNullOrWhiteSpace($Topic)) { return }
-    try {
-        Invoke-RestMethod -Method Post -Uri "https://ntfy.sh/$Topic" -Body $Message `
-            -Headers @{ "Title" = $Title } -TimeoutSec 15 | Out-Null
-    } catch {
-        Write-Warning "Phone push failed: $($_.Exception.Message)"
-    }
+    throw "Send-Push is removed. Queue via Add-OutboxEvent and deliver with Invoke-OutboxDrain (see scripts/OutboxLib.ps1)."
 }
 
 function Notify-User {
-    param([string]$Title, [string]$Message, [string]$Topic)
-    Send-Toast -Title $Title -Message $Message
-    Send-Push -Title $Title -Message $Message -Topic $Topic
+    throw "Notify-User is removed. Queue via Add-OutboxEvent and deliver with Invoke-OutboxDrain (see scripts/OutboxLib.ps1)."
 }
 
 function Append-Csv {
@@ -167,6 +174,15 @@ function Write-Snapshot {
         config = [pscustomobject]@{
             watchlist        = $Cfg.watchlist
             purification_pct = $Cfg.purification_pct
+        }
+        # Surfaced on the dashboard so headline P/L is never read as settled
+        # while it still contains trades flagged by the 2026-09-21 audit.
+        integrity = [pscustomobject]@{
+            pl_provisional      = [bool]$Cfg.pl_provisional
+            provisional_reason  = $Cfg.pl_provisional_reason
+            bar_guard           = $State.bar_guard
+            outbox_pending      = @(Read-Outbox | Where-Object { $_.status -eq 'pending' -or $_.status -eq 'sending' }).Count
+            outbox_needs_review = @(Read-Outbox | Where-Object { $_.status -eq 'needs_review' -or $_.status -eq 'failed' }).Count
         }
     }
     $snapshot | ConvertTo-Json -Depth 10 | Set-Content (Join-Path $DataDir "latest_snapshot.json") -Encoding utf8

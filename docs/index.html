@@ -88,7 +88,11 @@
   <a class="nav-link" href="saudi.html">🇸🇦 Tadawul Tracker →</a>
   <h1>📈 Intraday Signal Tracker</h1>
   <div class="updated" id="updated">Loading…</div>
-  <div class="live-indicator"><span class="live-dot"></span><span id="live-clock">Live prices — waiting for first update…</span></div>
+  <div id="provisional-banner" style="display:none;margin:12px 0;padding:12px 14px;border:1px solid #b8860b;border-left-width:4px;border-radius:6px;background:rgba(184,134,11,0.12);font-size:0.85rem;line-height:1.45;">
+    <strong>Provisional figures.</strong>
+    <span id="provisional-reason"></span>
+  </div>
+  <div class="live-indicator"><span class="live-dot"></span><span id="live-clock">Showing the close from the last completed bar</span></div>
 
   <div class="card">
     <div class="grid">
@@ -163,7 +167,14 @@ const REPO = "dawajund-1/intraday-sar-tracker";
 const BRANCH = "main";
 const RAW = `https://raw.githubusercontent.com/${REPO}/${BRANCH}`;
 
-const FINNHUB_KEY = "d9t1db9r01qqd5j34d90d9t1db9r01qqd5j34d9g";
+// The live-tick feed is DISABLED. It called Finnhub directly from this page,
+// which meant the API key had to be embedded in a public file - anyone could
+// read and drain it. A browser-side call can never hold a secret, so the
+// feature cannot come back as-is; it needs a small server-side proxy that
+// holds the key and that this page calls instead. Until that exists the page
+// shows the snapshot close, clearly labelled, which is the price the strategy
+// actually trades on anyway.
+const LIVE_PRICES_ENABLED = false;
 const livePrices = {}; // ticker -> { price, at }
 let lastSnapshot = null;
 let lastTrades = [];
@@ -278,6 +289,7 @@ function initCalculator() {
 }
 
 function render(snapshot, trades) {
+  renderIntegrity(snapshot);
   const gen = new Date(snapshot.generated_at_utc);
   document.getElementById("updated").textContent =
     "Last updated: " + gen.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
@@ -348,15 +360,8 @@ function render(snapshot, trades) {
 const REFRESH_MS = 30000;
 const LIVE_PRICE_MS = 30000;
 
-async function fetchLivePrice(ticker) {
-  const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${encodeURIComponent(ticker)}&token=${FINNHUB_KEY}`);
-  if (!res.ok) throw new Error(`finnhub ${ticker} ${res.status}`);
-  const data = await res.json();
-  if (!data || !data.c) throw new Error(`finnhub ${ticker} empty`);
-  return data.c;
-}
-
 async function refreshLivePrices() {
+  if (!LIVE_PRICES_ENABLED) return;
   if (!lastSnapshot || !lastSnapshot.tickers) return;
   const tickers = lastSnapshot.tickers.map(t => t.ticker);
   let anySuccess = false;
@@ -374,9 +379,28 @@ async function refreshLivePrices() {
   if (lastSnapshot) render(lastSnapshot, lastTrades);
 }
 
+function renderIntegrity(snapshot) {
+  const banner = document.getElementById("provisional-banner");
+  if (!banner) return;
+  const integ = (snapshot && snapshot.integrity) || {};
+  if (!integ.pl_provisional) { banner.style.display = "none"; return; }
+  let text = integ.provisional_reason || "Headline P/L includes trades that are still under review.";
+  const review = Number(integ.outbox_needs_review || 0);
+  if (review > 0) text += ` ${review} notification(s) need manual review.`;
+  document.getElementById("provisional-reason").textContent = " " + text;
+  banner.style.display = "";
+}
+
 function tickClock() {
   const el = document.getElementById("live-clock");
   if (!el) return;
+  if (!LIVE_PRICES_ENABLED) {
+    const at = lastSnapshot && lastSnapshot.generated_at_utc;
+    el.textContent = at
+      ? `Showing the close from the last completed bar — ${new Date(at).toLocaleString()}`
+      : "Showing the close from the last completed bar";
+    return;
+  }
   if (!lastLiveFetchAt) {
     el.textContent = "Live prices — waiting for first update…";
     return;

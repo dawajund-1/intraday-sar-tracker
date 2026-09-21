@@ -2,6 +2,7 @@
 # Reads-only from the CSV logs written by Get-Signals.ps1 — places no trades.
 
 . (Join-Path $PSScriptRoot "TrackerLib.ps1")
+. (Join-Path $PSScriptRoot "OutboxLib.ps1")
 
 $cfg   = Read-Config
 $state = Read-State
@@ -35,4 +36,11 @@ Append-Csv -Path (Join-Path $DataDir "daily_summary.csv") -Row ([pscustomobject]
     total_purified_usd    = $state.portfolio.purified_total_usd
 })
 
-Notify-User -Topic $cfg.ntfy_topic -Title "Daily summary" -Message "Closed trades: $($sells.Count) | Net P/L `$$([math]::Round($netPl,2)) | Purified `$$([math]::Round($netPurified,2)) | Balance `$$balanceUsd (SAR $balanceSar) | Open: $openPos"
+# One summary per calendar day, keyed by date, queued rather than sent. The
+# deterministic id makes a re-run of this workflow a no-op instead of a
+# second identical push.
+Add-OutboxEvent -Id "SUMMARY:${today}" -Title "Daily summary" `
+    -Message "Closed trades: $($sells.Count) | Net P/L `$$([math]::Round($netPl,2)) | Purified `$$([math]::Round($netPurified,2)) | Balance `$$balanceUsd (SAR $balanceSar) | Open: $openPos" | Out-Null
+
+if (Publish-DataCommit "Daily summary $today") { Invoke-OutboxDrain }
+else { Write-Warning "Data commit did not land; leaving the summary undelivered on purpose." }

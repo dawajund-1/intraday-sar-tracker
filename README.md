@@ -55,8 +55,20 @@ the tradeable balance.
 
 ## Phone alerts
 
-Same ntfy.sh topic as the PC version (`intraday-sar-7a1d968b28` in `config.json`), so
-your existing phone subscription keeps receiving alerts without resubscribing.
+US alerts go to an ntfy.sh topic held **only** in the GitHub Actions secret
+`NTFY_TOPIC_US`. It is never committed and never printed in workflow logs.
+
+The previous US topic was published in this repo, which made it world-readable and
+world-writable on ntfy.sh — anyone reading the repo could receive your alerts or post
+fake ones. It was rotated on 2026-09-21. The old topic still appears in git history, so
+it must never be reused; unsubscribe from it on your phone.
+
+Alerts are informational only: they carry no credentials, links or controls, and
+nothing in an alert can cause a trade.
+
+To subscribe a new device, install ntfy, add the topic held in `NTFY_TOPIC_US`, and
+leave the server as the default `ntfy.sh`. If that secret is ever lost it cannot be read
+back — generate a new topic, update the secret, and resubscribe.
 
 ## Caveats
 
