@@ -2,8 +2,9 @@ name: Daily Summary
 
 on:
   schedule:
-    # 20:05 UTC Mon-Fri = 23:05 AST (Riyadh), shortly after US market close.
-    - cron: "5 20 * * 1-5"
+    # 21:45 UTC Mon-Fri, 15 minutes after the signal run, so the summary always
+    # reflects that session. Works in both EDT and EST for the same reason.
+    - cron: "45 21 * * 1-5"
   workflow_dispatch: {}
 
 permissions:
@@ -17,6 +18,8 @@ jobs:
 
       - name: Run daily summary
         shell: pwsh
+        env:
+          NTFY_TOPIC_US: ${{ secrets.NTFY_TOPIC_US }}
         run: ./scripts/Get-DailySummary.ps1
 
       - name: Commit updated data
