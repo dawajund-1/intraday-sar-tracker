@@ -382,7 +382,16 @@ async function refreshLivePrices() {
 function renderIntegrity(snapshot) {
   const banner = document.getElementById("provisional-banner");
   if (!banner) return;
-  const integ = (snapshot && snapshot.integrity) || {};
+  const integ = (snapshot && snapshot.integrity) || null;
+  // A snapshot with no integrity block predates the 2026-09-21 repair, so by
+  // definition it was produced by the code that generated the phantom fills.
+  if (!integ) {
+    document.getElementById("provisional-reason").textContent =
+      " This snapshot was produced before the 2026-09-21 duplicate-execution repair, so the figures" +
+      " above include trades flagged by that audit. See RECONCILIATION-2026-09-21.md in the repository.";
+    banner.style.display = "";
+    return;
+  }
   if (!integ.pl_provisional) { banner.style.display = "none"; return; }
   let text = integ.provisional_reason || "Headline P/L includes trades that are still under review.";
   const review = Number(integ.outbox_needs_review || 0);
