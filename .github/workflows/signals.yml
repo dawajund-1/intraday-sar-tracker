@@ -2,16 +2,18 @@ name: Daily Signal Check
 
 on:
   schedule:
-    # The live rule (config.json -> live.strategy) is RSI(2) on DAILY bars, so
-    # it can only change once a day, when the daily bar closes. Polling every
-    # 5 minutes would burn ~96 runs a day to re-read the same settled close.
+    # ONE documented post-close execution path.
     #
-    # 20:20 UTC = 16:20 ET, shortly after the US close, Mon-Fri. The second
-    # entry covers the EST half of the year, when the close is 21:00 UTC.
-    # Remove-PartialBar discards a still-forming bar, so an early run is safe:
-    # it simply reads yesterday's close and does nothing.
-    - cron: "20 20 * * 1-5"
-    - cron: "20 21 * * 1-5"
+    # 21:30 UTC works year-round without a DST table:
+    #   EDT (Mar-Nov): 17:30 ET - session closed at 16:00 ET, 90 min of margin.
+    #   EST (Nov-Mar): 16:30 ET - session closed at 16:00 ET, 30 min of margin.
+    # Early-close days (13:00 ET) settle even earlier, so they are covered too.
+    #
+    # Weekends and US market holidays need no calendar: on a non-session day
+    # Yahoo serves no new daily bar, so the bar id in data/state.json is already
+    # marked decided and the run is a no-op. The same guard makes a delayed,
+    # retried or manually re-dispatched run safe - a bar is decided exactly once.
+    - cron: "30 21 * * 1-5"
   workflow_dispatch: {}
 
 permissions:
@@ -23,8 +25,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Run idempotency tests
+        shell: pwsh
+        run: ./scripts/Test-Idempotency.ps1
+
       - name: Run signal check
         shell: pwsh
+        env:
+          # Never echo this. The script reads it directly and builds the ntfy
+          # URL inline; Actions masks the value in logs.
+          NTFY_TOPIC_US: ${{ secrets.NTFY_TOPIC_US }}
         run: ./scripts/Get-Signals.ps1
 
       - name: Commit updated data
