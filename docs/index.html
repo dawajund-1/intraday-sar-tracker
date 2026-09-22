@@ -149,6 +149,38 @@
     </table>
   </div>
 
+  <div class="section-title">Weekly &amp; Monthly Performance</div>
+  <div class="card">
+    <div id="perf-provisional" style="display:none;margin:0 0 12px;padding:10px 12px;
+      border:1px solid #b8860b;border-left-width:4px;border-radius:6px;
+      background:rgba(184,134,11,0.12);font-size:0.82rem;line-height:1.45;">
+      <strong>Provisional figures.</strong> <span id="perf-provisional-reason"></span>
+    </div>
+    <div id="perf-summary" style="font-size:.85rem;margin-bottom:12px"></div>
+    <div class="table-wrap">
+      <table id="weekly-table">
+        <thead><tr><th>ISO week (Mon-Sun, UTC)</th><th>Closed</th><th>W / L</th>
+          <th>Realized net P/L</th><th>Purified</th><th>Cumulative</th></tr></thead>
+        <tbody><tr><td colspan="6" class="empty">Loading...</td></tr></tbody>
+      </table>
+    </div>
+    <div style="height:14px"></div>
+    <div class="table-wrap">
+      <table id="monthly-table">
+        <thead><tr><th>Calendar month (UTC)</th><th>Closed</th><th>W / L</th>
+          <th>Realized net P/L</th><th>Purified</th><th>Cumulative</th></tr></thead>
+        <tbody><tr><td colspan="6" class="empty">Loading...</td></tr></tbody>
+      </table>
+    </div>
+    <p style="color:var(--muted);font-size:.78rem;margin:12px 0 0">
+      Derived from <code>data/paper_trades.csv</code> only - no ledger row is modified.
+      A period is attributed by the SELL row's <code>timestamp_utc</code>. Realized P/L
+      is the sum of <code>pl_usd</code>; purification is the sum of
+      <code>purification_usd</code>. Reproduce independently with
+      <code>scripts/Get-PeriodPerformance.ps1</code>.
+    </p>
+  </div>
+
   <div class="section-title">Recent Paper Trades</div>
   <div class="card table-wrap">
     <table id="trades-table">
@@ -217,6 +249,134 @@ async function loadTradesCsv() {
     headers.forEach((h, i) => row[h] = cells[i]);
     return row;
   });
+}
+
+// ---- Weekly / monthly performance -------------------------------------
+// Derived only from the committed ledger. Nothing here writes, normalises or
+// corrects a ledger row; SELL rows are read exactly as stored. Periods are keyed
+// in UTC, matching the ledger's own timestamp_utc.
+
+function isoWeekOf(d) {
+  const t = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+  const dow = (t.getUTCDay() + 6) % 7;            // Mon = 0
+  t.setUTCDate(t.getUTCDate() - dow + 3);         // Thursday decides the ISO year
+  const year = t.getUTCFullYear();
+  const jan4 = new Date(Date.UTC(year, 0, 4));
+  const jan4dow = (jan4.getUTCDay() + 6) % 7;
+  const week1Mon = new Date(Date.UTC(year, 0, 4 - jan4dow));
+  const week = Math.round((t - week1Mon) / 604800000) + 1;
+  return { year: year, week: week };
+}
+
+function isoWeekMonday(d) {
+  const t = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+  t.setUTCDate(t.getUTCDate() - ((t.getUTCDay() + 6) % 7));
+  return t;
+}
+
+const dmy = d => d.toLocaleDateString(undefined,
+  { month: "short", day: "numeric", timeZone: "UTC" });
+
+const money = v => (v >= 0 ? "+" : "-") + "$" + Math.abs(v).toFixed(4);
+
+function rollup(trades, keyFn, labelFn) {
+  const buckets = new Map();
+  for (const r of trades) {
+    if (r.action !== "SELL") continue;            // only closed trades are realized
+    const d = new Date(r.timestamp_utc + "Z");
+    if (isNaN(d)) continue;
+    const k = keyFn(d);
+    if (!buckets.has(k)) {
+      buckets.set(k, { key: k, label: labelFn(d), closed: 0, wins: 0, losses: 0,
+                       pl: 0, pur: 0 });
+    }
+    const b = buckets.get(k);
+    const pl = parseFloat(r.pl_usd);
+    const pur = parseFloat(r.purification_usd);
+    b.closed += 1;
+    if (!isNaN(pl)) { b.pl += pl; if (pl > 0) b.wins += 1; else if (pl < 0) b.losses += 1; }
+    if (!isNaN(pur)) b.pur += pur;
+  }
+  const rows = [...buckets.values()].sort((a, b) => a.key < b.key ? -1 : 1);
+  let cum = 0;
+  rows.forEach(r => { cum += r.pl; r.cum = cum; });
+  return rows;
+}
+
+function fillPerfTable(id, rows) {
+  const tb = document.querySelector("#" + id + " tbody");
+  tb.innerHTML = "";
+  if (!rows.length) {
+    tb.innerHTML = '<tr><td colspan="6" class="empty">No closed trades yet.</td></tr>';
+    return;
+  }
+  for (const r of rows.slice().reverse()) {        // newest first
+    const tr = document.createElement("tr");
+    tr.innerHTML = "<td>" + r.label + "</td><td>" + r.closed + "</td>" +
+      "<td>" + r.wins + " / " + r.losses + "</td>" +
+      '<td class="' + (r.pl >= 0 ? "bull" : "bear") + '">' + money(r.pl) + "</td>" +
+      "<td>$" + r.pur.toFixed(4) + "</td>" +
+      "<td>" + money(r.cum) + "</td>";
+    tb.appendChild(tr);
+  }
+}
+
+function renderPerformance(trades, snapshot) {
+  const weekly = rollup(trades,
+    d => { const w = isoWeekOf(d); return w.year + "-W" + String(w.week).padStart(2, "0"); },
+    d => { const w = isoWeekOf(d); const mon = isoWeekMonday(d);
+           const sun = new Date(mon); sun.setUTCDate(sun.getUTCDate() + 6);
+           return w.year + "-W" + String(w.week).padStart(2, "0") +
+                  " (" + dmy(mon) + " - " + dmy(sun) + ")"; });
+
+  const monthly = rollup(trades,
+    d => d.getUTCFullYear() + "-" + String(d.getUTCMonth() + 1).padStart(2, "0"),
+    d => d.toLocaleDateString(undefined,
+           { year: "numeric", month: "long", timeZone: "UTC" }));
+
+  fillPerfTable("weekly-table", weekly);
+  fillPerfTable("monthly-table", monthly);
+
+  const totalPl = monthly.reduce((a, r) => a + r.pl, 0);
+  const totalPur = monthly.reduce((a, r) => a + r.pur, 0);
+  const closed = monthly.reduce((a, r) => a + r.closed, 0);
+
+  // Unrealized is reported separately and never folded into the realized rollups.
+  let unreal;
+  const op = snapshot && snapshot.open_position;
+  if (op) {
+    const row = (snapshot.tickers || []).find(t => t.ticker === op.ticker);
+    if (row && row.price) {
+      const u = (row.price - op.entry_price) * op.shares;
+      unreal = " &nbsp;&middot;&nbsp; <strong>Unrealized</strong> (open " + op.ticker + "): " +
+        '<span class="' + (u >= 0 ? "bull" : "bear") + '">' + money(u) + "</span>" +
+        " - mark-to-market, excluded from every figure above";
+    } else {
+      unreal = " &nbsp;&middot;&nbsp; <strong>Open position:</strong> " + op.ticker +
+        " - unrealized P/L unavailable (no price in snapshot), excluded above";
+    }
+  } else {
+    unreal = " &nbsp;&middot;&nbsp; No open position, so there is no unrealized P/L.";
+  }
+
+  document.getElementById("perf-summary").innerHTML =
+    "<strong>Cumulative realized net P/L:</strong> " +
+    '<span class="' + (totalPl >= 0 ? "bull" : "bear") + '">' + money(totalPl) + "</span>" +
+    " across " + closed + " closed trade" + (closed === 1 ? "" : "s") + " &middot; " +
+    "<strong>Purified:</strong> $" + totalPur.toFixed(4) + " &middot; " +
+    "Currency: <strong>USD</strong>" + unreal;
+
+  const integ = (snapshot && snapshot.integrity) || null;
+  const prov = !integ || integ.pl_provisional;
+  const el = document.getElementById("perf-provisional");
+  if (prov) {
+    document.getElementById("perf-provisional-reason").textContent =
+      (integ && integ.provisional_reason) ||
+      "These figures come from a ledger that still contains trades flagged by the 2026-09-21 duplicate-execution audit. Every weekly and monthly total above inherits that. See RECONCILIATION-2026-09-21.md.";
+    el.style.display = "";
+  } else {
+    el.style.display = "none";
+  }
 }
 
 const CALC_LOG_KEY = "purification_calc_log";
@@ -290,6 +450,7 @@ function initCalculator() {
 
 function render(snapshot, trades) {
   renderIntegrity(snapshot);
+  renderPerformance(lastTrades, snapshot);
   const gen = new Date(snapshot.generated_at_utc);
   document.getElementById("updated").textContent =
     "Last updated: " + gen.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
