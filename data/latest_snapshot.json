@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-09-21T20:35:24Z",
+  "generated_at_utc": "2026-09-22T23:42:11Z",
   "tickers": [
     {
       "ticker": "AAPL",
       "strategy": "rsi_revert",
-      "price": 338.98,
-      "rsi": 88.51,
+      "price": 339.75,
+      "rsi": 91.26,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -15,8 +15,8 @@
     {
       "ticker": "MSFT",
       "strategy": "rsi_revert",
-      "price": 501.61,
-      "rsi": 74.81,
+      "price": 498.0,
+      "rsi": 48.68,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -26,8 +26,8 @@
     {
       "ticker": "NVDA",
       "strategy": "rsi_revert",
-      "price": 227.38,
-      "rsi": 96.6,
+      "price": 228.87,
+      "rsi": 97.48,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -37,8 +37,8 @@
     {
       "ticker": "TSLA",
       "strategy": "rsi_revert",
-      "price": 375.3,
-      "rsi": 90.64,
+      "price": 378.9,
+      "rsi": 93.72,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -48,8 +48,8 @@
     {
       "ticker": "AMZN",
       "strategy": "rsi_revert",
-      "price": 258.45,
-      "rsi": 90.73,
+      "price": 254.98,
+      "rsi": 48.98,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -59,8 +59,8 @@
     {
       "ticker": "GOOGL",
       "strategy": "rsi_revert",
-      "price": 354.97,
-      "rsi": 93.38,
+      "price": 351.16,
+      "rsi": 49.71,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -70,8 +70,8 @@
     {
       "ticker": "META",
       "strategy": "rsi_revert",
-      "price": 741.245,
-      "rsi": 90.45,
+      "price": 736.595,
+      "rsi": 81.76,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -81,8 +81,8 @@
     {
       "ticker": "AMD",
       "strategy": "rsi_revert",
-      "price": 615.52,
-      "rsi": 98.85,
+      "price": 623.77,
+      "rsi": 99.06,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -109,5 +109,19 @@
       "AMD"
     ],
     "purification_pct": 0.1
+  },
+  "integrity": {
+    "pl_provisional": true,
+    "provisional_reason": "Headline realized P/L includes trades flagged by the 2026-09-21 duplicate-execution audit (see RECONCILIATION-2026-09-21.md). Figures are provisional until those rows are reconciled and this flag is cleared.",
+    "bar_guard": {
+      "bar_id": "2026-09-22",
+      "decided": true,
+      "exit_done": false,
+      "entry_done": false,
+      "closed": [],
+      "opened": []
+    },
+    "outbox_pending": 0,
+    "outbox_needs_review": 0
   }
 }
