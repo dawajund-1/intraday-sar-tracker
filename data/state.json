@@ -4,12 +4,17 @@
     "MSFT": "FLAT",
     "NVDA": "FLAT",
     "TSLA": "FLAT",
-    "AMZN": "FLAT",
+    "AMZN": "LONG",
     "GOOGL": "FLAT",
     "META": "FLAT",
     "AMD": "FLAT"
   },
-  "open_position": null,
+  "open_position": {
+    "ticker": "AMZN",
+    "entry_price": 249.27,
+    "entry_time": "2026-09-23T23:51:11",
+    "shares": 0.146099
+  },
   "portfolio": {
     "balance_usd": 36.418,
     "realized_pl_usd": 11.0352,
@@ -26,11 +31,13 @@
     "AMD": "NONE"
   },
   "bar_guard": {
-    "bar_id": "2026-09-22",
+    "bar_id": "2026-09-23",
     "decided": true,
     "exit_done": false,
-    "entry_done": false,
+    "entry_done": true,
     "closed": [],
-    "opened": []
+    "opened": [
+      "AMZN"
+    ]
   }
 }
