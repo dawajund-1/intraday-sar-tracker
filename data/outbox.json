@@ -14,10 +14,10 @@
     "id": "BUY:AMZN:2026-09-23",
     "title": "BUY signal: AMZN",
     "message": "Entry @ $249.27 | Balance $36.418",
-    "status": "pending",
-    "attempts": 0,
+    "status": "sending",
+    "attempts": 1,
     "created_utc": "2026-09-23T23:51:13Z",
-    "claimed_utc": null,
+    "claimed_utc": "2026-09-23T23:51:15Z",
     "sent_utc": null,
     "last_error": null
   }
