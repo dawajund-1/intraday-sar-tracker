@@ -31,5 +31,16 @@
     "claimed_utc": "2026-09-23T23:57:13Z",
     "sent_utc": "2026-09-23T23:57:15Z",
     "last_error": null
+  },
+  {
+    "id": "SUMMARY:2026-09-25",
+    "title": "Daily summary",
+    "message": "Closed trades: 0 | Net P/L $0 | Purified $0 | Balance $36.418 (SAR 136.57) | Open: AMZN @ $249.27",
+    "status": "pending",
+    "attempts": 0,
+    "created_utc": "2026-09-25T00:00:15Z",
+    "claimed_utc": null,
+    "sent_utc": null,
+    "last_error": null
   }
 ]
