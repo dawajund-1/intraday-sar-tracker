@@ -47,10 +47,10 @@
     "id": "SUMMARY:2026-09-26",
     "title": "Daily summary",
     "message": "Closed trades: 0 | Net P/L $0 | Purified $0 | Balance $36.418 (SAR 136.57) | Open: AMZN @ $249.27",
-    "status": "pending",
-    "attempts": 0,
+    "status": "sending",
+    "attempts": 1,
     "created_utc": "2026-09-26T00:08:56Z",
-    "claimed_utc": null,
+    "claimed_utc": "2026-09-26T00:08:58Z",
     "sent_utc": null,
     "last_error": null
   }
