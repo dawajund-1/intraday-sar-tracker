@@ -274,6 +274,19 @@ function isoWeekMonday(d) {
   return t;
 }
 
+// --- Saudi time display ---------------------------------------------------
+// All wall-clock timestamps on this page are rendered in Saudi Arabia Standard
+// Time (Asia/Riyadh, UTC+3, no DST) and labelled "AST", regardless of the
+// viewer's device timezone. This is display only: the scheduler still runs on
+// UTC and every guard keys on the bar id, not on the clock.
+const SA_TZ = "Asia/Riyadh";
+const saDateTime = d => d.toLocaleString("en-GB",
+  { dateStyle: "medium", timeStyle: "short", timeZone: SA_TZ }) + " AST";
+const saTime = d => d.toLocaleTimeString("en-GB",
+  { hour: "2-digit", minute: "2-digit", timeZone: SA_TZ }) + " AST";
+const saDate = d => d.toLocaleDateString("en-GB",
+  { dateStyle: "medium", timeZone: SA_TZ });
+
 const dmy = d => d.toLocaleDateString(undefined,
   { month: "short", day: "numeric", timeZone: "UTC" });
 
@@ -436,7 +449,7 @@ function initCalculator() {
     if (isNaN(profit) || isNaN(pct)) { return; }
     const log = loadCalcLog();
     log.push({
-      date: new Date().toLocaleDateString(undefined, { dateStyle: "medium" }),
+      date: saDate(new Date()),
       profit, pct, amount: profit * (pct / 100), notes
     });
     saveCalcLog(log);
@@ -453,7 +466,7 @@ function render(snapshot, trades) {
   renderPerformance(lastTrades, snapshot);
   const gen = new Date(snapshot.generated_at_utc);
   document.getElementById("updated").textContent =
-    "Last updated: " + gen.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+    "Last updated: " + saDateTime(gen);
 
   const p = snapshot.portfolio;
   document.getElementById("balance").textContent = fmtUsd(p.balance_usd);
@@ -491,7 +504,7 @@ function render(snapshot, trades) {
     const live = livePrices[t.ticker];
     const shownPrice = live ? live.price : t.price;
     const priceCell = live
-      ? `$${shownPrice} <span class="badge live-badge" title="Live from Finnhub, ${new Date(live.at).toLocaleTimeString()}">●</span>`
+      ? `$${shownPrice} <span class="badge live-badge" title="Live from Finnhub, ${saTime(new Date(live.at))}">●</span>`
       : `$${shownPrice}`;
     const col1 = t.strategy === 'rsi_revert' ? (t.rsi ?? '—') : t.ema9;
     const col2 = t.strategy === 'rsi_revert'
@@ -567,7 +580,7 @@ function tickClock() {
   if (!LIVE_PRICES_ENABLED) {
     const at = lastSnapshot && lastSnapshot.generated_at_utc;
     el.textContent = at
-      ? `Showing the close from the last completed bar — ${new Date(at).toLocaleString()}`
+      ? `Showing the close from the last completed bar — ${saDateTime(new Date(at))}`
       : "Showing the close from the last completed bar";
     return;
   }

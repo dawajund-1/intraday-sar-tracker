@@ -238,6 +238,16 @@ function renderCalcLog() {
   });
 }
 
+// --- Saudi time display ---------------------------------------------------
+// Timestamps render in Saudi Arabia Standard Time (Asia/Riyadh, UTC+3, no DST)
+// and are labelled "AST" regardless of the viewer's device timezone. Display
+// only: scheduling stays on UTC and guards key on the bar id, not the clock.
+const SA_TZ = "Asia/Riyadh";
+const saDateTime = d => d.toLocaleString("en-GB",
+  { dateStyle: "medium", timeStyle: "short", timeZone: SA_TZ }) + " AST";
+const saDate = d => d.toLocaleDateString("en-GB",
+  { dateStyle: "medium", timeZone: SA_TZ });
+
 function initCalculator() {
   document.getElementById("calc-profit").addEventListener("input", updateCalcResult);
   document.getElementById("calc-pct").addEventListener("input", updateCalcResult);
@@ -248,7 +258,7 @@ function initCalculator() {
     if (isNaN(profit) || isNaN(pct)) { return; }
     const log = loadCalcLog();
     log.push({
-      date: new Date().toLocaleDateString(undefined, { dateStyle: "medium" }),
+      date: saDate(new Date()),
       profit, pct, amount: profit * (pct / 100), notes
     });
     saveCalcLog(log);
@@ -263,7 +273,7 @@ function initCalculator() {
 function render(snapshot, trades) {
   const gen = new Date(snapshot.generated_at_utc);
   document.getElementById("updated").textContent =
-    "Last updated: " + gen.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+    "Last updated: " + saDateTime(gen);
 
   const p = snapshot.portfolio;
   document.getElementById("balance").textContent = fmtSar(p.balance_sar);
