@@ -280,8 +280,15 @@ function isoWeekMonday(d) {
 // viewer's device timezone. This is display only: the scheduler still runs on
 // UTC and every guard keys on the bar id, not on the clock.
 const SA_TZ = "Asia/Riyadh";
-const saDateTime = d => d.toLocaleString("en-GB",
-  { dateStyle: "medium", timeStyle: "short", timeZone: SA_TZ }) + " AST";
+const US_TZ = "America/New_York";
+// Saudi time runs 7-8h ahead of New York, so a US session that closes on the
+// 30th is timestamped the 1st in Riyadh. Showing both sides removes the
+// ambiguity about which trading session a timestamp actually belongs to.
+const saDateTime = d =>
+  d.toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short", timeZone: SA_TZ })
+  + " AST · " +
+  d.toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short", timeZone: US_TZ })
+  + " New York";
 const saTime = d => d.toLocaleTimeString("en-GB",
   { hour: "2-digit", minute: "2-digit", timeZone: SA_TZ }) + " AST";
 const saDate = d => d.toLocaleDateString("en-GB",
