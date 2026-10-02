@@ -91,22 +91,22 @@
     "id": "SELL:AMZN:2026-09-30",
     "title": "SELL signal: AMZN",
     "message": "Exit @ $249.15 | P/L $-0.0175 | Purified $0 | Balance $36.4005",
-    "status": "sending",
+    "status": "sent",
     "attempts": 1,
     "created_utc": "2026-10-02T00:59:34Z",
     "claimed_utc": "2026-10-02T00:59:36Z",
-    "sent_utc": null,
+    "sent_utc": "2026-10-02T00:59:37Z",
     "last_error": null
   },
   {
     "id": "BUY:TSLA:2026-09-30",
     "title": "BUY signal: TSLA",
     "message": "Entry @ $354.81 | Balance $36.4005",
-    "status": "sending",
+    "status": "sent",
     "attempts": 1,
     "created_utc": "2026-10-02T00:59:34Z",
     "claimed_utc": "2026-10-02T00:59:36Z",
-    "sent_utc": null,
+    "sent_utc": "2026-10-02T00:59:37Z",
     "last_error": null
   }
 ]
