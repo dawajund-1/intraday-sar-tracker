@@ -124,10 +124,10 @@
     "id": "SUMMARY:2026-10-03",
     "title": "Daily summary",
     "message": "Closed trades: 0 | Net P/L $0 | Purified $0 | Balance $36.4005 (SAR 136.5) | Open: TSLA @ $354.81",
-    "status": "pending",
-    "attempts": 0,
+    "status": "sending",
+    "attempts": 1,
     "created_utc": "2026-10-03T00:43:42Z",
-    "claimed_utc": null,
+    "claimed_utc": "2026-10-03T00:43:43Z",
     "sent_utc": null,
     "last_error": null
   }
