@@ -31,15 +31,11 @@
     "AMD": "NONE"
   },
   "bar_guard": {
-    "bar_id": "2026-09-30",
+    "bar_id": "2026-10-01",
     "decided": true,
-    "exit_done": true,
-    "entry_done": true,
-    "closed": [
-      "AMZN"
-    ],
-    "opened": [
-      "TSLA"
-    ]
+    "exit_done": false,
+    "entry_done": false,
+    "closed": [],
+    "opened": []
   }
 }
