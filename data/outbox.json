@@ -130,5 +130,16 @@
     "claimed_utc": "2026-10-03T00:43:43Z",
     "sent_utc": "2026-10-03T00:43:45Z",
     "last_error": null
+  },
+  {
+    "id": "SELL:TSLA:2026-10-05",
+    "title": "SELL signal: TSLA",
+    "message": "Exit @ $378.73 | P/L $2.454 | Purified $0.2454 | Balance $38.6091",
+    "status": "pending",
+    "attempts": 0,
+    "created_utc": "2026-10-06T01:49:41Z",
+    "claimed_utc": null,
+    "sent_utc": null,
+    "last_error": null
   }
 ]

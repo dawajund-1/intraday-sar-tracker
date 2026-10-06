@@ -1,22 +1,22 @@
 {
-  "generated_at_utc": "2026-10-03T00:36:40Z",
+  "generated_at_utc": "2026-10-06T01:49:41Z",
   "tickers": [
     {
       "ticker": "AAPL",
       "strategy": "rsi_revert",
-      "price": 330.32,
-      "rsi": 28.66,
+      "price": 332.89,
+      "rsi": 50.95,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
       "ticker": "MSFT",
       "strategy": "rsi_revert",
-      "price": 512.8,
-      "rsi": 73.36,
+      "price": 525.18,
+      "rsi": 97.39,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -26,8 +26,8 @@
     {
       "ticker": "NVDA",
       "strategy": "rsi_revert",
-      "price": 230.86,
-      "rsi": 87.95,
+      "price": 238.9,
+      "rsi": 98.35,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -37,19 +37,19 @@
     {
       "ticker": "TSLA",
       "strategy": "rsi_revert",
-      "price": 354.11,
-      "rsi": 20.82,
+      "price": 378.73,
+      "rsi": 94.17,
       "ema9": null,
       "ema21": null,
       "trend": "LONG",
-      "signal": "NONE",
+      "signal": "SELL",
       "early_warning": "NONE"
     },
     {
       "ticker": "AMZN",
       "strategy": "rsi_revert",
-      "price": 248.23,
-      "rsi": 48.99,
+      "price": 251.4,
+      "rsi": 80.33,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -59,19 +59,19 @@
     {
       "ticker": "GOOGL",
       "strategy": "rsi_revert",
-      "price": 338.24,
-      "rsi": 21.68,
+      "price": 346.47,
+      "rsi": 78.39,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
       "ticker": "META",
       "strategy": "rsi_revert",
-      "price": 725.93,
-      "rsi": 38.14,
+      "price": 741.9,
+      "rsi": 83.87,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -81,8 +81,8 @@
     {
       "ticker": "AMD",
       "strategy": "rsi_revert",
-      "price": 615.73,
-      "rsi": 69.41,
+      "price": 631.75,
+      "rsi": 78.73,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -90,17 +90,12 @@
       "early_warning": "NONE"
     }
   ],
-  "open_position": {
-    "ticker": "TSLA",
-    "entry_price": 354.81,
-    "entry_time": "2026-10-02T00:59:31",
-    "shares": 0.102592
-  },
+  "open_position": null,
   "portfolio": {
-    "balance_usd": 36.4005,
-    "balance_sar": 136.5,
-    "realized_pl_usd": 11.0177,
-    "purified_total_usd": 1.2839
+    "balance_usd": 38.6091,
+    "balance_sar": 144.78,
+    "realized_pl_usd": 13.4717,
+    "purified_total_usd": 1.5293
   },
   "config": {
     "watchlist": [
@@ -119,14 +114,16 @@
     "pl_provisional": true,
     "provisional_reason": "Headline realized P/L includes trades flagged by the 2026-09-21 duplicate-execution audit (see RECONCILIATION-2026-09-21.md). Figures are provisional until those rows are reconciled and this flag is cleared.",
     "bar_guard": {
-      "bar_id": "2026-10-01",
+      "bar_id": "2026-10-05",
       "decided": true,
-      "exit_done": false,
+      "exit_done": true,
       "entry_done": false,
-      "closed": [],
+      "closed": [
+        "TSLA"
+      ],
       "opened": []
     },
-    "outbox_pending": 0,
+    "outbox_pending": 1,
     "outbox_needs_review": 0
   }
 }
