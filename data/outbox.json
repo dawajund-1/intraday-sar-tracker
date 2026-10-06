@@ -146,10 +146,10 @@
     "id": "SUMMARY:2026-10-06",
     "title": "Daily summary",
     "message": "Closed trades: 1 | Net P/L $2.45 | Purified $0.25 | Balance $38.6091 (SAR 144.78) | Open: none",
-    "status": "pending",
-    "attempts": 0,
+    "status": "sending",
+    "attempts": 1,
     "created_utc": "2026-10-06T01:52:58Z",
-    "claimed_utc": null,
+    "claimed_utc": "2026-10-06T01:53:00Z",
     "sent_utc": null,
     "last_error": null
   }
