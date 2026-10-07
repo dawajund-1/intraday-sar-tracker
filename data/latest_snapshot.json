@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-10-06T01:49:41Z",
+  "generated_at_utc": "2026-10-07T00:53:51Z",
   "tickers": [
     {
       "ticker": "AAPL",
       "strategy": "rsi_revert",
-      "price": 332.89,
-      "rsi": 50.95,
+      "price": 333.63,
+      "rsi": 63.37,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -15,8 +15,8 @@
     {
       "ticker": "MSFT",
       "strategy": "rsi_revert",
-      "price": 525.18,
-      "rsi": 97.39,
+      "price": 529.3,
+      "rsi": 98.5,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -26,8 +26,8 @@
     {
       "ticker": "NVDA",
       "strategy": "rsi_revert",
-      "price": 238.9,
-      "rsi": 98.35,
+      "price": 239.24,
+      "rsi": 98.49,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -37,19 +37,19 @@
     {
       "ticker": "TSLA",
       "strategy": "rsi_revert",
-      "price": 378.73,
-      "rsi": 94.17,
+      "price": 380.68,
+      "rsi": 95.22,
       "ema9": null,
       "ema21": null,
-      "trend": "LONG",
-      "signal": "SELL",
+      "trend": "FLAT",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
       "ticker": "AMZN",
       "strategy": "rsi_revert",
-      "price": 251.4,
-      "rsi": 80.33,
+      "price": 256.29,
+      "rsi": 96.01,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -59,8 +59,8 @@
     {
       "ticker": "GOOGL",
       "strategy": "rsi_revert",
-      "price": 346.47,
-      "rsi": 78.39,
+      "price": 347.68,
+      "rsi": 83.54,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -81,8 +81,8 @@
     {
       "ticker": "AMD",
       "strategy": "rsi_revert",
-      "price": 631.75,
-      "rsi": 78.73,
+      "price": 649.42,
+      "rsi": 94.04,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -114,16 +114,14 @@
     "pl_provisional": true,
     "provisional_reason": "Headline realized P/L includes trades flagged by the 2026-09-21 duplicate-execution audit (see RECONCILIATION-2026-09-21.md). Figures are provisional until those rows are reconciled and this flag is cleared.",
     "bar_guard": {
-      "bar_id": "2026-10-05",
+      "bar_id": "2026-10-06",
       "decided": true,
-      "exit_done": true,
+      "exit_done": false,
       "entry_done": false,
-      "closed": [
-        "TSLA"
-      ],
+      "closed": [],
       "opened": []
     },
-    "outbox_pending": 1,
+    "outbox_pending": 0,
     "outbox_needs_review": 0
   }
 }
