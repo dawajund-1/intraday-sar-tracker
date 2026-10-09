@@ -179,11 +179,11 @@
     "id": "BUY:META:2026-10-07",
     "title": "BUY signal: META",
     "message": "Entry @ $721.31 | Balance $38.6091",
-    "status": "sending",
+    "status": "sent",
     "attempts": 1,
     "created_utc": "2026-10-09T01:19:34Z",
     "claimed_utc": "2026-10-09T01:19:35Z",
-    "sent_utc": null,
+    "sent_utc": "2026-10-09T01:19:37Z",
     "last_error": null
   }
 ]
