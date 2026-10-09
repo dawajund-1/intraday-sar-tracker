@@ -174,5 +174,16 @@
     "claimed_utc": "2026-10-08T01:18:57Z",
     "sent_utc": "2026-10-08T01:18:58Z",
     "last_error": null
+  },
+  {
+    "id": "BUY:META:2026-10-07",
+    "title": "BUY signal: META",
+    "message": "Entry @ $721.31 | Balance $38.6091",
+    "status": "pending",
+    "attempts": 0,
+    "created_utc": "2026-10-09T01:19:34Z",
+    "claimed_utc": null,
+    "sent_utc": null,
+    "last_error": null
   }
 ]

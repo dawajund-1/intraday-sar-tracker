@@ -6,10 +6,15 @@
     "TSLA": "FLAT",
     "AMZN": "FLAT",
     "GOOGL": "FLAT",
-    "META": "FLAT",
+    "META": "LONG",
     "AMD": "FLAT"
   },
-  "open_position": null,
+  "open_position": {
+    "ticker": "META",
+    "entry_price": 721.31,
+    "entry_time": "2026-10-09T01:19:32",
+    "shares": 0.053526
+  },
   "portfolio": {
     "balance_usd": 38.6091,
     "realized_pl_usd": 13.4717,
@@ -26,11 +31,13 @@
     "AMD": "NONE"
   },
   "bar_guard": {
-    "bar_id": "2026-10-06",
+    "bar_id": "2026-10-07",
     "decided": true,
     "exit_done": false,
-    "entry_done": false,
+    "entry_done": true,
     "closed": [],
-    "opened": []
+    "opened": [
+      "META"
+    ]
   }
 }

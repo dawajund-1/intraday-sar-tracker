@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-10-08T01:10:36Z",
+  "generated_at_utc": "2026-10-09T01:19:34Z",
   "tickers": [
     {
       "ticker": "AAPL",
       "strategy": "rsi_revert",
-      "price": 333.63,
-      "rsi": 63.37,
+      "price": 336.67,
+      "rsi": 88.11,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -15,8 +15,8 @@
     {
       "ticker": "MSFT",
       "strategy": "rsi_revert",
-      "price": 529.3,
-      "rsi": 98.5,
+      "price": 529.76,
+      "rsi": 98.63,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -26,8 +26,8 @@
     {
       "ticker": "NVDA",
       "strategy": "rsi_revert",
-      "price": 239.24,
-      "rsi": 98.49,
+      "price": 237.47,
+      "rsi": 52.86,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -37,8 +37,8 @@
     {
       "ticker": "TSLA",
       "strategy": "rsi_revert",
-      "price": 380.68,
-      "rsi": 95.22,
+      "price": 377.81,
+      "rsi": 62.16,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -48,8 +48,8 @@
     {
       "ticker": "AMZN",
       "strategy": "rsi_revert",
-      "price": 256.29,
-      "rsi": 96.01,
+      "price": 259.92,
+      "rsi": 98.17,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -59,8 +59,8 @@
     {
       "ticker": "GOOGL",
       "strategy": "rsi_revert",
-      "price": 347.68,
-      "rsi": 83.54,
+      "price": 350.5,
+      "rsi": 92.2,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -70,19 +70,19 @@
     {
       "ticker": "META",
       "strategy": "rsi_revert",
-      "price": 738.88,
-      "rsi": 64.53,
+      "price": 721.31,
+      "rsi": 17.52,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
-      "signal": "NONE",
+      "signal": "BUY",
       "early_warning": "NONE"
     },
     {
       "ticker": "AMD",
       "strategy": "rsi_revert",
-      "price": 649.42,
-      "rsi": 94.04,
+      "price": 645.86,
+      "rsi": 72.9,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -90,7 +90,12 @@
       "early_warning": "NONE"
     }
   ],
-  "open_position": null,
+  "open_position": {
+    "ticker": "META",
+    "entry_price": 721.31,
+    "entry_time": "2026-10-09T01:19:32",
+    "shares": 0.053526
+  },
   "portfolio": {
     "balance_usd": 38.6091,
     "balance_sar": 144.78,
@@ -114,14 +119,16 @@
     "pl_provisional": true,
     "provisional_reason": "Headline realized P/L includes trades flagged by the 2026-09-21 duplicate-execution audit (see RECONCILIATION-2026-09-21.md). Figures are provisional until those rows are reconciled and this flag is cleared.",
     "bar_guard": {
-      "bar_id": "2026-10-06",
+      "bar_id": "2026-10-07",
       "decided": true,
       "exit_done": false,
-      "entry_done": false,
+      "entry_done": true,
       "closed": [],
-      "opened": []
+      "opened": [
+        "META"
+      ]
     },
-    "outbox_pending": 0,
+    "outbox_pending": 1,
     "outbox_needs_review": 0
   }
 }
