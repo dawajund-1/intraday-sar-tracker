@@ -236,6 +236,39 @@ Invoke-SimulatedRun -State $st -BarId "2026-09-21" -SellFor "MSFT" | Out-Null
 $body = $script:SentMessages -join " "
 Assert-True ($body -notmatch 'ntfy\.sh|token|secret|http') "alerts carry no topic, credential or link"
 
+Write-Host "`n=== Notification delivery window (Riyadh, UTC+3) ==="
+# The run time is GitHub's to decide; the delivery time is ours. These assert that
+# an alert produced in the small hours is HELD, not sent, and that one produced
+# during the day goes straight out.
+$ncfg = [pscustomobject]@{ notifications = [pscustomobject]@{
+    utc_offset_hours = 3; deliver_from_local = "07:00"; deliver_until_local = "22:00" } }
+
+function LocalEpochToRiyadh($e) {
+    ([DateTimeOffset]::FromUnixTimeSeconds($e)).UtcDateTime.AddHours(3)
+}
+
+# 01:26 UTC = 04:26 Riyadh - the exact case the user reported.
+$at = Get-DeliveryEpoch -NowUtc ([datetime]::Parse("2026-10-09T01:26:00Z").ToUniversalTime()) -Cfg $ncfg
+Assert-True ($null -ne $at) "an alert at 04:26 Riyadh is held, not sent"
+Assert-Equal "2026-10-09 07:00" (LocalEpochToRiyadh $at).ToString("yyyy-MM-dd HH:mm") "it is scheduled for 07:00 Riyadh the same morning"
+
+# 21:45 UTC = 00:45 Riyadh - the nominal cron time, also in quiet hours.
+$at2 = Get-DeliveryEpoch -NowUtc ([datetime]::Parse("2026-10-08T21:45:00Z").ToUniversalTime()) -Cfg $ncfg
+Assert-Equal "2026-10-09 07:00" (LocalEpochToRiyadh $at2).ToString("yyyy-MM-dd HH:mm") "a 00:45 Riyadh alert rolls to the next 07:00"
+
+# 09:00 UTC = 12:00 Riyadh - inside the window.
+Assert-True ($null -eq (Get-DeliveryEpoch -NowUtc ([datetime]::Parse("2026-10-08T09:00:00Z").ToUniversalTime()) -Cfg $ncfg)) "a midday alert is sent immediately"
+# 04:00 UTC = 07:00 Riyadh - exactly at the boundary, send now.
+Assert-True ($null -eq (Get-DeliveryEpoch -NowUtc ([datetime]::Parse("2026-10-08T04:00:00Z").ToUniversalTime()) -Cfg $ncfg)) "07:00 Riyadh exactly is inside the window"
+# 19:00 UTC = 22:00 Riyadh - boundary closed, hold.
+$at3 = Get-DeliveryEpoch -NowUtc ([datetime]::Parse("2026-10-08T19:00:00Z").ToUniversalTime()) -Cfg $ncfg
+Assert-True ($null -ne $at3) "22:00 Riyadh exactly is outside the window"
+Assert-Equal "2026-10-09 07:00" (LocalEpochToRiyadh $at3).ToString("yyyy-MM-dd HH:mm") "a 22:00 alert waits for the next morning"
+# No config at all must not crash and must not hold the message.
+Assert-True ($null -eq (Get-DeliveryEpoch -NowUtc (Get-Date).ToUniversalTime() -Cfg ([pscustomobject]@{}))) "no notifications block means send immediately"
+# The held delay must stay inside ntfy's 3-day maximum.
+Assert-True ((($at - [DateTimeOffset]::new([datetime]::Parse("2026-10-09T01:26:00Z").ToUniversalTime(), [TimeSpan]::Zero).ToUnixTimeSeconds()) / 3600.0) -lt 72) "the hold is well inside ntfy's 3-day limit"
+
 Remove-Item $TestRoot -Recurse -Force -ErrorAction SilentlyContinue
 
 Write-Host "`n------------------------------------------"

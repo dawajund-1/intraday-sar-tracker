@@ -66,6 +66,18 @@ it must never be reused; unsubscribe from it on your phone.
 Alerts are informational only: they carry no credentials, links or controls, and
 nothing in an alert can cause a trade.
 
+### When alerts arrive
+
+The US session closes at 20:00 UTC, which is already 23:00 in Riyadh, and GitHub then
+delays scheduled runs by an unpredictable 3-4 hours. Alerts were landing around 04:00
+local. Moving the cron cannot fix that - the bar has to be closed before the rule can
+read it.
+
+So run time and delivery time are separate. The job runs whenever GitHub gets to it,
+and ntfy is told when to deliver using its `At` header. Anything produced outside
+`07:00-22:00` Riyadh is held by ntfy and delivered at 07:00. Edit the `notifications`
+block in `config.json` to change the window.
+
 To subscribe a new device, install ntfy, add the topic held in `NTFY_TOPIC_US`, and
 leave the server as the default `ntfy.sh`. If that secret is ever lost it cannot be read
 back — generate a new topic, update the secret, and resubscribe.

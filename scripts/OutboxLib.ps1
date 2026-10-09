@@ -223,10 +223,48 @@ function Publish-DataCommit {
     return $false
 }
 
+function Get-DeliveryEpoch {
+    # When should the phone actually ring?
+    #
+    # WHY THIS EXISTS
+    # The US session closes at 20:00 UTC, which is already 23:00 in Riyadh, and
+    # GitHub then delays scheduled runs by an unpredictable 3-4 hours. The alert
+    # was therefore landing at roughly 04:00 local. Moving the cron cannot fix
+    # that: the bar has to be closed before the rule can read it, and the delay
+    # is GitHub's, not ours.
+    #
+    # So run time and delivery time are separated. The job runs whenever GitHub
+    # gets to it; ntfy is told when to deliver. Returns a Unix timestamp to pass
+    # as the "At" header, or $null to deliver immediately.
+    #
+    # Riyadh is UTC+3 all year with no daylight saving, so a fixed offset is
+    # exact here - no timezone database required.
+    param([datetime]$NowUtc, $Cfg)
+
+    $n = $Cfg.notifications
+    if (-not $n) { return $null }
+    $offset = [double]$n.utc_offset_hours
+    $fromH, $fromM = ($n.deliver_from_local -split ":") | ForEach-Object { [int]$_ }
+    $untilH, $untilM = ($n.deliver_until_local -split ":") | ForEach-Object { [int]$_ }
+
+    $local = $NowUtc.AddHours($offset)
+    $minutes = $local.Hour * 60 + $local.Minute
+    $from = $fromH * 60 + $fromM
+    $until = $untilH * 60 + $untilM
+
+    if ($minutes -ge $from -and $minutes -lt $until) { return $null }  # send now
+
+    # Outside the window: hold until the next opening of it.
+    $target = $local.Date.AddHours($fromH).AddMinutes($fromM)
+    if ($local -ge $target) { $target = $target.AddDays(1) }
+    $targetUtc = $target.AddHours(-$offset)
+    return [int64]([DateTimeOffset]::new($targetUtc, [TimeSpan]::Zero).ToUnixTimeSeconds())
+}
+
 function Send-OutboxMessage {
     # The only place that talks to ntfy. The topic comes from the environment
     # (a GitHub Actions secret), never from a tracked file, and is never logged.
-    param([string]$Title, [string]$Message)
+    param([string]$Title, [string]$Message, $Cfg)
 
     if ($script:OutboxSender) { return (& $script:OutboxSender $Title $Message) }
 
@@ -234,13 +272,23 @@ function Send-OutboxMessage {
     if ([string]::IsNullOrWhiteSpace($topic)) {
         throw "NTFY_TOPIC_US is not set; refusing to send."
     }
+
+    $headers = @{ "Title" = $Title }
+    $at = if ($Cfg) { Get-DeliveryEpoch -NowUtc ((Get-Date).ToUniversalTime()) -Cfg $Cfg } else { $null }
+    if ($at) {
+        # ntfy holds the message server-side and delivers it at this instant.
+        $headers["At"] = "$at"
+        Write-Host "outbox: outside the delivery window; ntfy will deliver at $at (epoch)."
+    }
+
     Invoke-RestMethod -Method Post -Uri "https://ntfy.sh/$topic" -Body $Message `
-        -Headers @{ "Title" = $Title } -TimeoutSec 15 | Out-Null
+        -Headers $headers -TimeoutSec 15 | Out-Null
     return $true
 }
 
 function Invoke-OutboxDrain {
     # pending --(commit claim)--> sending --(send)--> sent --(commit)
+    param($Cfg)
     # Aborts rather than sending if the claim cannot be made durable.
     $entries = @(Read-Outbox)
     if ($entries.Count -eq 0) { return }
@@ -285,7 +333,7 @@ function Invoke-OutboxDrain {
 
     foreach ($e in $pending) {
         try {
-            Send-OutboxMessage -Title $e.title -Message $e.message | Out-Null
+            Send-OutboxMessage -Title $e.title -Message $e.message -Cfg $Cfg | Out-Null
             $e.status   = "sent"
             $e.sent_utc = (Get-Date).ToUniversalTime().ToString("s") + "Z"
             Write-Host "outbox: delivered '$($e.id)'."

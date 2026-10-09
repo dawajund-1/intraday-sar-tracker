@@ -12,7 +12,7 @@ $now   = Get-Date
 # Deliver anything left queued by an earlier run before doing new work, so a run
 # that died between "decide" and "announce" is resolved first. Safe to call on
 # every dispatch: the drain is a no-op when the outbox is empty.
-Invoke-OutboxDrain
+Invoke-OutboxDrain -Cfg $cfg
 
 if (-not $state.ticker_state) { $state | Add-Member -NotePropertyName ticker_state -NotePropertyValue ([pscustomobject]@{}) -Force }
 if (-not $state.warning_state) { $state | Add-Member -NotePropertyName warning_state -NotePropertyValue ([pscustomobject]@{}) -Force }
@@ -284,7 +284,7 @@ $committed = Publish-DataCommit "Update signals $((Get-Date).ToUniversalTime().T
 if ($committed) {
     # Only now may the outbox be drained: every event about to be sent is
     # already durable on origin/main.
-    Invoke-OutboxDrain
+    Invoke-OutboxDrain -Cfg $cfg
 } else {
     Write-Warning "Data commit did not land; leaving the outbox undelivered on purpose."
 }

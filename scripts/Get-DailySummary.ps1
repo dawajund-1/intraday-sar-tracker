@@ -42,5 +42,5 @@ Append-Csv -Path (Join-Path $DataDir "daily_summary.csv") -Row ([pscustomobject]
 Add-OutboxEvent -Id "SUMMARY:${today}" -Title "Daily summary" `
     -Message "Closed trades: $($sells.Count) | Net P/L `$$([math]::Round($netPl,2)) | Purified `$$([math]::Round($netPurified,2)) | Balance `$$balanceUsd (SAR $balanceSar) | Open: $openPos" | Out-Null
 
-if (Publish-DataCommit "Daily summary $today") { Invoke-OutboxDrain }
+if (Publish-DataCommit "Daily summary $today") { Invoke-OutboxDrain -Cfg $cfg }
 else { Write-Warning "Data commit did not land; leaving the summary undelivered on purpose." }
