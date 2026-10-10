@@ -31,13 +31,11 @@
     "AMD": "NONE"
   },
   "bar_guard": {
-    "bar_id": "2026-10-07",
+    "bar_id": "2026-10-08",
     "decided": true,
     "exit_done": false,
-    "entry_done": true,
+    "entry_done": false,
     "closed": [],
-    "opened": [
-      "META"
-    ]
+    "opened": []
   }
 }

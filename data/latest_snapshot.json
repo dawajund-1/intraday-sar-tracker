@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-10-09T01:19:34Z",
+  "generated_at_utc": "2026-10-10T01:05:38Z",
   "tickers": [
     {
       "ticker": "AAPL",
       "strategy": "rsi_revert",
-      "price": 336.67,
-      "rsi": 88.11,
+      "price": 340.42,
+      "rsi": 95.54,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -15,30 +15,30 @@
     {
       "ticker": "MSFT",
       "strategy": "rsi_revert",
-      "price": 529.76,
-      "rsi": 98.63,
+      "price": 522.61,
+      "rsi": 26.65,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
-      "signal": "NONE",
+      "signal": "BUY",
       "early_warning": "NONE"
     },
     {
       "ticker": "NVDA",
       "strategy": "rsi_revert",
-      "price": 237.47,
-      "rsi": 52.86,
+      "price": 230.48,
+      "rsi": 11.35,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
-      "signal": "NONE",
+      "signal": "BUY",
       "early_warning": "NONE"
     },
     {
       "ticker": "TSLA",
       "strategy": "rsi_revert",
-      "price": 377.81,
-      "rsi": 62.16,
+      "price": 375.0,
+      "rsi": 37.0,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -48,8 +48,8 @@
     {
       "ticker": "AMZN",
       "strategy": "rsi_revert",
-      "price": 259.92,
-      "rsi": 98.17,
+      "price": 254.06,
+      "rsi": 35.7,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -59,8 +59,8 @@
     {
       "ticker": "GOOGL",
       "strategy": "rsi_revert",
-      "price": 350.5,
-      "rsi": 92.2,
+      "price": 348.29,
+      "rsi": 50.53,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -70,23 +70,23 @@
     {
       "ticker": "META",
       "strategy": "rsi_revert",
-      "price": 721.31,
-      "rsi": 17.52,
+      "price": 720.89,
+      "rsi": 16.93,
       "ema9": null,
       "ema21": null,
-      "trend": "FLAT",
-      "signal": "BUY",
+      "trend": "LONG",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
       "ticker": "AMD",
       "strategy": "rsi_revert",
-      "price": 645.86,
-      "rsi": 72.9,
+      "price": 620.68,
+      "rsi": 17.44,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
-      "signal": "NONE",
+      "signal": "BUY",
       "early_warning": "NONE"
     }
   ],
@@ -119,16 +119,14 @@
     "pl_provisional": true,
     "provisional_reason": "Headline realized P/L includes trades flagged by the 2026-09-21 duplicate-execution audit (see RECONCILIATION-2026-09-21.md). Figures are provisional until those rows are reconciled and this flag is cleared.",
     "bar_guard": {
-      "bar_id": "2026-10-07",
+      "bar_id": "2026-10-08",
       "decided": true,
       "exit_done": false,
-      "entry_done": true,
+      "entry_done": false,
       "closed": [],
-      "opened": [
-        "META"
-      ]
+      "opened": []
     },
-    "outbox_pending": 1,
+    "outbox_pending": 0,
     "outbox_needs_review": 0
   }
 }
