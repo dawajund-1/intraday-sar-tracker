@@ -97,7 +97,7 @@ foreach ($ticker in $cfg.watchlist) {
         $prevWarning = $state.warning_state.$ticker
 
         Append-Csv -Path (Join-Path $DataDir "signals_log.csv") -Row ([pscustomobject]@{
-            timestamp_utc = $now.ToUniversalTime().ToString("s")
+            timestamp_utc = $now.ToUniversalTime().ToString("s") + "Z"
             ticker        = $ticker
             strategy      = $strategy
             interval      = $barIntvl
@@ -180,7 +180,7 @@ else {
         $newBalance = [math]::Round($state.portfolio.balance_usd + $pl - $purification, 4)
 
         Append-Csv -Path $tradesPath -Row ([pscustomobject]@{
-            timestamp_utc = $now.ToUniversalTime().ToString("s")
+            timestamp_utc = $now.ToUniversalTime().ToString("s") + "Z"
             action        = "SELL"
             ticker        = $held.ticker
             price         = [math]::Round($exitPrice, 4)
@@ -191,7 +191,7 @@ else {
             balance_after_usd = $newBalance
         })
         Append-Csv -Path $portfolioPath -Row ([pscustomobject]@{
-            timestamp_utc = $now.ToUniversalTime().ToString("s")
+            timestamp_utc = $now.ToUniversalTime().ToString("s") + "Z"
             event         = "CLOSE $($held.ticker)"
             pl_usd        = $pl
             purification_usd = $purification
@@ -225,11 +225,11 @@ else {
         $state.open_position = [pscustomobject]@{
             ticker      = $buySignal.ticker
             entry_price = [math]::Round($buySignal.price, 4)
-            entry_time  = $now.ToUniversalTime().ToString("s")
+            entry_time  = $now.ToUniversalTime().ToString("s") + "Z"
             shares      = $shares
         }
         Append-Csv -Path $tradesPath -Row ([pscustomobject]@{
-            timestamp_utc = $now.ToUniversalTime().ToString("s")
+            timestamp_utc = $now.ToUniversalTime().ToString("s") + "Z"
             action        = "BUY"
             ticker        = $buySignal.ticker
             price         = [math]::Round($buySignal.price, 4)

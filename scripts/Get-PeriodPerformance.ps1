@@ -8,7 +8,10 @@
 #
 # Rules (identical to docs/index.html):
 #   * Only SELL rows are realized. BUY rows carry no P/L.
-#   * A trade belongs to the period containing its SELL timestamp_utc.
+#   * A trade belongs to the market SESSION it closed on, NOT to the moment the
+#     job happened to run. GitHub delays the cron 3-4 hours, so every row in this
+#     ledger was written the day after its session; bucketing by run time would
+#     push a month-end session into the following month.
 #   * Weeks are ISO-8601: Monday-Sunday, the ISO year taken from the Thursday.
 #   * Months are calendar months, UTC.
 #   * Realized P/L  = sum of pl_usd
@@ -21,6 +24,18 @@
 $ErrorActionPreference = "Stop"
 $RepoRoot = Split-Path -Parent $PSScriptRoot
 $Ledger   = Join-Path $RepoRoot "data/paper_trades.csv"
+
+function Get-SessionDate {
+    # Mirrors Remove-PartialBar and the dashboard's sessionOf(): at or after
+    # 20:00 UTC the session is that same day, otherwise the previous weekday.
+    # Market holidays are not known here, so a session following one can be
+    # attributed a day early - immaterial for week and month totals.
+    param([datetime]$RunUtc)
+    $d = $RunUtc.Date
+    if ($RunUtc.Hour -lt 20) { $d = $d.AddDays(-1) }
+    while ($d.DayOfWeek -eq 'Saturday' -or $d.DayOfWeek -eq 'Sunday') { $d = $d.AddDays(-1) }
+    return $d
+}
 
 function Get-IsoWeek {
     # Portable ISO-8601 week. Avoids System.Globalization.ISOWeek so the script
@@ -48,13 +63,14 @@ $rows = foreach ($r in $sells) {
     $ts = [datetime]::Parse($r.timestamp_utc, [cultureinfo]::InvariantCulture,
                             [System.Globalization.DateTimeStyles]::AssumeUniversal -bor
                             [System.Globalization.DateTimeStyles]::AdjustToUniversal)
-    $iso = Get-IsoWeek -Date $ts
+    $session = Get-SessionDate -RunUtc $ts
+    $iso = Get-IsoWeek -Date $session
     $pl  = if ([string]::IsNullOrWhiteSpace($r.pl_usd)) { 0.0 } else { [double]$r.pl_usd }
     $pur = if ([string]::IsNullOrWhiteSpace($r.purification_usd)) { 0.0 } else { [double]$r.purification_usd }
     [pscustomobject]@{
         WeekKey  = "{0}-W{1:D2}" -f $iso.Year, $iso.Week
         WeekSpan = "{0:yyyy-MM-dd} .. {1:yyyy-MM-dd}" -f $iso.Monday, $iso.Monday.AddDays(6)
-        MonthKey = $ts.ToString("yyyy-MM")
+        MonthKey = $session.ToString("yyyy-MM")
         Pl = $pl; Pur = $pur
     }
 }
@@ -82,10 +98,11 @@ function Write-Rollup {
 }
 
 Write-Host "Ledger : $Ledger"
-Write-Host "Source : SELL rows only, attributed by timestamp_utc (UTC). Currency: USD."
+Write-Host "Source : SELL rows only, attributed by market SESSION (derived from the run"
+Write-Host "         timestamp, which lands the day after). Currency: USD."
 
-Write-Rollup -Title "Weekly (ISO-8601, Monday-Sunday, UTC)" -KeyProp WeekKey -Rows $rows -SpanProp WeekSpan
-Write-Rollup -Title "Monthly (calendar, UTC)" -KeyProp MonthKey -Rows $rows
+Write-Rollup -Title "Weekly (ISO-8601, Monday-Sunday, by session)" -KeyProp WeekKey -Rows $rows -SpanProp WeekSpan
+Write-Rollup -Title "Monthly (calendar, by session)" -KeyProp MonthKey -Rows $rows
 
 $tp  = ($rows | Measure-Object Pl  -Sum).Sum
 $tpu = ($rows | Measure-Object Pur -Sum).Sum

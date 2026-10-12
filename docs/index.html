@@ -159,7 +159,7 @@
     <div id="perf-summary" style="font-size:.85rem;margin-bottom:12px"></div>
     <div class="table-wrap">
       <table id="weekly-table">
-        <thead><tr><th>ISO week (Mon-Sun, UTC)</th><th>Closed</th><th>W / L</th>
+        <thead><tr><th>ISO week (Mon-Sun, by session)</th><th>Closed</th><th>W / L</th>
           <th>Realized net P/L</th><th>Purified</th><th>Cumulative</th></tr></thead>
         <tbody><tr><td colspan="6" class="empty">Loading...</td></tr></tbody>
       </table>
@@ -167,14 +167,14 @@
     <div style="height:14px"></div>
     <div class="table-wrap">
       <table id="monthly-table">
-        <thead><tr><th>Calendar month (UTC)</th><th>Closed</th><th>W / L</th>
+        <thead><tr><th>Calendar month (by session)</th><th>Closed</th><th>W / L</th>
           <th>Realized net P/L</th><th>Purified</th><th>Cumulative</th></tr></thead>
         <tbody><tr><td colspan="6" class="empty">Loading...</td></tr></tbody>
       </table>
     </div>
     <p style="color:var(--muted);font-size:.78rem;margin:12px 0 0">
       Derived from <code>data/paper_trades.csv</code> only - no ledger row is modified.
-      A period is attributed by the SELL row's <code>timestamp_utc</code>. Realized P/L
+      A period is attributed by the market SESSION the trade closed on, derived from the run timestamp, not by when the job happened to run — GitHub delays the cron 3–4 hours, so every row here was written the day after its session. Realized P/L
       is the sum of <code>pl_usd</code>; purification is the sum of
       <code>purification_usd</code>. Reproduce independently with
       <code>scripts/Get-PeriodPerformance.ps1</code>.
@@ -285,6 +285,26 @@ const US_TZ = "America/New_York";
 // new Date() would otherwise read as local time and silently shift by the UTC
 // offset - so force the Z on before parsing, then render in Riyadh time.
 const asUtc = s => new Date(/[Zz]$/.test(s) ? s : s + "Z");
+// Which market SESSION a ledger row belongs to.
+//
+// The timestamp records when the job RAN, not which close it traded. GitHub
+// delays the cron 3-4 hours, so a run lands at ~01:00 UTC the next day: every
+// row in this ledger has a run date later than its session date. Bucketing a
+// weekly or monthly total by run time would push a month-end session into the
+// following month.
+//
+// Derivation mirrors Remove-PartialBar: at or after 20:00 UTC the session is
+// that same day, otherwise it is the previous weekday. It does not know market
+// holidays, so a session following one can be attributed a day early -
+// immaterial for week and month totals, which is all this is used for.
+function sessionOf(ts) {
+  const d = asUtc(ts);
+  const s = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+  if (d.getUTCHours() < 20) s.setUTCDate(s.getUTCDate() - 1);
+  while (s.getUTCDay() === 0 || s.getUTCDay() === 6) s.setUTCDate(s.getUTCDate() - 1);
+  return s;
+}
+
 const saStamp = s => s
   ? asUtc(s).toLocaleString("en-GB",
       { dateStyle: "medium", timeStyle: "medium", timeZone: SA_TZ })
@@ -312,7 +332,7 @@ function rollup(trades, keyFn, labelFn) {
   const buckets = new Map();
   for (const r of trades) {
     if (r.action !== "SELL") continue;            // only closed trades are realized
-    const d = new Date(r.timestamp_utc + "Z");
+    const d = sessionOf(r.timestamp_utc);
     if (isNaN(d)) continue;
     const k = keyFn(d);
     if (!buckets.has(k)) {
