@@ -184,7 +184,7 @@
   <div class="section-title">Recent Paper Trades</div>
   <div class="card table-wrap">
     <table id="trades-table">
-      <thead><tr><th>Time (UTC)</th><th>Action</th><th>Ticker</th><th>Price</th><th>P/L</th></tr></thead>
+      <thead><tr><th>Time (AST)</th><th>Action</th><th>Ticker</th><th>Price</th><th>P/L</th></tr></thead>
       <tbody><tr><td colspan="5" class="empty">Loading…</td></tr></tbody>
     </table>
   </div>
@@ -281,6 +281,15 @@ function isoWeekMonday(d) {
 // UTC and every guard keys on the bar id, not on the clock.
 const SA_TZ = "Asia/Riyadh";
 const US_TZ = "America/New_York";
+// Ledger timestamps are UTC. Project A writes them WITHOUT a trailing "Z", which
+// new Date() would otherwise read as local time and silently shift by the UTC
+// offset - so force the Z on before parsing, then render in Riyadh time.
+const asUtc = s => new Date(/[Zz]$/.test(s) ? s : s + "Z");
+const saStamp = s => s
+  ? asUtc(s).toLocaleString("en-GB",
+      { dateStyle: "medium", timeStyle: "medium", timeZone: SA_TZ })
+  : "";
+
 // Saudi time runs 7-8h ahead of New York, so a US session that closes on the
 // 30th is timestamped the 1st in Riyadh. Showing both sides removes the
 // ambiguity about which trading session a timestamp actually belongs to.
@@ -530,7 +539,7 @@ function render(snapshot, trades) {
   recent.forEach(t => {
     const tr = document.createElement("tr");
     const pl = t.pl_usd ? `<span class="${plClass(t.pl_usd)}">${fmtUsd(t.pl_usd)}</span>` : "—";
-    tr.innerHTML = `<td>${t.timestamp_utc || ""}</td><td>${t.action}</td><td>${t.ticker}</td><td>$${t.price}</td><td>${pl}</td>`;
+    tr.innerHTML = `<td>${saStamp(t.timestamp_utc)}</td><td>${t.action}</td><td>${t.ticker}</td><td>$${t.price}</td><td>${pl}</td>`;
     trBody.appendChild(tr);
   });
   if (recent.length === 0) {
