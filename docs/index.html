@@ -280,7 +280,6 @@ function isoWeekMonday(d) {
 // viewer's device timezone. This is display only: the scheduler still runs on
 // UTC and every guard keys on the bar id, not on the clock.
 const SA_TZ = "Asia/Riyadh";
-const US_TZ = "America/New_York";
 // Ledger timestamps are UTC. Project A writes them WITHOUT a trailing "Z", which
 // new Date() would otherwise read as local time and silently shift by the UTC
 // offset - so force the Z on before parsing, then render in Riyadh time.
@@ -310,14 +309,12 @@ const saStamp = s => s
       { dateStyle: "medium", timeStyle: "medium", timeZone: SA_TZ })
   : "";
 
-// Saudi time runs 7-8h ahead of New York, so a US session that closes on the
-// 30th is timestamped the 1st in Riyadh. Showing both sides removes the
-// ambiguity about which trading session a timestamp actually belongs to.
+// Riyadh time only. New York time was shown alongside until 2026-10-12, to
+// disambiguate which US session a timestamp belonged to. Periods now bucket
+// by market session rather than by run time, so the second clock was noise.
 const saDateTime = d =>
   d.toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short", timeZone: SA_TZ })
-  + " AST · " +
-  d.toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short", timeZone: US_TZ })
-  + " New York";
+  + " AST";
 const saTime = d => d.toLocaleTimeString("en-GB",
   { hour: "2-digit", minute: "2-digit", timeZone: SA_TZ }) + " AST";
 const saDate = d => d.toLocaleDateString("en-GB",
