@@ -36,6 +36,9 @@ $strategy = if ($live -and $live.strategy) { $live.strategy } else { "ema_cross"
 $barIntvl = if ($live -and $live.interval) { $live.interval } else { $cfg.interval }
 $barRange = if ($live -and $live.range)    { $live.range }    else { $cfg.range }
 $closeUtc = if ($live -and $live.market_close_utc) { $live.market_close_utc } else { "20:00" }
+$closeTz  = if ($live -and $live.market_timezone) { $live.market_timezone } else { $null }
+$closeLoc = if ($live -and $live.market_close_local) { $live.market_close_local } else { "16:00" }
+$settle   = if ($live -and $null -ne $live.close_settle_minutes) { [int]$live.close_settle_minutes } else { 0 }
 
 $signalsThisRun = @()
 $tickerSnapshots = @()
@@ -44,7 +47,8 @@ $barIds = @()
 foreach ($ticker in $cfg.watchlist) {
     try {
         $bars = Get-HourlyBars -Ticker $ticker -Interval $barIntvl -Range $barRange
-        $bars = Remove-PartialBar -Bars $bars -Interval $barIntvl -MarketCloseUtc $closeUtc
+        $bars = Remove-PartialBar -Bars $bars -Interval $barIntvl -MarketCloseUtc $closeUtc `
+                    -MarketTimeZone $closeTz -MarketCloseLocal $closeLoc -SettleMinutes $settle
         $tickerBarId = Get-BarId -Bars $bars
         if ($tickerBarId) { $barIds += $tickerBarId }
 

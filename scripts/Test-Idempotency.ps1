@@ -269,6 +269,59 @@ Assert-True ($null -eq (Get-DeliveryEpoch -NowUtc (Get-Date).ToUniversalTime() -
 # The held delay must stay inside ntfy's 3-day maximum.
 Assert-True ((($at - [DateTimeOffset]::new([datetime]::Parse("2026-10-09T01:26:00Z").ToUniversalTime(), [TimeSpan]::Zero).ToUnixTimeSeconds()) / 3600.0) -lt 72) "the hold is well inside ntfy's 3-day limit"
 
+Write-Host "`n=== Delivery window crossing midnight (07:00 -> 01:30 Riyadh) ==="
+# An on-time run right after the US close must ring at once; GitHub's late
+# backup run in the small hours must still be held until morning.
+$wcfg = [pscustomobject]@{ notifications = [pscustomobject]@{
+    utc_offset_hours = 3; deliver_from_local = "07:00"; deliver_until_local = "01:30" } }
+function DeliveryAt($isoUtc) { Get-DeliveryEpoch -NowUtc ([datetime]::Parse($isoUtc).ToUniversalTime()) -Cfg $wcfg }
+
+Assert-True ($null -eq (DeliveryAt "2026-10-13T20:15:00Z")) "23:15 Riyadh (summer close + 15 min) is sent immediately"
+Assert-True ($null -eq (DeliveryAt "2026-11-02T21:15:00Z")) "00:15 Riyadh (winter close + 15 min) is sent immediately"
+Assert-True ($null -eq (DeliveryAt "2026-10-13T22:29:00Z")) "01:29 Riyadh is still inside the window"
+Assert-True ($null -eq (DeliveryAt "2026-10-13T09:00:00Z")) "midday is inside the window"
+$late = DeliveryAt "2026-10-13T02:40:00Z"   # 05:40 Riyadh - last night's real backup run
+Assert-True ($null -ne $late) "a 05:40 Riyadh backup run is held"
+Assert-Equal "2026-10-13 07:00" (LocalEpochToRiyadh $late).ToString("yyyy-MM-dd HH:mm") "and delivered at 07:00 that morning"
+$edge = DeliveryAt "2026-10-13T22:30:00Z"   # 01:30 Riyadh on the 14th
+Assert-True ($null -ne $edge) "01:30 Riyadh exactly is outside the window"
+Assert-Equal "2026-10-14 07:00" (LocalEpochToRiyadh $edge).ToString("yyyy-MM-dd HH:mm") "an 01:30 alert waits for 07:00 the same morning"
+
+Write-Host "`n=== Session close follows New York's clock (DST) ==="
+# TrackerLib re-points DataDir at the repo when dot-sourced, so load it in a
+# child scope that cannot disturb the outbox harness above.
+& {
+    . (Join-Path $PSScriptRoot "TrackerLib.ps1")
+    function Bars($day) {
+        @([pscustomobject]@{ time = [datetime]::Parse("$((([datetime]$day).AddDays(-1)).ToString('yyyy-MM-dd'))T13:30:00Z").ToUniversalTime(); close = 1.0 },
+          [pscustomobject]@{ time = [datetime]::Parse("${day}T13:30:00Z").ToUniversalTime(); close = 2.0 })
+    }
+    function Kept($day, $nowIso) {
+        $r = Remove-PartialBar -Bars (Bars $day) -Interval "1d" -MarketTimeZone "America/New_York" `
+                -MarketCloseLocal "16:00" -SettleMinutes 10 -NowUtc ([datetime]::Parse($nowIso).ToUniversalTime())
+        return (@($r).Count -eq 2)
+    }
+
+    Assert-Equal "2026-10-30T20:00Z" (Get-SessionCloseUtc -SessionDate ([datetime]"2026-10-30")).ToString("yyyy-MM-ddTHH:mmZ") "last EDT Friday closes 20:00 UTC (23:00 Riyadh)"
+    Assert-Equal "2026-11-02T21:00Z" (Get-SessionCloseUtc -SessionDate ([datetime]"2026-11-02")).ToString("yyyy-MM-ddTHH:mmZ") "first EST Monday closes 21:00 UTC (00:00 Riyadh)"
+
+    Assert-True (-not (Kept "2026-10-13" "2026-10-13T19:59:00Z")) "summer: bar still trading at 19:59 UTC is dropped"
+    Assert-True (-not (Kept "2026-10-13" "2026-10-13T20:05:00Z")) "summer: inside the 10-min settle window it is still dropped"
+    Assert-True (Kept "2026-10-13" "2026-10-13T20:15:00Z") "summer: at 20:15 UTC the bar is final"
+    Assert-True (-not (Kept "2026-11-02" "2026-11-02T20:15:00Z")) "winter: 20:15 UTC is mid-session and the bar is dropped (the old fixed-UTC rule kept it)"
+    Assert-True (Kept "2026-11-02" "2026-11-02T21:15:00Z") "winter: at 21:15 UTC the bar is final"
+    Assert-True (Kept "2026-10-12" "2026-10-13T08:00:00Z") "a prior session's bar is always final"
+
+    function SessionOf($iso) { (Get-SessionDateOf -Utc ([datetime]::Parse($iso).ToUniversalTime())).ToString("yyyy-MM-dd") }
+    Assert-Equal "2026-10-13" (SessionOf "2026-10-13T20:20:00Z") "on-time summary (23:20 Riyadh) belongs to that day's session"
+    Assert-Equal "2026-10-13" (SessionOf "2026-10-14T02:40:00Z") "the late backup run (05:40 Riyadh) maps to the SAME session - no duplicate summary"
+    Assert-Equal "2026-10-12" (SessionOf "2026-10-13T02:39:57Z") "this morning's real SELL META row belongs to Monday's session"
+    Assert-Equal "2026-10-09" (SessionOf "2026-10-12T14:05:00Z") "a Monday-morning run before the open maps back to Friday"
+    Assert-Equal "2026-10-30" (SessionOf "2026-10-30T20:20:00Z") "summer: 20:20 UTC is after the close"
+    Assert-Equal "2026-10-30" (SessionOf "2026-11-02T20:20:00Z") "winter: 20:20 UTC Monday is mid-session, so the last session is Friday"
+    Assert-Equal "2026-11-02" (SessionOf "2026-11-02T21:20:00Z") "winter: 21:20 UTC is after the close"
+}
+
 Remove-Item $TestRoot -Recurse -Force -ErrorAction SilentlyContinue
 
 Write-Host "`n------------------------------------------"

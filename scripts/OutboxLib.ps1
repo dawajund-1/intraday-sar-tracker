@@ -252,7 +252,12 @@ function Get-DeliveryEpoch {
     $from = $fromH * 60 + $fromM
     $until = $untilH * 60 + $untilM
 
-    if ($minutes -ge $from -and $minutes -lt $until) { return $null }  # send now
+    # The window may cross midnight (07:00 -> 01:30), so that an alert produced
+    # right after the US close - 23:15 Riyadh in summer, 00:15 in winter - goes
+    # out at once, while a late backup run in the small hours is still held.
+    $inside = if ($from -le $until) { $minutes -ge $from -and $minutes -lt $until }
+              else                  { $minutes -ge $from -or  $minutes -lt $until }
+    if ($inside) { return $null }  # send now
 
     # Outside the window: hold until the next opening of it.
     $target = $local.Date.AddHours($fromH).AddMinutes($fromM)

@@ -24,9 +24,11 @@
     "rsi_period": 2,
     "rsi_buy_below": 30,
     "rsi_exit_above": 70,
-    "market_close_utc": "20:00"
+    "market_timezone": "America/New_York",
+    "market_close_local": "16:00",
+    "close_settle_minutes": 10
   },
-  "live_notes": "live.strategy selects the rule Get-Signals.ps1 actually trades. 'rsi_revert' is RSI(2) mean reversion on DAILY bars: buy when RSI closes below rsi_buy_below, sell when it closes above rsi_exit_above. It is the only configuration tested in this project that beat a matched random control after correcting for multiple testing (p=0.03, US large caps 2000-2013). Set live.strategy to 'ema_cross' to restore the previous EMA9/21 behaviour, which uses the top-level interval/range/ema_fast/ema_slow values instead. market_close_utc is when the US session ends in UTC (20:00 = 16:00 ET); before that time today's still-forming daily bar is discarded so the rule only ever acts on closed bars. WARNINGS: the same rule measured on 5m bars for this exact watchlist came out WORSE THAN RANDOM and loss-making even at zero cost, and on Tadawul it ranked 14th of 15 with NEGATIVE per-trade expectancy -- which is why the Saudi tracker deliberately still runs ema_cross. Do not copy this block into config-sa.json.",
+  "live_notes": "live.strategy selects the rule Get-Signals.ps1 actually trades. 'rsi_revert' is RSI(2) mean reversion on DAILY bars: buy when RSI closes below rsi_buy_below, sell when it closes above rsi_exit_above. It is the only configuration tested in this project that beat a matched random control after correcting for multiple testing (p=0.03, US large caps 2000-2013). Set live.strategy to 'ema_cross' to restore the previous EMA9/21 behaviour, which uses the top-level interval/range/ema_fast/ema_slow values instead. market_timezone + market_close_local say when the US session ends on New York's own clock (16:00 ET), so the close is 20:00 UTC in summer and 21:00 UTC in winter with no table to maintain; close_settle_minutes waits that long past the bell for the official closing price. Until then the day's still-forming bar is discarded so the rule only ever acts on closed bars. WARNINGS: the same rule measured on 5m bars for this exact watchlist came out WORSE THAN RANDOM and loss-making even at zero cost, and on Tadawul it ranked 14th of 15 with NEGATIVE per-trade expectancy -- which is why the Saudi tracker deliberately still runs ema_cross. Do not copy this block into config-sa.json.",
   "pl_provisional": true,
   "pl_provisional_reason": "Headline realized P/L includes trades flagged by the 2026-09-21 duplicate-execution audit (see RECONCILIATION-2026-09-21.md). Figures are provisional until those rows are reconciled and this flag is cleared.",
   "notes": "purification_pct is the fraction of each realized profit set aside (0.1 = 10%). Edit any value here and commit/push; the next scheduled run picks it up automatically. sar_per_usd uses SAR's fixed peg to the dollar. ntfy_topic is reused from the PC version so your existing phone subscription keeps working without resubscribing.",
@@ -34,7 +36,7 @@
     "timezone": "Asia/Riyadh",
     "utc_offset_hours": 3,
     "deliver_from_local": "07:00",
-    "deliver_until_local": "22:00",
-    "note": "When the phone rings, which is deliberately NOT when the job runs. The US session closes at 20:00 UTC = 23:00 Riyadh, and GitHub then delays scheduled runs by an unpredictable 3-4 hours, so alerts were arriving around 04:00 local. Moving the cron cannot fix that - the bar must be closed before the rule can read it. Instead the run happens whenever GitHub gets to it and ntfy is told when to deliver, via its 'At' header. An alert produced outside this window is held by ntfy and delivered at deliver_from_local. Riyadh is UTC+3 year round with no daylight saving, so the fixed offset is exact."
+    "deliver_until_local": "01:30",
+    "note": "When the phone may ring. The window crosses midnight: 07:00 -> 01:30 Riyadh. An on-time run right after the US close (23:15 Riyadh in summer, 00:15 in winter) is delivered immediately. GitHub's own cron is kept only as a backup and lands 3-4 hours late (around 04:00-05:00 Riyadh); anything produced between 01:30 and 07:00 is held by ntfy via its 'At' header and delivered at deliver_from_local, so a backup run never wakes you. Riyadh is UTC+3 year round with no daylight saving, so the fixed offset is exact."
   }
 }

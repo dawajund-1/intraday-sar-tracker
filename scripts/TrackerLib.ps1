@@ -96,20 +96,75 @@ function Remove-PartialBar {
     # the backtest would never have taken. Today's bar is therefore dropped
     # until the market has actually closed.
     #
-    # MarketCloseUtc is "HH:mm" in UTC, because GitHub Actions runners are UTC.
-    param($Bars, [string]$Interval, [string]$MarketCloseUtc)
+    # Preferred: MarketTimeZone + MarketCloseLocal ("America/New_York", "16:00").
+    # The close is then computed on New York's own clock for the bar's date, so
+    # it is 20:00 UTC in summer (EDT) and 21:00 UTC in winter (EST) without any
+    # table. A fixed UTC time is wrong for half the year: from the November
+    # clock change a run at 20:15 UTC would read a bar still trading for 45 min.
+    #
+    # SettleMinutes waits a little past the bell so the official closing
+    # auction price has replaced the last trade before the bar counts as final.
+    #
+    # Legacy fallback: MarketCloseUtc "HH:mm" when no time zone is configured.
+    # NowUtc is a seam for tests; leave it unset in production.
+    param($Bars, [string]$Interval, [string]$MarketCloseUtc,
+          [string]$MarketTimeZone, [string]$MarketCloseLocal = "16:00",
+          [int]$SettleMinutes = 0, $NowUtc = $null)
     if ($Interval -ne "1d" -or $Bars.Count -eq 0) { return $Bars }
 
-    $nowUtc   = (Get-Date).ToUniversalTime()
+    $nowUtc   = if ($NowUtc) { ([datetime]$NowUtc).ToUniversalTime() } else { (Get-Date).ToUniversalTime() }
     $lastDate = $Bars[-1].time.Date
-    if ($lastDate -ne $nowUtc.Date) { return $Bars }   # already a closed prior day
 
-    $parts    = $MarketCloseUtc -split ":"
-    $closeUtc = $nowUtc.Date.AddHours([int]$parts[0]).AddMinutes([int]$parts[1])
-    if ($nowUtc -ge $closeUtc) { return $Bars }        # session over, bar is final
+    if ($MarketTimeZone) {
+        $closeUtc = (Get-SessionCloseUtc -SessionDate $lastDate -TimeZoneId $MarketTimeZone `
+                        -CloseLocal $MarketCloseLocal).AddMinutes($SettleMinutes)
+        if ($nowUtc -ge $closeUtc) { return $Bars }    # that session is over, bar is final
+    } else {
+        if ($lastDate -ne $nowUtc.Date) { return $Bars }   # already a closed prior day
+        $parts    = $MarketCloseUtc -split ":"
+        $closeUtc = $nowUtc.Date.AddHours([int]$parts[0]).AddMinutes([int]$parts[1])
+        if ($nowUtc -ge $closeUtc) { return $Bars }        # session over, bar is final
+    }
 
     if ($Bars.Count -eq 1) { return @() }
     return $Bars[0..($Bars.Count - 2)]
+}
+
+function Get-SessionDateOf {
+    # Which US session a moment belongs to: the most recent weekday whose close
+    # (on New York's clock) is at or before $Utc. A run at 23:15 Riyadh and a
+    # late backup run at 05:40 Riyadh the next morning both map to the same
+    # session, so the daily summary is keyed by what was traded, not by when
+    # GitHub happened to run. Market holidays are not known here; a holiday
+    # simply yields a summary with no trades.
+    param([datetime]$Utc, [string]$TimeZoneId = "America/New_York", [string]$CloseLocal = "16:00")
+    $u = if ($Utc.Kind -eq [DateTimeKind]::Unspecified) { [datetime]::SpecifyKind($Utc, [DateTimeKind]::Utc) } else { $Utc.ToUniversalTime() }
+    $tz = $null
+    foreach ($id in @($TimeZoneId, "Eastern Standard Time")) {
+        try { $tz = [TimeZoneInfo]::FindSystemTimeZoneById($id); break } catch { }
+    }
+    $d = [TimeZoneInfo]::ConvertTimeFromUtc($u, $tz).Date
+    if ($u -lt (Get-SessionCloseUtc -SessionDate $d -TimeZoneId $TimeZoneId -CloseLocal $CloseLocal)) { $d = $d.AddDays(-1) }
+    while ($d.DayOfWeek -eq 'Saturday' -or $d.DayOfWeek -eq 'Sunday') { $d = $d.AddDays(-1) }
+    return $d
+}
+
+function Get-SessionCloseUtc {
+    # The UTC instant at which the session on $SessionDate closes, read from the
+    # market's own clock so daylight-saving changes are handled by the OS
+    # time-zone database. "America/New_York" on Linux/macOS runners; Windows
+    # names the same zone "Eastern Standard Time".
+    param([datetime]$SessionDate, [string]$TimeZoneId = "America/New_York",
+          [string]$CloseLocal = "16:00")
+    $tz = $null
+    foreach ($id in @($TimeZoneId, "Eastern Standard Time")) {
+        try { $tz = [TimeZoneInfo]::FindSystemTimeZoneById($id); break } catch { }
+    }
+    if (-not $tz) { throw "Time zone '$TimeZoneId' is not available on this machine." }
+    $h, $m = ($CloseLocal -split ":") | ForEach-Object { [int]$_ }
+    $local = [datetime]::SpecifyKind($SessionDate.Date.AddHours($h).AddMinutes($m),
+                                     [DateTimeKind]::Unspecified)
+    return [TimeZoneInfo]::ConvertTimeToUtc($local, $tz)
 }
 
 function Send-Toast {

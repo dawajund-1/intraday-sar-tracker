@@ -68,15 +68,24 @@ nothing in an alert can cause a trade.
 
 ### When alerts arrive
 
-The US session closes at 20:00 UTC, which is already 23:00 in Riyadh, and GitHub then
-delays scheduled runs by an unpredictable 3-4 hours. Alerts were landing around 04:00
-local. Moving the cron cannot fix that - the bar has to be closed before the rule can
-read it.
+Right after the US close, on Riyadh time: **about 23:15 in summer, 00:15 in winter**
+(the US session ends at 16:00 New York time, and New York changes its clocks while
+Riyadh does not).
 
-So run time and delivery time are separate. The job runs whenever GitHub gets to it,
-and ntfy is told when to deliver using its `At` header. Anything produced outside
-`07:00-22:00` Riyadh is held by ntfy and delivered at 07:00. Edit the `notifications`
-block in `config.json` to change the window.
+GitHub's own `schedule` trigger lands 3-4 hours late, so it is no longer relied on for
+timing. A scheduled task starts `signals.yml` and then `daily-summary.yml` with
+`workflow_dispatch` at 16:15 New York time every weekday; a dispatched run starts within
+seconds. The two crons stay in place as a **backup** only - if the on-time run already
+decided the bar and sent the summary, the backup is a no-op.
+
+The close itself is computed on New York's clock (`live.market_timezone`,
+`live.market_close_local`, plus `close_settle_minutes` for the official closing price),
+so the November and March clock changes need no edits.
+
+ntfy delivers immediately between `07:00` and `01:30` Riyadh. Anything produced between
+01:30 and 07:00 - i.e. a late backup run - is held with ntfy's `At` header and delivered
+at 07:00, so it never wakes you. Edit the `notifications` block in `config.json` to
+change the window.
 
 To subscribe a new device, install ntfy, add the topic held in `NTFY_TOPIC_US`, and
 leave the server as the default `ntfy.sh`. If that secret is ever lost it cannot be read

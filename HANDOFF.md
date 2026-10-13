@@ -17,7 +17,7 @@ secrets, no tokens and no notification topics.
 | Scope | 8 mega-caps, one position at a time | 150 liquid US names, 25 slots |
 | Money | paper, ~$27 notional | paper, 25 × 100 SAR = 2,500 SAR notional |
 | Language | PowerShell | Python |
-| Schedule (UTC) | `30 21 * * 1-5` signals, `45 21 * * 1-5` summary | `0 22 * * 1-5` |
+| Schedule | on time: scheduled task dispatches signals then summary at 16:15 New York (23:15 / 00:15 Riyadh); backup crons `30 21 * * 1-5`, `45 21 * * 1-5` UTC | `0 22 * * 1-5` UTC |
 | Alerts | ntfy, topic in the `NTFY_TOPIC_US` secret | **none — no alert path exists** |
 
 ## The single most important fact
@@ -73,7 +73,7 @@ you see 23 pending and 0 positions, that is correct.
 - **Independent slots (B)** — each of the 25 is its own 100 SAR account. They never share
   capital or profit. Stake is fixed at 100 SAR, not compounded, so the per-trade estimate
   does not depend on the order trades arrived in.
-- Tests: A has 54 (`scripts/Test-Idempotency.ps1`), B has 83 (`paper/tests_paper.py`).
+- Tests: A has 77 (`scripts/Test-Idempotency.ps1`), B has 83 (`paper/tests_paper.py`).
   B's workflow runs the isolation guard and the tests *before* each cycle.
 
 ## Open decisions — ask before assuming
@@ -90,11 +90,15 @@ you see 23 pending and 0 positions, that is correct.
 
 ## Things that look like bugs but are not
 
-- **Scheduled runs land 3–4 hours late.** GitHub's delay. Harmless: every guard keys on
-  the bar id, not the clock. The cron is 21:30/22:00 UTC; runs typically land ~01:00–01:50.
-- **Alerts arrive at 07:00 AST, not when the job ran.** Deliberate. Riyadh quiet hours
-  are enforced with ntfy's `At` header, because the run lands around 04:00 local.
+- **Two runs a night.** The on-time dispatch (16:15 New York) does the work; GitHub's
+  cron fires hours later as a backup and is a no-op if the bar is already decided and the
+  session already summarized. Summaries are keyed by **session** (`SUMMARY-SESSION:<date>`).
+- **Alerts arrive right after the close (23:15 Riyadh summer, 00:15 winter).** Anything a
+  backup run produces between 01:30 and 07:00 Riyadh is held by ntfy until 07:00.
   Config: `notifications` in `config.json`.
+- **The close moves with New York's clocks.** `live.market_timezone` + `market_close_local`
+  replace the old fixed `market_close_utc: 20:00`, which would have read a still-trading
+  bar for an hour after the November clock change.
 - **Timestamps differ from session dates.** The timestamp is when the job *ran*; the
   session is which close it traded. Weekly and monthly totals bucket by **session**, not
   run time. Dashboards show Riyadh time (AST) only.
