@@ -234,11 +234,11 @@
     "id": "SUMMARY:2026-10-13",
     "title": "Daily summary",
     "message": "Closed trades: 1 | Net P/L $1.16 | Purified $0.12 | Balance $39.652 (SAR 148.7) | Open: NVDA @ $226.32",
-    "status": "sending",
+    "status": "sent",
     "attempts": 1,
     "created_utc": "2026-10-13T02:42:56Z",
     "claimed_utc": "2026-10-13T02:42:58Z",
-    "sent_utc": null,
+    "sent_utc": "2026-10-13T02:43:00Z",
     "last_error": null
   }
 ]
