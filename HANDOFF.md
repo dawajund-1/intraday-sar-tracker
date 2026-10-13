@@ -37,8 +37,8 @@ is the contract.
 
 ## Current state
 
-**A** — balance $38.6091, realized $13.4717, purified $1.5293, **META open**, last
-decided bar 2026-10-09.
+**A** — balance $37.1831 (reconciled), realized $11.8872, purified $1.3708, **NVDA open**
+(0.164294 sh @ 226.32), last decided bar 2026-10-12.
 
 **B** — 25 slots, **0 open, 23 buy orders queued** from the 2026-10-09 session, 0 closed
 trades, 2,500 SAR notional. Schema 2 started flat on 2026-10-10.
@@ -51,7 +51,7 @@ you see 23 pending and 0 positions, that is correct.
 - **Do not touch Tadawul.** Both its workflows are disabled and its scripts still carry
   the duplicate-execution bug that was fixed in A. `scripts-sa/`, `config-sa.json`,
   `docs/saudi.html`, `*-sa.yml`.
-- **Do not modify Project A's ledger rows.** A correction is proposed but unapproved.
+- **Do not modify Project A's ledger rows.** Corrections are append-only (VOID/ADJUST rows); the 2026-09-21 one was applied on 2026-10-13.
 - **Do not add any notification path to B.** Its CI isolation guard fails the build on
   any reference to A, any ntfy topic, any broker or order surface, any USD account
   state, or any live FX lookup.
@@ -78,12 +78,9 @@ you see 23 pending and 0 positions, that is correct.
 
 ## Open decisions — ask before assuming
 
-1. **Ledger correction (A).** Four phantom fills on session bar 2026-09-04 are still in
-   the ledger. Proposed append-only fix (VOID + ADJUSTMENT rows, nothing deleted), as of
-   2026-09-21: balance $36.4180 → $34.1504, realized $11.0352 → $8.5157, purified
-   $1.2839 → $1.0320. Later trades have moved the totals since. Until approved,
-   `pl_provisional: true` stays set and every weekly/monthly figure shows a warning.
-   See `RECONCILIATION-2026-09-21.md`.
+1. ~~Ledger correction (A).~~ **Applied 2026-10-13** on the user's approval: balance
+   $37.1831, realized $11.8872, purified $1.3708, NVDA 0.164294 shares. Append-only
+   VOID/ADJUST rows; see section 7 of `RECONCILIATION-2026-09-21.md`.
 2. **Unused fine-grained token** `dawajund-1/intraday-sar-tracker` — Actions read+write,
    repo-scoped, **no expiry**, and nothing uses it. Recommended: delete it.
 3. **Tadawul** — leave off, port the repair across, or retire it.

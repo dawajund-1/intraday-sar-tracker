@@ -1,10 +1,8 @@
 # Ledger reconciliation — US cloud tracker, 2026-09-21
 
-**Status: findings only. No ledger row has been deleted, edited or rewritten, and no
-balance has been adjusted.** The corrections below are a proposal awaiting approval.
-
-Until it is applied or rejected, `config.json` carries `pl_provisional: true` and the
-dashboard shows a "provisional figures" banner.
+**Status: APPLIED 2026-10-13 on the user's approval** (see section 7). No ledger row was
+deleted, edited or rewritten; the correction is append-only. `pl_provisional` is now
+`false` and the dashboard banner is gone.
 
 ---
 
@@ -116,3 +114,44 @@ Nothing in step 1–5 happens without explicit approval.
 - A stale bar id is self-blocking, so weekends and US market holidays need no calendar.
 - `scripts/Test-Idempotency.ps1` replays this exact 2026-09-04 sequence and asserts the
   four phantom fills collapse to the two real ones.
+
+## 7. Applied — 2026-10-13
+
+Approved by the user on 2026-10-13. Because five more round trips had closed since this
+document was written, the replay was extended from the same seed through to the open
+NVDA position. It reproduces every figure in section 4 to the cent, then continues:
+
+| Trade | Recorded P/L | Corrected P/L | Recorded balance | Corrected balance |
+|---|---|---|---|---|
+| 2026-10-02 SELL AMZN @ 249.15 | -0.0175 | -0.0164 | 36.4005 | 34.1340 |
+| 2026-10-06 SELL TSLA @ 378.73 | 2.4540 | 2.3012 | 38.6091 | 36.2051 |
+| 2026-10-13 SELL META @ 742.96 | 1.1588 | 1.0867 | 39.6520 | 37.1831 |
+
+Open NVDA @ 226.32 re-sized from 0.175203 to **0.164294** shares (37.1831 / 226.32),
+so its eventual exit is priced off the true balance.
+
+| Headline figure | Recorded | Corrected | Delta |
+|---|---|---|---|
+| Balance | $39.6520 | **$37.1831** (139.44 SAR) | −$2.4689 |
+| Realized P/L (all time) | $14.6305 | **$11.8872** | −$2.7433 |
+| Purified total | $1.6452 | **$1.3708** | −$0.2744 |
+
+What was written (append-only):
+
+- `data/paper_trades.csv`: 4 `VOID` rows (one per duplicate fill; the two voided sales
+  carry their P/L and purification negated) and 8 `ADJUST` rows (the P/L and
+  purification difference for each later sale, plus the open NVDA share count). Each
+  correcting row carries the timestamp of the row it corrects, so weekly and monthly
+  totals land in the right period. Sums over SELL + VOID + ADJUST now equal the
+  corrected headline figures exactly.
+- `data/portfolio_history.csv`: one `ADJUSTMENT` row, 39.6520 -> 37.1831.
+- `data/state.json` and `data/latest_snapshot.json`: corrected balance, realized P/L,
+  purified total and NVDA share count.
+- `config.json`: `pl_provisional: false`.
+- `docs/index.html` and `scripts/Get-PeriodPerformance.ps1` count VOID/ADJUST rows: a
+  VOID of a sale removes it from the closed count and from wins/losses; an ADJUST
+  changes P/L only.
+
+Purification: $0.2744 was set aside against profit that was never earned. The ledger
+now shows the corrected figure; whether anything already given is left as given is
+the user's decision, not a code change.

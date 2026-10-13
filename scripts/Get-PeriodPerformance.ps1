@@ -56,7 +56,11 @@ function Get-IsoWeek {
 
 if (-not (Test-Path $Ledger)) { Write-Error "Ledger not found: $Ledger" }
 
-$sells = Import-Csv $Ledger | Where-Object { $_.action -eq "SELL" }
+# SELL rows plus the append-only VOID/ADJUST corrections (2026-10-13
+# reconciliation) that carry a P/L difference. A VOID of a sale removes it from
+# the closed count and from wins/losses; an ADJUST changes P/L only.
+$sells = Import-Csv $Ledger | Where-Object {
+    $_.action -eq "SELL" -or (($_.action -eq "VOID" -or $_.action -eq "ADJUST") -and -not [string]::IsNullOrWhiteSpace($_.pl_usd)) }
 if (-not $sells) { Write-Host "No closed trades in the ledger."; return }
 
 $rows = foreach ($r in $sells) {
@@ -72,6 +76,9 @@ $rows = foreach ($r in $sells) {
         WeekSpan = "{0:yyyy-MM-dd} .. {1:yyyy-MM-dd}" -f $iso.Monday, $iso.Monday.AddDays(6)
         MonthKey = $session.ToString("yyyy-MM")
         Pl = $pl; Pur = $pur
+        Closed = if ($r.action -eq "SELL") { 1 } elseif ($r.action -eq "VOID") { -1 } else { 0 }
+        Win    = if ($r.action -eq "SELL") { [int]($pl -gt 0) } elseif ($r.action -eq "VOID") { -[int]($pl -lt 0) } else { 0 }
+        Loss   = if ($r.action -eq "SELL") { [int]($pl -lt 0) } elseif ($r.action -eq "VOID") { -[int]($pl -gt 0) } else { 0 }
     }
 }
 
@@ -85,12 +92,13 @@ function Write-Rollup {
     foreach ($g in ($Rows | Group-Object $KeyProp | Sort-Object Name)) {
         $pl  = ($g.Group | Measure-Object Pl  -Sum).Sum
         $pur = ($g.Group | Measure-Object Pur -Sum).Sum
-        $w = @($g.Group | Where-Object { $_.Pl -gt 0 }).Count
-        $l = @($g.Group | Where-Object { $_.Pl -lt 0 }).Count
+        $w = ($g.Group | Measure-Object Win  -Sum).Sum
+        $l = ($g.Group | Measure-Object Loss -Sum).Sum
+        $n = ($g.Group | Measure-Object Closed -Sum).Sum
         $cum += $pl
         $label = if ($SpanProp) { "{0}  ({1})" -f $g.Name, $g.Group[0].$SpanProp } else { $g.Name }
         "{0,-30} {1,7} {2,9} {3,16} {4,12} {5,16}" -f `
-            $label, $g.Count, "$w / $l",
+            $label, $n, "$w / $l",
             ("{0:+0.0000;-0.0000;0.0000}" -f $pl),
             ("{0:0.0000}" -f $pur),
             ("{0:+0.0000;-0.0000;0.0000}" -f $cum) | Write-Host
@@ -98,7 +106,7 @@ function Write-Rollup {
 }
 
 Write-Host "Ledger : $Ledger"
-Write-Host "Source : SELL rows only, attributed by market SESSION (derived from the run"
+Write-Host "Source : SELL rows + VOID/ADJUST corrections, attributed by market SESSION (derived from the run"
 Write-Host "         timestamp, which lands the day after). Currency: USD."
 
 Write-Rollup -Title "Weekly (ISO-8601, Monday-Sunday, by session)" -KeyProp WeekKey -Rows $rows -SpanProp WeekSpan
@@ -108,8 +116,8 @@ $tp  = ($rows | Measure-Object Pl  -Sum).Sum
 $tpu = ($rows | Measure-Object Pur -Sum).Sum
 Write-Host ""
 Write-Host ("TOTAL  closed={0}  realized net P/L={1:+0.0000;-0.0000;0.0000} USD  purified={2:0.0000} USD" -f `
-    $rows.Count, $tp, $tpu) -ForegroundColor Green
+    ($rows | Measure-Object Closed -Sum).Sum, $tp, $tpu) -ForegroundColor Green
 Write-Host ""
-Write-Host "NOTE: provisional. The ledger still contains trades flagged by the" -ForegroundColor Yellow
-Write-Host "      2026-09-21 duplicate-execution audit, so every total above" -ForegroundColor Yellow
-Write-Host "      inherits that. See RECONCILIATION-2026-09-21.md." -ForegroundColor Yellow
+Write-Host "NOTE: reconciled 2026-10-13. The four duplicate fills of session bar 2026-09-04"
+Write-Host "      are voided and later trades re-sized via append-only VOID/ADJUST rows,"
+Write-Host "      which are included above. See RECONCILIATION-2026-09-21.md."

@@ -13,12 +13,12 @@
     "ticker": "NVDA",
     "entry_price": 226.32,
     "entry_time": "2026-10-13T02:39:57Z",
-    "shares": 0.175203
+    "shares": 0.164294
   },
   "portfolio": {
-    "balance_usd": 39.652,
-    "realized_pl_usd": 14.6305,
-    "purified_total_usd": 1.6452
+    "balance_usd": 37.1831,
+    "realized_pl_usd": 11.8872,
+    "purified_total_usd": 1.3708
   },
   "warning_state": {
     "AAPL": "NONE",

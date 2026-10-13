@@ -328,7 +328,13 @@ const money = v => (v >= 0 ? "+" : "-") + "$" + Math.abs(v).toFixed(4);
 function rollup(trades, keyFn, labelFn) {
   const buckets = new Map();
   for (const r of trades) {
-    if (r.action !== "SELL") continue;            // only closed trades are realized
+    // SELL rows are realized trades. VOID and ADJUST rows are append-only
+    // corrections from the 2026-10-13 reconciliation: they carry the P/L
+    // difference and are dated like the trade they correct, so every period
+    // shows the true figure while the original rows stay untouched.
+    const isVoid = r.action === "VOID", isAdj = r.action === "ADJUST";
+    if (r.action !== "SELL" && !isVoid && !isAdj) continue;
+    if ((isVoid || isAdj) && r.pl_usd === "") continue;   // voided buy / share-count fix: no P/L
     const d = sessionOf(r.timestamp_utc);
     if (isNaN(d)) continue;
     const k = keyFn(d);
@@ -339,8 +345,16 @@ function rollup(trades, keyFn, labelFn) {
     const b = buckets.get(k);
     const pl = parseFloat(r.pl_usd);
     const pur = parseFloat(r.purification_usd);
-    b.closed += 1;
-    if (!isNaN(pl)) { b.pl += pl; if (pl > 0) b.wins += 1; else if (pl < 0) b.losses += 1; }
+    if (isVoid) {                                   // a voided sale never happened
+      b.closed -= 1;
+      if (pl < 0) b.wins -= 1; else if (pl > 0) b.losses -= 1;
+      if (!isNaN(pl)) b.pl += pl;
+    } else if (isAdj) {
+      if (!isNaN(pl)) b.pl += pl;
+    } else {
+      b.closed += 1;
+      if (!isNaN(pl)) { b.pl += pl; if (pl > 0) b.wins += 1; else if (pl < 0) b.losses += 1; }
+    }
     if (!isNaN(pur)) b.pur += pur;
   }
   const rows = [...buckets.values()].sort((a, b) => a.key < b.key ? -1 : 1);
