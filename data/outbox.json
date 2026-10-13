@@ -212,22 +212,22 @@
     "id": "SELL:META:2026-10-12",
     "title": "SELL signal: META",
     "message": "Exit @ $742.96 | P/L $1.1588 | Purified $0.1159 | Balance $39.652",
-    "status": "sending",
+    "status": "sent",
     "attempts": 1,
     "created_utc": "2026-10-13T02:39:59Z",
     "claimed_utc": "2026-10-13T02:40:01Z",
-    "sent_utc": null,
+    "sent_utc": "2026-10-13T02:40:02Z",
     "last_error": null
   },
   {
     "id": "BUY:NVDA:2026-10-12",
     "title": "BUY signal: NVDA",
     "message": "Entry @ $226.32 | Balance $39.652",
-    "status": "sending",
+    "status": "sent",
     "attempts": 1,
     "created_utc": "2026-10-13T02:39:59Z",
     "claimed_utc": "2026-10-13T02:40:01Z",
-    "sent_utc": null,
+    "sent_utc": "2026-10-13T02:40:02Z",
     "last_error": null
   }
 ]
