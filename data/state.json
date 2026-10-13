@@ -2,23 +2,23 @@
   "ticker_state": {
     "AAPL": "FLAT",
     "MSFT": "FLAT",
-    "NVDA": "FLAT",
+    "NVDA": "LONG",
     "TSLA": "FLAT",
     "AMZN": "FLAT",
     "GOOGL": "FLAT",
-    "META": "LONG",
+    "META": "FLAT",
     "AMD": "FLAT"
   },
   "open_position": {
-    "ticker": "META",
-    "entry_price": 721.31,
-    "entry_time": "2026-10-09T01:19:32",
-    "shares": 0.053526
+    "ticker": "NVDA",
+    "entry_price": 226.32,
+    "entry_time": "2026-10-13T02:39:57Z",
+    "shares": 0.175203
   },
   "portfolio": {
-    "balance_usd": 38.6091,
-    "realized_pl_usd": 13.4717,
-    "purified_total_usd": 1.5293
+    "balance_usd": 39.652,
+    "realized_pl_usd": 14.6305,
+    "purified_total_usd": 1.6452
   },
   "warning_state": {
     "AAPL": "NONE",
@@ -31,11 +31,15 @@
     "AMD": "NONE"
   },
   "bar_guard": {
-    "bar_id": "2026-10-09",
+    "bar_id": "2026-10-12",
     "decided": true,
-    "exit_done": false,
-    "entry_done": false,
-    "closed": [],
-    "opened": []
+    "exit_done": true,
+    "entry_done": true,
+    "closed": [
+      "META"
+    ],
+    "opened": [
+      "NVDA"
+    ]
   }
 }
