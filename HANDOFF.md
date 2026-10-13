@@ -17,7 +17,7 @@ secrets, no tokens and no notification topics.
 | Scope | 8 mega-caps, one position at a time | 150 liquid US names, 25 slots |
 | Money | paper, ~$27 notional | paper, 25 × 100 SAR = 2,500 SAR notional |
 | Language | PowerShell | Python |
-| Schedule | on time: scheduled task dispatches signals then summary at 16:15 New York (23:15 / 00:15 Riyadh); backup crons `30 21 * * 1-5`, `45 21 * * 1-5` UTC | `0 22 * * 1-5` UTC |
+| Schedule | scheduled tasks: 15:28 New York pre-close BUY/SELL alert; 16:15 New York real decision + summary. Backup crons `30 21 * * 1-5`, `45 21 * * 1-5` UTC | `0 22 * * 1-5` UTC |
 | Alerts | ntfy, topic in the `NTFY_TOPIC_US` secret | **none — no alert path exists** |
 
 ## The single most important fact
@@ -73,7 +73,7 @@ you see 23 pending and 0 positions, that is correct.
 - **Independent slots (B)** — each of the 25 is its own 100 SAR account. They never share
   capital or profit. Stake is fixed at 100 SAR, not compounded, so the per-trade estimate
   does not depend on the order trades arrived in.
-- Tests: A has 77 (`scripts/Test-Idempotency.ps1`), B has 83 (`paper/tests_paper.py`).
+- Tests: A has 93 (`scripts/Test-Idempotency.ps1`), B has 83 (`paper/tests_paper.py`).
   B's workflow runs the isolation guard and the tests *before* each cycle.
 
 ## Open decisions — ask before assuming
@@ -93,9 +93,12 @@ you see 23 pending and 0 positions, that is correct.
 - **Two runs a night.** The on-time dispatch (16:15 New York) does the work; GitHub's
   cron fires hours later as a backup and is a no-op if the bar is already decided and the
   session already summarized. Summaries are keyed by **session** (`SUMMARY-SESSION:<date>`).
-- **Alerts arrive right after the close (23:15 Riyadh summer, 00:15 winter).** Anything a
-  backup run produces between 01:30 and 07:00 Riyadh is held by ntfy until 07:00.
-  Config: `notifications` in `config.json`.
+- **BUY/SELL arrive ~30 min BEFORE the close (22:30 Riyadh summer, 23:30 winter).** That
+  is a pre-close preview on the live price (`PreCloseLib.ps1`), sent while the market is
+  open, by user request. It never trades; the post-close run does, on the real close,
+  and pushes only trades the preview missed. The summary follows the close and lists
+  any preview that did not come true. Anything a backup run produces between 01:30 and
+  07:00 Riyadh is held by ntfy until 07:00.
 - **The close moves with New York's clocks.** `live.market_timezone` + `market_close_local`
   replace the old fixed `market_close_utc: 20:00`, which would have read a still-trading
   bar for an hour after the November clock change.

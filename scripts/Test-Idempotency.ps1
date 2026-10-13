@@ -322,6 +322,39 @@ Write-Host "`n=== Session close follows New York's clock (DST) ==="
     Assert-Equal "2026-11-02" (SessionOf "2026-11-02T21:20:00Z") "winter: 21:20 UTC is after the close"
 }
 
+Write-Host "`n=== Pre-close alerts (BUY/SELL during market hours) ==="
+& {
+    . (Join-Path $PSScriptRoot "TrackerLib.ps1")
+    . (Join-Path $PSScriptRoot "PreCloseLib.ps1")
+    function InWin($iso) { Test-InPreCloseWindow -NowUtc ([datetime]::Parse($iso).ToUniversalTime()) -MinutesBefore 60 }
+    Assert-True (InWin "2026-10-13T19:28:00Z") "summer: 15:28 New York (22:28 Riyadh) is in the pre-close window"
+    Assert-True (-not (InWin "2026-10-13T18:59:00Z")) "summer: 21:59 Riyadh is too early"
+    Assert-True (-not (InWin "2026-10-13T20:00:00Z")) "summer: at the bell (23:00 Riyadh) the window is over"
+    Assert-True (-not (InWin "2026-10-13T20:15:00Z")) "the post-close run (23:15 Riyadh) is NOT a preview - it trades"
+    Assert-True (InWin "2026-11-02T20:28:00Z") "winter: 15:28 New York is 23:28 Riyadh - still in the window"
+    Assert-True (-not (InWin "2026-11-02T19:28:00Z")) "winter: 22:28 Riyadh is too early (market open another 90 min)"
+    Assert-True (-not (InWin "2026-10-17T19:28:00Z")) "Saturday is never a pre-close window"
+    Assert-True (-not (InWin "2026-10-13T08:31:00Z")) "a midday manual dispatch is not a preview"
+
+    $wl = @("AAPL","MSFT","NVDA","TSLA","AMZN","GOOGL","META","AMD")
+    $d = Get-PreCloseDecision -HeldTicker "META" -Rsi @{ META = 82; AAPL = 45; NVDA = 22; AMD = 12 } -Watchlist $wl -BuyBelow 30 -ExitAbove 70
+    Assert-Equal "META" $d.Sell "held name above the sell level -> SELL"
+    Assert-Equal "NVDA" $d.Buy "then the FIRST watchlist name below the buy level, same order as post-close"
+    $d = Get-PreCloseDecision -HeldTicker "META" -Rsi @{ META = 55; NVDA = 10 } -Watchlist $wl -BuyBelow 30 -ExitAbove 70
+    Assert-True ($null -eq $d.Sell -and $null -eq $d.Buy) "still holding -> no buy, however low other RSIs are"
+    $d = Get-PreCloseDecision -HeldTicker $null -Rsi @{ MSFT = 25; AMD = 5 } -Watchlist $wl -BuyBelow 30 -ExitAbove 70
+    Assert-True ($null -eq $d.Sell -and $d.Buy -eq "MSFT") "flat -> buy the first qualifying name in watchlist order"
+    $d = Get-PreCloseDecision -HeldTicker "META" -Rsi @{ NVDA = 10 } -Watchlist $wl -BuyBelow 30 -ExitAbove 70
+    Assert-True ($null -eq $d.Sell -and $null -eq $d.Buy) "no data for the held name -> no guess"
+    $d = Get-PreCloseDecision -HeldTicker "AMD" -Rsi @{ AMD = 90 } -Watchlist $wl -BuyBelow 30 -ExitAbove 70
+    Assert-True ($d.Sell -eq "AMD" -and $null -eq $d.Buy) "a sold name is never re-bought on the same bar"
+}
+
+Reset-Harness
+Add-OutboxEvent -Id "PRECLOSE:SELL:META:2026-10-13" -Title "SELL signal: META" -Message "x" | Out-Null
+Assert-True (Test-OutboxHas "PRECLOSE:SELL:META:2026-10-13") "a pre-close alert is remembered, so the post-close run does not push it twice"
+Assert-True (-not (Test-OutboxHas "PRECLOSE:BUY:NVDA:2026-10-13")) "an unpredicted trade is not marked as already sent"
+
 Remove-Item $TestRoot -Recurse -Force -ErrorAction SilentlyContinue
 
 Write-Host "`n------------------------------------------"

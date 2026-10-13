@@ -68,24 +68,30 @@ nothing in an alert can cause a trade.
 
 ### When alerts arrive
 
-Right after the US close, on Riyadh time: **about 23:15 in summer, 00:15 in winter**
-(the US session ends at 16:00 New York time, and New York changes its clocks while
-Riyadh does not).
+All times Riyadh. The US market closes at 16:00 New York = **23:00 Riyadh in summer,
+00:00 in winter** (New York changes its clocks; Riyadh does not).
 
-GitHub's own `schedule` trigger lands 3-4 hours late, so it is no longer relied on for
-timing. A scheduled task starts `signals.yml` and then `daily-summary.yml` with
-`workflow_dispatch` at 16:15 New York time every weekday; a dispatched run starts within
-seconds. The two crons stay in place as a **backup** only - if the on-time run already
-decided the bar and sent the summary, the backup is a no-op.
+| What | Summer | Winter | Market |
+|---|---|---|---|
+| **BUY / SELL alert** | ~22:30 | ~23:30 | **open** - about 30 min left to act |
+| **Daily summary** (what actually traded) | ~23:15-23:20 | ~00:15-00:20 | closed |
 
-The close itself is computed on New York's clock (`live.market_timezone`,
-`live.market_close_local`, plus `close_settle_minutes` for the official closing price),
-so the November and March clock changes need no edits.
+How:
 
-ntfy delivers immediately between `07:00` and `01:30` Riyadh. Anything produced between
-01:30 and 07:00 - i.e. a late backup run - is held with ntfy's `At` header and delivered
-at 07:00, so it never wakes you. Edit the `notifications` block in `config.json` to
-change the window.
+- **15:28 New York** - a scheduled task dispatches `signals.yml`. Inside the pre-close
+  window (`notifications.preclose_window_minutes` before the close) `Get-Signals.ps1`
+  does not trade: it treats the current price as the close, runs the same decision, and
+  pushes BUY/SELL (`PreCloseLib.ps1`). State, ledger and bar guard are untouched.
+- **16:15 New York** - a second scheduled task dispatches `signals.yml` (the real decision,
+  on the real closing price) and then `daily-summary.yml`. A trade the pre-close alert
+  already announced is not pushed again; a trade it did **not** predict is pushed at once.
+  The summary lists the trades and any pre-close alert that did not come true.
+- Pre-close alerts can be wrong: the price can cross back over the level in the last
+  half hour. The paper account always follows the real close.
+- GitHub's crons (`30 21`, `45 21` UTC) remain as a late **backup** only. Anything
+  produced between 01:30 and 07:00 Riyadh is held by ntfy until 07:00.
+- The close is computed on New York's clock (`live.market_timezone`,
+  `live.market_close_local`, `close_settle_minutes`), so clock changes need no edits.
 
 To subscribe a new device, install ntfy, add the topic held in `NTFY_TOPIC_US`, and
 leave the server as the default `ntfy.sh`. If that secret is ever lost it cannot be read

@@ -62,8 +62,23 @@ Append-Csv -Path (Join-Path $DataDir "daily_summary.csv") -Row ([pscustomobject]
 # Ids before 2026-10-13 were "SUMMARY:<run date>"; the new prefix keeps the two
 # schemes from colliding on the changeover day.
 $sessionLabel = ([datetime]$session).ToString("ddd d MMM", [Globalization.CultureInfo]::InvariantCulture)
+
+# What actually traded at the close, and any pre-close alert that did not come
+# true (the price moved back across the level in the last half hour).
+$tradeList = @($todayTrades | ForEach-Object {
+    if ($_.action -eq "SELL") { "SELL $($_.ticker) @ `$$([math]::Round([double]$_.price,2)) (P/L `$$([math]::Round([double]$_.pl_usd,2)))" }
+    else { "BUY $($_.ticker) @ `$$([math]::Round([double]$_.price,2))" }
+})
+$traded = @($todayTrades | ForEach-Object { "$($_.action):$($_.ticker)" })
+$missed = @(@(Read-Outbox) | Where-Object { $_.id -like "PRECLOSE:*:*:$session" } | ForEach-Object {
+    $p = $_.id -split ":"
+    if ($traded -notcontains "$($p[1]):$($p[2])") { "$($p[1]) $($p[2])" }
+})
+$tradesText = if ($tradeList.Count) { "Trades at close: " + ($tradeList -join ", ") } else { "No trades at close" }
+$missedText = if ($missed.Count) { " | Did NOT happen at close (cancel if you acted): " + ($missed -join ", ") } else { "" }
+
 Add-OutboxEvent -Id $summaryId -Title "Daily summary - $sessionLabel session" `
-    -Message "Closed trades: $($sells.Count) | Net P/L `$$([math]::Round($netPl,2)) | Purified `$$([math]::Round($netPurified,2)) | Balance `$$balanceUsd (SAR $balanceSar) | Open: $openPos" | Out-Null
+    -Message "$tradesText$missedText | Net P/L `$$([math]::Round($netPl,2)) | Purified `$$([math]::Round($netPurified,2)) | Balance `$$balanceUsd (SAR $balanceSar) | Open: $openPos" | Out-Null
 
 if (Publish-DataCommit "Daily summary $session") { Invoke-OutboxDrain -Cfg $cfg }
 else { Write-Warning "Data commit did not land; leaving the summary undelivered on purpose." }

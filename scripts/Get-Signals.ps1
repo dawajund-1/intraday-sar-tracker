@@ -40,6 +40,21 @@ $closeTz  = if ($live -and $live.market_timezone) { $live.market_timezone } else
 $closeLoc = if ($live -and $live.market_close_local) { $live.market_close_local } else { "16:00" }
 $settle   = if ($live -and $null -ne $live.close_settle_minutes) { [int]$live.close_settle_minutes } else { 0 }
 
+# --- Pre-close alert mode -------------------------------------------------
+# A dispatch shortly before the New York close does not trade. It previews
+# what the close is expected to do and pushes BUY/SELL while the market is
+# still open (see PreCloseLib.ps1). The real decision is still made by the
+# post-close run, on the real closing price.
+. (Join-Path $PSScriptRoot "PreCloseLib.ps1")
+$nCfg       = $cfg.notifications
+$preEnabled = [bool]($nCfg -and $nCfg.preclose_alerts)
+$preWindow  = if ($nCfg -and $nCfg.preclose_window_minutes) { [int]$nCfg.preclose_window_minutes } else { 60 }
+if ($strategy -eq "rsi_revert" -and $closeTz -and $preEnabled -and
+    (Test-InPreCloseWindow -NowUtc $now.ToUniversalTime() -TimeZoneId $closeTz -CloseLocal $closeLoc -MinutesBefore $preWindow)) {
+    Invoke-PreClosePreview -Cfg $cfg -State $state -NowUtc $now.ToUniversalTime()
+    exit 0
+}
+
 $signalsThisRun = @()
 $tickerSnapshots = @()
 $barIds = @()
@@ -209,8 +224,13 @@ else {
         $state.open_position = $null
         Register-Exit -Guard $guard -Ticker $held.ticker
 
+        # Already announced during market hours? Then the summary confirms it;
+        # only a trade the pre-close alert did NOT predict is pushed now.
+        if (-not ($preEnabled -and (Test-OutboxHas "PRECLOSE:SELL:$($held.ticker):${sessionBarId}"))) {
+        $note = if ($preEnabled) { "Not in the pre-close alert - happened at the close. " } else { "" }
         Add-OutboxEvent -Id "SELL:$($held.ticker):${sessionBarId}" -Title "SELL signal: $($held.ticker)" `
-            -Message "Exit @ `$$([math]::Round($exitPrice,2)) | P/L `$$pl | Purified `$$purification | Balance `$$newBalance" | Out-Null
+            -Message "${note}Exit @ `$$([math]::Round($exitPrice,2)) | P/L `$$pl | Purified `$$purification | Balance `$$newBalance" | Out-Null
+        }
         }
     }
 
@@ -245,8 +265,11 @@ else {
         })
         Register-Entry -Guard $guard -Ticker $buySignal.ticker
 
+            if (-not ($preEnabled -and (Test-OutboxHas "PRECLOSE:BUY:$($buySignal.ticker):${sessionBarId}"))) {
+            $note = if ($preEnabled) { "Not in the pre-close alert - happened at the close. " } else { "" }
             Add-OutboxEvent -Id "BUY:$($buySignal.ticker):${sessionBarId}" -Title "BUY signal: $($buySignal.ticker)" `
-                -Message "Entry @ `$$([math]::Round($buySignal.price,2)) | Balance `$$balance" | Out-Null
+                -Message "${note}Entry @ `$$([math]::Round($buySignal.price,2)) | Balance `$$balance" | Out-Null
+            }
         }
     }
 

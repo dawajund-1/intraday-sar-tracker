@@ -178,6 +178,12 @@ function New-OutboxEvent {
     }
 }
 
+function Test-OutboxHas {
+    # True if an event with this id was ever queued (pending, sent or under review).
+    param([string]$Id)
+    return [bool](@(Read-Outbox) | Where-Object { $_.id -eq $Id })
+}
+
 function Add-OutboxEvent {
     param([string]$Id, [string]$Title, [string]$Message)
     $entries = @(Read-Outbox)

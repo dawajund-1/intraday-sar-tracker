@@ -37,6 +37,8 @@
     "utc_offset_hours": 3,
     "deliver_from_local": "07:00",
     "deliver_until_local": "01:30",
-    "note": "When the phone may ring. The window crosses midnight: 07:00 -> 01:30 Riyadh. An on-time run right after the US close (23:15 Riyadh in summer, 00:15 in winter) is delivered immediately. GitHub's own cron is kept only as a backup and lands 3-4 hours late (around 04:00-05:00 Riyadh); anything produced between 01:30 and 07:00 is held by ntfy via its 'At' header and delivered at deliver_from_local, so a backup run never wakes you. Riyadh is UTC+3 year round with no daylight saving, so the fixed offset is exact."
+    "note": "When the phone may ring. BUY/SELL alerts go out WHILE THE MARKET IS OPEN, about 30 minutes before the close (22:30 Riyadh in summer, 23:30 in winter): a dispatch at 15:28 New York runs Get-Signals.ps1 inside the pre-close window (preclose_window_minutes before the close), which previews the decision on the current price and pushes it without trading. The paper account still trades only on the real close, in the post-close run at 16:15 New York; that run pushes a trade only if the pre-close alert did not predict it, and the daily summary follows right after and lists any alert that did not happen. Delivery window 07:00 -> 01:30 Riyadh (crosses midnight); anything produced between 01:30 and 07:00 - i.e. GitHub's late backup cron - is held by ntfy via its 'At' header until deliver_from_local. Riyadh is UTC+3 year round, so the fixed offset is exact.",
+    "preclose_alerts": true,
+    "preclose_window_minutes": 60
   }
 }
