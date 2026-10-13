@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-13T02:39:59Z",
+  "generated_at_utc": "2026-10-13T08:31:38Z",
   "tickers": [
     {
       "ticker": "AAPL",
@@ -30,8 +30,8 @@
       "rsi": 4.36,
       "ema9": null,
       "ema21": null,
-      "trend": "FLAT",
-      "signal": "BUY",
+      "trend": "LONG",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
@@ -74,8 +74,8 @@
       "rsi": 87.02,
       "ema9": null,
       "ema21": null,
-      "trend": "LONG",
-      "signal": "SELL",
+      "trend": "FLAT",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
@@ -130,7 +130,7 @@
         "NVDA"
       ]
     },
-    "outbox_pending": 2,
+    "outbox_pending": 0,
     "outbox_needs_review": 0
   }
 }
