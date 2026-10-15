@@ -17,7 +17,7 @@ secrets, no tokens and no notification topics.
 | Scope | 8 mega-caps, one position at a time | 150 liquid US names, 25 slots |
 | Money | paper, ~$27 notional | paper, 25 × 100 SAR = 2,500 SAR notional |
 | Language | PowerShell | Python |
-| Schedule | scheduled tasks: 15:28 New York pre-close BUY/SELL alert; 16:15 New York real decision + summary. Backup crons `30 21 * * 1-5`, `45 21 * * 1-5` UTC | `0 22 * * 1-5` UTC |
+| Schedule | `daily-cycle.yml` (GitHub, no Claude usage): starts early, sleeps to 15:28 New York for the pre-close BUY/SELL alert, 16:15 New York for the real decision + summary. Backup crons `30 21 * * 1-5`, `45 21 * * 1-5` UTC | `0 22 * * 1-5` UTC |
 | Alerts | ntfy, topic in the `NTFY_TOPIC_US` secret | **none — no alert path exists** |
 
 ## The single most important fact

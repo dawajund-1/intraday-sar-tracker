@@ -1,0 +1,64 @@
+name: Daily cycle (on-time timer)
+
+# The on-time clock for the whole day, run by GitHub itself (free for public
+# repos, no Claude usage). Replaces the Claude scheduled tasks that failed on
+# 14 Oct 2026 when the account's usage limit was reached. GitHub starts scheduled jobs late - often hours -
+# so this job starts EARLY and sleeps until each exact New York time, then
+# dispatches the existing workflows (a dispatched run starts within seconds):
+#   15:28 NY               -> signals.yml       (22:30 Riyadh pre-close alert)
+#   16:15 NY               -> signals.yml, then daily-summary.yml
+# New York times, so US clock changes need no edits. Two start times: if the
+# first is very late or hits the 6-hour job limit (winter), the second covers.
+# A cycle that finds today's summary already sent exits at once.
+
+on:
+  schedule:
+    - cron: "0 15 * * 1-5"
+    - cron: "30 16 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      smoke:
+        description: "Test only: check the job can dispatch, then stop"
+        type: boolean
+        default: false
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: daily-cycle
+  cancel-in-progress: false
+
+jobs:
+  cycle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run the day on New York time
+        run: |
+          set -u
+          if [ "${{ inputs.smoke || false }}" = "true" ]; then gh workflow list && echo "smoke: workflow API reachable"; exit 0; fi
+          today=$(TZ=America/New_York date +%F)
+          [ "$(TZ=America/New_York date +%u)" -ge 6 ] && { echo "Weekend - nothing to do."; exit 0; }
+          git fetch -q origin main && git checkout -q FETCH_HEAD -- data/outbox.json || true
+          if grep -q "SUMMARY-SESSION:$today" data/outbox.json; then echo "Today's cycle already done."; exit 0; fi
+
+          at()    { TZ=America/New_York date -d "$today $1" +%s; }
+          now()   { date +%s; }
+          sleep_until() { d=$(( $(at "$1") - $(now) )); [ $d -gt 0 ] && { echo "waiting $d s for $1 New York"; sleep $d; }; true; }
+          fire()  { gh workflow run "$1" --ref main && echo "$(date -u +%T) UTC dispatched $1"; }
+          finish() { sleep 20; for i in $(seq 1 60); do
+                       s=$(gh run list --workflow "$1" --event workflow_dispatch --limit 1 --json status --jq '.[0].status')
+                       [ "$s" = "completed" ] && return 0; sleep 15; done; echo "::warning::$1 still running"; }
+
+          if [ $(now) -lt $(at 15:50) ]; then             # still time to act before the bell
+            sleep_until 15:28; fire signals.yml; finish signals.yml
+          fi
+          sleep_until 16:15
+          fire signals.yml; finish signals.yml
+          fire daily-summary.yml; finish daily-summary.yml

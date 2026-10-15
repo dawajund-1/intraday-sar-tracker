@@ -78,11 +78,12 @@ All times Riyadh. The US market closes at 16:00 New York = **23:00 Riyadh in sum
 
 How:
 
-- **15:28 New York** - a scheduled task dispatches `signals.yml`. Inside the pre-close
+- **15:28 New York** - `daily-cycle.yml` (started early by GitHub, sleeping until the exact
+  New York time) dispatches `signals.yml`. Inside the pre-close
   window (`notifications.preclose_window_minutes` before the close) `Get-Signals.ps1`
   does not trade: it treats the current price as the close, runs the same decision, and
   pushes BUY/SELL (`PreCloseLib.ps1`). State, ledger and bar guard are untouched.
-- **16:15 New York** - a second scheduled task dispatches `signals.yml` (the real decision,
+- **16:15 New York** - the same cycle dispatches `signals.yml` (the real decision,
   on the real closing price) and then `daily-summary.yml`. A trade the pre-close alert
   already announced is not pushed again; a trade it did **not** predict is pushed at once.
   The summary lists the trades and any pre-close alert that did not come true.
