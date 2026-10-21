@@ -333,11 +333,11 @@
     "id": "SUMMARY-SESSION:2026-10-21",
     "title": "Daily summary - Wed 21 Oct session",
     "message": "Trades at close: SELL NVDA @ $221.97 (P/L $-0.71), BUY GOOGL @ $334.76 | Net P/L $-0.71 | Purified $0 | Balance $36.4684 (SAR 136.76) | Open: GOOGL @ $334.76",
-    "status": "sending",
+    "status": "sent",
     "attempts": 1,
     "created_utc": "2026-10-21T20:15:30Z",
     "claimed_utc": "2026-10-21T20:15:32Z",
-    "sent_utc": null,
+    "sent_utc": "2026-10-21T20:15:34Z",
     "last_error": null
   }
 ]
