@@ -306,5 +306,27 @@
     "claimed_utc": "2026-10-20T20:15:49Z",
     "sent_utc": "2026-10-20T20:15:52Z",
     "last_error": null
+  },
+  {
+    "id": "PRECLOSE:SELL:NVDA:2026-10-21",
+    "title": "SELL signal: NVDA",
+    "message": "Sell before the close at 23:00 Riyadh time. Price now $221.27, RSI 82.1 (sell level 70). Expected at today's close - confirmed in the summary after the close.",
+    "status": "pending",
+    "attempts": 0,
+    "created_utc": "2026-10-21T19:28:20Z",
+    "claimed_utc": null,
+    "sent_utc": null,
+    "last_error": null
+  },
+  {
+    "id": "PRECLOSE:BUY:GOOGL:2026-10-21",
+    "title": "BUY signal: GOOGL",
+    "message": "Buy before the close at 23:00 Riyadh time. Price now $334.21, RSI 10.1 (buy level 30). Expected at today's close - confirmed in the summary after the close.",
+    "status": "pending",
+    "attempts": 0,
+    "created_utc": "2026-10-21T19:28:20Z",
+    "claimed_utc": null,
+    "sent_utc": null,
+    "last_error": null
   }
 ]
