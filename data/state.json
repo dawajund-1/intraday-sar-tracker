@@ -31,15 +31,11 @@
     "AMD": "NONE"
   },
   "bar_guard": {
-    "bar_id": "2026-10-21",
+    "bar_id": "2026-10-20",
     "decided": true,
-    "exit_done": true,
-    "entry_done": true,
-    "closed": [
-      "NVDA"
-    ],
-    "opened": [
-      "GOOGL"
-    ]
+    "exit_done": false,
+    "entry_done": false,
+    "closed": [],
+    "opened": []
   }
 }
