@@ -366,11 +366,11 @@
     "id": "SUMMARY-SESSION:2026-10-26",
     "title": "Daily summary - Mon 26 Oct session",
     "message": "No trades at close | Net P/L $0 | Purified $0 | Balance $36.4684 (SAR 136.76) | Open: GOOGL @ $334.76",
-    "status": "sending",
+    "status": "sent",
     "attempts": 1,
     "created_utc": "2026-10-26T20:21:30Z",
     "claimed_utc": "2026-10-26T20:21:31Z",
-    "sent_utc": null,
+    "sent_utc": "2026-10-26T20:21:33Z",
     "last_error": null
   }
 ]
