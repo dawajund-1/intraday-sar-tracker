@@ -388,10 +388,10 @@
     "id": "SELL:GOOGL:2026-10-28",
     "title": "SELL signal: GOOGL",
     "message": "Not in the pre-close alert - happened at the close. Exit @ $324.89 | P/L $-1.0752 | Purified $0 | Balance $35.3932",
-    "status": "pending",
-    "attempts": 0,
+    "status": "sending",
+    "attempts": 1,
     "created_utc": "2026-10-28T20:15:32Z",
-    "claimed_utc": null,
+    "claimed_utc": "2026-10-28T20:15:34Z",
     "sent_utc": null,
     "last_error": null
   },
@@ -399,10 +399,10 @@
     "id": "BUY:META:2026-10-28",
     "title": "BUY signal: META",
     "message": "Not in the pre-close alert - happened at the close. Entry @ $612.49 | Balance $35.3932",
-    "status": "pending",
-    "attempts": 0,
+    "status": "sending",
+    "attempts": 1,
     "created_utc": "2026-10-28T20:15:32Z",
-    "claimed_utc": null,
+    "claimed_utc": "2026-10-28T20:15:34Z",
     "sent_utc": null,
     "last_error": null
   }
