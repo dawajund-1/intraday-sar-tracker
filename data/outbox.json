@@ -410,11 +410,11 @@
     "id": "SUMMARY-SESSION:2026-10-28",
     "title": "Daily summary - Wed 28 Oct session",
     "message": "Trades at close: SELL GOOGL @ $324.89 (P/L $-1.08), BUY META @ $612.49 | Net P/L $-1.08 | Purified $0 | Balance $35.3932 (SAR 132.72) | Open: META @ $612.49",
-    "status": "sending",
+    "status": "sent",
     "attempts": 1,
     "created_utc": "2026-10-28T20:16:07Z",
     "claimed_utc": "2026-10-28T20:16:08Z",
-    "sent_utc": null,
+    "sent_utc": "2026-10-28T20:16:10Z",
     "last_error": null
   }
 ]
