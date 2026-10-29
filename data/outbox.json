@@ -416,5 +416,16 @@
     "claimed_utc": "2026-10-28T20:16:08Z",
     "sent_utc": "2026-10-28T20:16:10Z",
     "last_error": null
+  },
+  {
+    "id": "SUMMARY-SESSION:2026-10-29",
+    "title": "Daily summary - Thu 29 Oct session",
+    "message": "No trades at close | Net P/L $0 | Purified $0 | Balance $35.3932 (SAR 132.72) | Open: META @ $612.49",
+    "status": "pending",
+    "attempts": 0,
+    "created_utc": "2026-10-29T20:15:50Z",
+    "claimed_utc": null,
+    "sent_utc": null,
+    "last_error": null
   }
 ]
