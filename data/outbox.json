@@ -432,11 +432,11 @@
     "id": "SUMMARY-SESSION:2026-10-30",
     "title": "Daily summary - Fri 30 Oct session",
     "message": "No trades at close | Net P/L $0 | Purified $0 | Balance $35.3932 (SAR 132.72) | Open: META @ $612.49",
-    "status": "sending",
+    "status": "sent",
     "attempts": 1,
     "created_utc": "2026-10-30T20:19:43Z",
     "claimed_utc": "2026-10-30T20:19:45Z",
-    "sent_utc": null,
+    "sent_utc": "2026-10-30T20:19:47Z",
     "last_error": null
   }
 ]
