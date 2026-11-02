@@ -443,10 +443,10 @@
     "id": "SUMMARY-SESSION:2026-11-02",
     "title": "Daily summary - Mon 2 Nov session",
     "message": "No trades at close | Net P/L $0 | Purified $0 | Balance $35.3932 (SAR 132.72) | Open: META @ $612.49",
-    "status": "pending",
-    "attempts": 0,
+    "status": "sending",
+    "attempts": 1,
     "created_utc": "2026-11-02T23:01:20Z",
-    "claimed_utc": null,
+    "claimed_utc": "2026-11-02T23:01:22Z",
     "sent_utc": null,
     "last_error": null
   }
