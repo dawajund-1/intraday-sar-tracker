@@ -465,22 +465,22 @@
     "id": "SELL:META:2026-11-04",
     "title": "SELL signal: META",
     "message": "Not in the pre-close alert - happened at the close. Exit @ $630 | P/L $1.0118 | Purified $0.1012 | Balance $36.3038",
-    "status": "sending",
+    "status": "sent",
     "attempts": 1,
     "created_utc": "2026-11-04T21:15:17Z",
     "claimed_utc": "2026-11-04T21:15:19Z",
-    "sent_utc": null,
+    "sent_utc": "2026-11-04T21:15:21Z",
     "last_error": null
   },
   {
     "id": "BUY:NVDA:2026-11-04",
     "title": "BUY signal: NVDA",
     "message": "Not in the pre-close alert - happened at the close. Entry @ $200.13 | Balance $36.3038",
-    "status": "sending",
+    "status": "sent",
     "attempts": 1,
     "created_utc": "2026-11-04T21:15:17Z",
     "claimed_utc": "2026-11-04T21:15:19Z",
-    "sent_utc": null,
+    "sent_utc": "2026-11-04T21:15:21Z",
     "last_error": null
   }
 ]
