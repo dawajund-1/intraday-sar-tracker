@@ -482,5 +482,16 @@
     "claimed_utc": "2026-11-04T21:15:19Z",
     "sent_utc": "2026-11-04T21:15:21Z",
     "last_error": null
+  },
+  {
+    "id": "SUMMARY-SESSION:2026-11-04",
+    "title": "Daily summary - Wed 4 Nov session",
+    "message": "Trades at close: SELL META @ $630 (P/L $1.01), BUY NVDA @ $200.13 | Net P/L $1.01 | Purified $0.1 | Balance $36.3038 (SAR 136.14) | Open: NVDA @ $200.13",
+    "status": "pending",
+    "attempts": 0,
+    "created_utc": "2026-11-04T21:15:47Z",
+    "claimed_utc": null,
+    "sent_utc": null,
+    "last_error": null
   }
 ]
