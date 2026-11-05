@@ -1,22 +1,22 @@
 {
-  "generated_at_utc": "2026-11-04T21:15:17Z",
+  "generated_at_utc": "2026-11-05T01:38:06Z",
   "tickers": [
     {
       "ticker": "AAPL",
       "strategy": "rsi_revert",
-      "price": 349.51,
-      "rsi": 76.72,
+      "price": 331.9,
+      "rsi": 6.51,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
-      "signal": "NONE",
+      "signal": "BUY",
       "early_warning": "NONE"
     },
     {
       "ticker": "MSFT",
       "strategy": "rsi_revert",
-      "price": 555.8,
-      "rsi": 89.64,
+      "price": 520.99,
+      "rsi": 59.19,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -26,30 +26,30 @@
     {
       "ticker": "NVDA",
       "strategy": "rsi_revert",
-      "price": 200.13,
-      "rsi": 21.86,
+      "price": 206.69,
+      "rsi": 54.64,
       "ema9": null,
       "ema21": null,
-      "trend": "FLAT",
-      "signal": "BUY",
+      "trend": "LONG",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
       "ticker": "TSLA",
       "strategy": "rsi_revert",
-      "price": 385.19,
-      "rsi": 7.88,
+      "price": 398.5,
+      "rsi": 30.16,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
-      "signal": "BUY",
+      "signal": "NONE",
       "early_warning": "NONE"
     },
     {
       "ticker": "AMZN",
       "strategy": "rsi_revert",
-      "price": 266.03,
-      "rsi": 94.43,
+      "price": 250.69,
+      "rsi": 77.71,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -59,8 +59,19 @@
     {
       "ticker": "GOOGL",
       "strategy": "rsi_revert",
-      "price": 288.93,
-      "rsi": 74.17,
+      "price": 280.03,
+      "rsi": 17.59,
+      "ema9": null,
+      "ema21": null,
+      "trend": "FLAT",
+      "signal": "BUY",
+      "early_warning": "NONE"
+    },
+    {
+      "ticker": "META",
+      "strategy": "rsi_revert",
+      "price": 621.03,
+      "rsi": 67.06,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -68,21 +79,10 @@
       "early_warning": "NONE"
     },
     {
-      "ticker": "META",
-      "strategy": "rsi_revert",
-      "price": 630.0,
-      "rsi": 81.29,
-      "ema9": null,
-      "ema21": null,
-      "trend": "LONG",
-      "signal": "SELL",
-      "early_warning": "NONE"
-    },
-    {
       "ticker": "AMD",
       "strategy": "rsi_revert",
-      "price": 488.78,
-      "rsi": 44.73,
+      "price": 483.9,
+      "rsi": 35.01,
       "ema9": null,
       "ema21": null,
       "trend": "FLAT",
@@ -119,18 +119,14 @@
     "pl_provisional": false,
     "provisional_reason": "Reconciled 2026-10-13: the four duplicate fills on session bar 2026-09-04 were voided and every later trade re-sized from the last good state (append-only VOID/ADJUST rows in data/paper_trades.csv; see RECONCILIATION-2026-09-21.md). Headline figures are final.",
     "bar_guard": {
-      "bar_id": "2026-11-04",
+      "bar_id": "2026-11-03",
       "decided": true,
-      "exit_done": true,
-      "entry_done": true,
-      "closed": [
-        "META"
-      ],
-      "opened": [
-        "NVDA"
-      ]
+      "exit_done": false,
+      "entry_done": false,
+      "closed": [],
+      "opened": []
     },
-    "outbox_pending": 2,
+    "outbox_pending": 0,
     "outbox_needs_review": 0
   }
 }
