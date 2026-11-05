@@ -1,0 +1,4 @@
+{
+  "_note": "Halal funds and companies for the Jund Halal Trader page. Prices only: this folder never trades, never alerts and never touches the tracker's ledger or state.",
+  "tickers": ["SPSK","SPRE","AMGR","SPWO","UMMA","SPTE","SPUS","MNZL","HLAL","AAPL","NVDA","MSFT","GOOGL","AVGO","LLY","AMD","MU"]
+}
