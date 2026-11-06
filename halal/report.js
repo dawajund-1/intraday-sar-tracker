@@ -13,7 +13,10 @@ for(const [t,v] of Object.entries(d.tickers)){
     if((v.price||c[c.length-1])<=stop) lines.push(`STOP ${t}: price $${v.price} is below your stop $${stop.toFixed(2)}`);
     else if(r>S.RULE.sellAbove) lines.push(`SELL ${t}: RSI(2) ${r.toFixed(0)} is above ${S.RULE.sellAbove}`);
   } else if(r<S.RULE.buyBelow){
-    lines.push(`BUY ${t}: RSI(2) ${r.toFixed(0)} is below ${S.RULE.buyBelow}`+(sar<=cash?` (1 share ${sar.toFixed(2)} SAR)`:` (needs ${sar.toFixed(0)} SAR a share, more than your ${cash.toFixed(0)} SAR)`));
+    lines.push(`BUY ${t}: RSI(2) ${r.toFixed(0)} is below ${S.RULE.buyBelow}`+(sar<=cash?` (1 share ${sar.toFixed(2)} SAR)`:` (needs ${sar.toFixed(0)} SAR a share, more than your ${cash.toFixed(0)} SAR)`)
+      +`; if bought, sell above $${tp.sellAbove.toFixed(2)}`);
+  } else if(r>S.RULE.sellAbove){
+    lines.push(`SELL ${t}: RSI(2) ${r.toFixed(0)} is above ${S.RULE.sellAbove} (you don't hold it, so nothing to sell)`);
   }
 }
 console.log(`Prices updated ${d.updated_utc}`);
