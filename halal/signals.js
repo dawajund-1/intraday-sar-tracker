@@ -45,8 +45,8 @@ function backtest(dates, c, rate, startSar){
       }
     } else if(r!==null && r<RULE.buyBelow){
       pos={entry:c[i], date:dates[i], i};
-      sh=Math.floor((cash+1e-9)/(c[i]*rate));
-      cash -= sh*c[i]*rate;
+      sh=cash/(c[i]*rate);  // part shares: all cash goes in
+      cash = 0;
     }
     const v = cash + sh*c[i]*rate; eq.push(v);
     if(v>peak) peak=v; maxDD=Math.max(maxDD,(peak-v)/peak*100);
@@ -55,8 +55,8 @@ function backtest(dates, c, rate, startSar){
   const avg = closed? trades.reduce((a,t)=>a+t.ret,0)/closed : 0;
   const comp = trades.reduce((a,t)=>a*(1+t.ret/100),1);
   const hold = (c[c.length-1]/c[0]-1)*100;
-  // buy-and-hold with whole shares on startSar
-  const hs=Math.floor(startSar/(c[0]*rate)); const holdSar = startSar - hs*c[0]*rate + hs*c[c.length-1]*rate;
+  // buy-and-hold with part shares on startSar
+  const holdSar = startSar*c[c.length-1]/c[0];
   return {trades, open:pos, closed, wins, winRate: closed? wins/closed*100:0, avg,
     best: closed? Math.max(...trades.map(t=>t.ret)):0, worst: closed? Math.min(...trades.map(t=>t.ret)):0,
     stops: trades.filter(t=>t.why==="Stop").length,
