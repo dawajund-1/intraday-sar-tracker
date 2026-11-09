@@ -515,5 +515,16 @@
     "claimed_utc": "2026-11-06T21:15:52Z",
     "sent_utc": "2026-11-06T21:15:54Z",
     "last_error": null
+  },
+  {
+    "id": "SUMMARY-SESSION:2026-11-09",
+    "title": "Daily summary - Mon 9 Nov session",
+    "message": "No trades at close | Net P/L $0 | Purified $0 | Balance $36.3038 (SAR 136.14) | Open: NVDA @ $200.13",
+    "status": "pending",
+    "attempts": 0,
+    "created_utc": "2026-11-09T23:43:36Z",
+    "claimed_utc": null,
+    "sent_utc": null,
+    "last_error": null
   }
 ]
