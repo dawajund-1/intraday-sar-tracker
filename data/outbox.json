@@ -586,10 +586,10 @@
     "id": "SUMMARY-SESSION:2026-11-17",
     "title": "Daily summary - Tue 17 Nov session",
     "message": "No trades at close | Net P/L $0 | Purified $0 | Balance $36.3038 (SAR 136.14) | Open: NVDA @ $200.13",
-    "status": "pending",
-    "attempts": 0,
+    "status": "sending",
+    "attempts": 1,
     "created_utc": "2026-11-17T22:48:57Z",
-    "claimed_utc": null,
+    "claimed_utc": "2026-11-17T22:48:59Z",
     "sent_utc": null,
     "last_error": null
   }
