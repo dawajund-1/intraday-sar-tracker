@@ -652,11 +652,11 @@
     "id": "BUY:AMD:2026-11-24",
     "title": "BUY signal: AMD",
     "message": "Not in the pre-close alert - happened at the close. Entry @ $413.27 | Balance $29.9403",
-    "status": "sending",
+    "status": "sent",
     "attempts": 1,
     "created_utc": "2026-11-24T23:47:59Z",
     "claimed_utc": "2026-11-24T23:48:01Z",
-    "sent_utc": null,
+    "sent_utc": "2026-11-24T23:48:03Z",
     "last_error": null
   }
 ]
