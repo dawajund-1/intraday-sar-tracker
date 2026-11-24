@@ -658,5 +658,16 @@
     "claimed_utc": "2026-11-24T23:48:01Z",
     "sent_utc": "2026-11-24T23:48:03Z",
     "last_error": null
+  },
+  {
+    "id": "SUMMARY-SESSION:2026-11-24",
+    "title": "Daily summary - Tue 24 Nov session",
+    "message": "Trades at close: BUY AMD @ $413.27 | Net P/L $0 | Purified $0 | Balance $29.9403 (SAR 112.28) | Open: AMD @ $413.27",
+    "status": "pending",
+    "attempts": 0,
+    "created_utc": "2026-11-24T23:48:26Z",
+    "claimed_utc": null,
+    "sent_utc": null,
+    "last_error": null
   }
 ]
