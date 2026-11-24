@@ -641,11 +641,11 @@
     "id": "SELL:NVDA:2026-11-23",
     "title": "SELL signal: NVDA",
     "message": "Not in the pre-close alert - happened at the close. Exit @ $165.05 | P/L $-6.3635 | Purified $0 | Balance $29.9403",
-    "status": "sending",
+    "status": "sent",
     "attempts": 1,
     "created_utc": "2026-11-24T05:25:24Z",
     "claimed_utc": "2026-11-24T05:25:26Z",
-    "sent_utc": null,
+    "sent_utc": "2026-11-24T05:25:27Z",
     "last_error": null
   }
 ]
