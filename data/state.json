@@ -7,9 +7,14 @@
     "AMZN": "FLAT",
     "GOOGL": "FLAT",
     "META": "FLAT",
-    "AMD": "FLAT"
+    "AMD": "LONG"
   },
-  "open_position": null,
+  "open_position": {
+    "ticker": "AMD",
+    "entry_price": 413.27,
+    "entry_time": "2026-11-24T23:47:57Z",
+    "shares": 0.072447
+  },
   "portfolio": {
     "balance_usd": 29.9403,
     "realized_pl_usd": 4.7456,
@@ -26,13 +31,13 @@
     "AMD": "NONE"
   },
   "bar_guard": {
-    "bar_id": "2026-11-23",
+    "bar_id": "2026-11-24",
     "decided": true,
-    "exit_done": true,
-    "entry_done": false,
-    "closed": [
-      "NVDA"
-    ],
-    "opened": []
+    "exit_done": false,
+    "entry_done": true,
+    "closed": [],
+    "opened": [
+      "AMD"
+    ]
   }
 }
