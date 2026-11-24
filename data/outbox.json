@@ -636,5 +636,16 @@
     "claimed_utc": "2026-11-24T02:02:55Z",
     "sent_utc": "2026-11-24T02:02:57Z",
     "last_error": null
+  },
+  {
+    "id": "SELL:NVDA:2026-11-23",
+    "title": "SELL signal: NVDA",
+    "message": "Not in the pre-close alert - happened at the close. Exit @ $165.05 | P/L $-6.3635 | Purified $0 | Balance $29.9403",
+    "status": "pending",
+    "attempts": 0,
+    "created_utc": "2026-11-24T05:25:24Z",
+    "claimed_utc": null,
+    "sent_utc": null,
+    "last_error": null
   }
 ]
