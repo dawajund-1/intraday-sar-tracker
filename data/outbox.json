@@ -685,11 +685,11 @@
     "id": "SUMMARY-SESSION:2026-11-26",
     "title": "Daily summary - Thu 26 Nov session",
     "message": "No trades at close | Net P/L $0 | Purified $0 | Balance $29.9403 (SAR 112.28) | Open: AMD @ $413.27",
-    "status": "sending",
+    "status": "sent",
     "attempts": 1,
     "created_utc": "2026-11-26T23:34:03Z",
     "claimed_utc": "2026-11-26T23:34:04Z",
-    "sent_utc": null,
+    "sent_utc": "2026-11-26T23:34:07Z",
     "last_error": null
   }
 ]
